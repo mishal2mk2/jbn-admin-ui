@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ILoginReponse } from '../auth.interface';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,30 +13,34 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   roles: any;
   isLoggedIn: boolean=false;
-  constructor(private authService: AuthService,private router:Router){
+  constructor(
+    private authService: AuthService,
+    private router:Router,
+    private toastr:ToastrService  
+  ){
 
   }
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       this.isLoggedIn = true;
-      // this.roles = this.authService.getUser().roles;
-      this.router.navigate(['/'])
+      this.router.navigate(['/']).then(()=>{
+        this.toastr.info("Already Logged in","INFO")
+      })
     }
   }
   onSubmit(form: NgForm){
-    console.log(form);
-    console.log(form.value);
     const body=form.value;
     this.authService.login(body).subscribe({
       next:res=>{
-        console.log(res.data.token);
         this.authService.saveUser(res);
         this.isLoggedIn = true
         this.authService.decodeToken();
-        this.router.navigate(['/'])
+        this.router.navigate(['/']).then(()=>{
+          this.toastr.success("Logged In Successfully", "Success");
+        })
       },
       error:err=>{
-        alert(err.error.message);
+        this.toastr.error(err.error.message,"Error");
       }
     })
   }

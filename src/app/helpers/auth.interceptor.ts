@@ -6,10 +6,12 @@ import { USER_KEY } from "../auth/auth.service";
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor{
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        //sending for all request withCredentials true for using cookies
         req = req.clone({
             withCredentials: true,
         });
 
+        //getting token data from session, setting with headers of requests
         const token_data = window.sessionStorage.getItem(USER_KEY);
         if(!token_data){
             return next.handle(req);

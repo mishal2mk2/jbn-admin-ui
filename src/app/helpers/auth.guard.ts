@@ -4,6 +4,8 @@ import { inject } from '@angular/core';
 
 export const authGuard:CanActivateFn=(route,state)=>{
     const router = inject(Router);
+
+    //checking user token in sessionStorage
     if(window.sessionStorage.getItem(USER_KEY)){
         return true;
     }else{
