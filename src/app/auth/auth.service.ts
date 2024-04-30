@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ILoginBody, ILoginReponse, IRegResponse, IRegisterBody } from './auth.interface';
+import * as jwt_decode from 'jwt-decode';
 // import { JwtHelperService } from '@auth0/angular-jwt';
 
 
@@ -10,11 +11,14 @@ const httpOptions = {
 };
 
 export const USER_KEY = 'auth-user';//used in session storage services
-
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  jwtToken: string|null=null;
+  decodedToken: any;
+  role: string|null=null;
+
   constructor(private http: HttpClient) {}
 
   login(body: ILoginBody) {
@@ -37,6 +41,7 @@ export class AuthService {
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     // const token = this.jwtHelper.decodeToken(user.data.token);
+
     // console.log(token);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
 
@@ -58,5 +63,14 @@ export class AuthService {
     }
 
     return false;
+  }
+
+  decodeToken() {
+      this.jwtToken=window.sessionStorage.getItem(USER_KEY);
+      if(this.jwtToken){
+        this.decodedToken = jwt_decode.jwtDecode(JSON.parse(this.jwtToken).data.token);
+        this.role = this.decodedToken.role;
+      }
+      
   }
 }

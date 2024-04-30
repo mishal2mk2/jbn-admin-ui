@@ -31,16 +31,12 @@ export class LoginComponent implements OnInit {
         console.log(res.data.token);
         this.authService.saveUser(res);
         this.isLoggedIn = true
-        // this.roles = this.authService.getUser().roles;
-        this.reloadPage();
+        this.authService.decodeToken();
         this.router.navigate(['/'])
       },
       error:err=>{
         alert(err.error.message);
       }
     })
-  }
-  reloadPage(): void {
-    window.location.reload();
   }
 }
