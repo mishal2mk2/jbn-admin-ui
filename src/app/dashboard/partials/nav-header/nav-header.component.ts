@@ -8,10 +8,19 @@ import { Router } from '@angular/router';
   styleUrl: './nav-header.component.css'
 })
 export class NavHeaderComponent implements OnInit {
+  userDropdownOpen: boolean = false;
   constructor(private authService:AuthService, private router:Router){
-    
   }
+
   ngOnInit(): void {
+  }
+
+  toggleUserDropdown() {
+      this.userDropdownOpen = !this.userDropdownOpen;
+  }
+
+  navToCreate(){
+    this.router.navigate(['/project/create']);
   }
 
   logout(){

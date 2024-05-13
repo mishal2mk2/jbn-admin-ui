@@ -7,6 +7,10 @@ import { ProjectDetailsComponent } from './project/project-details/project-detai
 import { ProjectListComponent } from './project/project-list/project-list.component';
 import { UserListComponent } from './user/user-list/user-list.component';
 import { MaterialListComponent } from './material/material-list/material-list.component';
+import { ProjectCreateComponent } from './project/project-create/project-create.component';
+import { ProjectEditComponent } from './project/project-edit/project-edit.component';
+import { MaterialEditComponent } from './material/material-edit/material-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,11 +21,16 @@ import { MaterialListComponent } from './material/material-list/material-list.co
     ProjectDetailsComponent,
     ProjectListComponent,
     UserListComponent,
-    MaterialListComponent
+    MaterialListComponent,
+    ProjectCreateComponent,
+    ProjectEditComponent,
+    MaterialEditComponent,
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class DashboardModule { }

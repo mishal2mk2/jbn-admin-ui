@@ -5,6 +5,8 @@ import { ProjectListComponent } from './project/project-list/project-list.compon
 import { UserListComponent } from './user/user-list/user-list.component';
 import { MaterialListComponent } from './material/material-list/material-list.component';
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
+import { ProjectCreateComponent } from './project/project-create/project-create.component';
+import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 
 const routes: Routes = [
     {
@@ -16,11 +18,19 @@ const routes: Routes = [
           component:ProjectListComponent,
         },
         {
-          path:'projects',
+          path:'project',
           component:ProjectListComponent,
         },
         {
-          path:'projects/:id',
+          path:'project/create',
+          component:ProjectCreateComponent,
+        },
+        {
+          path:'project/edit',
+          component:ProjectEditComponent,
+        },
+        {
+          path:'project/:id',
           component:ProjectDetailsComponent,
         },
         {
