@@ -5,12 +5,12 @@ import { initFlowbite } from 'flowbite';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'jbn-admin-ng';
 
-  ngOnInit(): void {
+  ngOnInit() {
     initFlowbite();
   }
 }

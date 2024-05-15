@@ -1,44 +1,82 @@
 <div class="p-4 sm:ml-64 pt-20">
   <div class="relative overflow-x-auto p-3 shadow-md sm:rounded-lg">
-    <div
-      class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4"
-    >
+    <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
       <label for="table-search" class="sr-only">Search</label>
       <div class="relative">
-        <div
-          class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none"
-        >
-          <svg
-            class="w-5 h-5 text-gray-500 dark:text-gray-400"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
+        <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
               d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clip-rule="evenodd"
-            ></path>
+              clip-rule="evenodd"></path>
           </svg>
         </div>
-        <input
-          type="text"
-          id="table-search"
-          [(ngModel)]="searchTerm"
+        <input type="text" id="table-search" [(ngModel)]="searchTerm"
           class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="Search for items"
-        />
+          placeholder="Search for items" />
       </div>
     </div>
-    <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-    >
+
+
+
+    <!-- Modal toggle -->
+    <button data-modal-target="default-modal" data-modal-toggle="default-modal"
+      class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      type="button">
+      Toggle modal
+    </button>
+
+    <!-- Main modal -->
+    <div id="default-modal" tabindex="-1" aria-hidden="true"
+      class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Terms of Service
+            </h3>
+            <button type="button"
+              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+              data-modal-hide="default-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-4 md:p-5 space-y-4">
+            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              With less than a month to go before the European Union enacts new consumer privacy laws for its citizens,
+              companies around the world are updating their terms of service agreements to comply.
+            </p>
+            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+              The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant
+              to ensure a common set of data rights in the European Union. It requires organizations to notify users as
+              soon as possible of high-risk data breaches that could personally affect them.
+            </p>
+          </div>
+          <!-- Modal footer -->
+          <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+            <button data-modal-hide="default-modal" type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
+              accept</button>
+            <button data-modal-hide="default-modal" type="button"
+              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <!-- Table header -->
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
+      <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <!-- Header row -->
         <tr>
           <th scope="col" class="px-6 py-3">Client</th>
@@ -50,371 +88,144 @@
         </tr>
       </thead>
       <tbody>
+
         <!-- Table data -->
-        <tr
-          *ngFor="let product of getCurrentPageProducts()"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-        >
-          <th
-            scope="row"
-            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-          >
+        @for (product of getCurrentPageProducts(); track product._id) {
+        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
             {{ product.client }}
           </th>
           <!-- (FYI-Salman)- Here this should be comming from component when giving orderstatus code as input -->
           <td class="px-6 py-4">
             @if (product.ordStatus===1) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-              >Order Entering</span
-            >
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Order
+              Entering</span>
 
             } @else if (product.ordStatus===2) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-              >Drawing</span
-            >
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Drawing</span>
 
             } @else if (product.ordStatus===3) {
             <span
-              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Material Estimate</span
-            >
+              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Material
+              Estimate</span>
 
             } @else if (product.ordStatus===4) {
             <span
-              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300"
-              >Waiting Order Confirmation</span
-            >
+              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Waiting
+              Order Confirmation</span>
 
             } @else if (product.ordStatus===5) {
             <span
-              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300"
-              >Material Arrival</span
-            >
+              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Material
+              Arrival</span>
 
             } @else if (product.ordStatus===6) {
             <span
-              class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300"
-              >Production</span
-            >
+              class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Production</span>
 
             } @else if (product.ordStatus===7) {
             <span
-              class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300"
-              >Delivery</span
-            >
+              class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Delivery</span>
 
             } @else if (product.ordStatus===8) {
             <span
-              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-              >Installation</span
-            >
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Installation</span>
 
             } @else if (product.ordStatus===9) {
             <span
-              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300"
-              >Service</span
-            >
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Service</span>
 
             } @else if (product.ordStatus===10) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300"
-              >Closed</span
-            >
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Closed</span>
 
             } @else if (product.ordStatus===12) {
             <span
-              class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300"
-              >Cancelled</span
-            >
+              class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Cancelled</span>
 
             }
           </td>
+
           <td class="px-6 py-4">{{ product.ordStartDate }}</td>
-          <td class="px-6 py-4">{{ product.lastApprovedBy }}</td>
+          <td class="px-6 py-4">{{ product.lastApprovedBy }} </td>
           <td class="px-6 py-4">
-            <button
-              (click)="
-                toggleModal({
-                  orderStatus: product.ordStatus,
-                  orderId: product._id
-                })
-              "
+            <button (click)="toggleModal({ orderStatus: product.ordStatus, orderId: product._id })"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              type="button"
-            >
+              type="button">
               Approve to next
             </button>
           </td>
+
           <td class="px-6 py-4">
             <!-- (FYI- Salman)- redirect to view page -->
-            <a
-              href="#"
-              class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >View</a
-            >
+            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
           </td>
         </tr>
+        }
+
       </tbody>
+
     </table>
   </div>
 </div>
 
 <!-- Main modal -->
-<div
-  #defaultModal
-  tabindex="-1"
-  aria-hidden="true"
-  class="hidden flex overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
->
-  <div class="relative p-4 w-full max-h-full">
+<div #statusChangeModal tabindex="-1" aria-hidden="true"
+  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-7xl max-h-full">
+
     <!-- Modal content -->
     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
       <!-- Modal header -->
-      <div
-        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600"
-      >
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
           Approve to Next Step
         </h3>
-        <button
-          type="button"
-          (click)="closeModal()"
+        <button type="button" (click)="closeModal()"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-hide="default-modal"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
+          data-modal-hide="default-modal">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
           </svg>
           <span class="sr-only">Close modal</span>
         </button>
       </div>
+
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
         <!-- (FYI-Salman)-forms for each flow approval -->
-        @if (modalSelectedOrderStatus === 1) { 
-          <form class="mx-auto">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Basic Details
-            </h3>
-            <p
-              class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400"
-            >
-              (unique order_number will generate automatically)
-            </p>
-            <div class="grid grid-cols-4 gap-3 my-2">
-              <div class="mb-5">
-                <label
-                  for="order_number"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Order Number</label
-                >
-                <input
-                  type="text"
-                  id="order_number"
-                  disabled
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="customer_name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Customer</label
-                >
-                <input
-                  type="text"
-                  id="customer_name"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="customer_contact"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Customer Contact</label
-                >
-                <input
-                  type="number"
-                  id="customer_contact"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="created_date"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Created Date</label
-                >
-                <input
-                  type="text"
-                  id="created_date"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="start_date"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Order Est. Start</label
-                >
-                <input
-                  type="text"
-                  id="start_date"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="days_to_complete"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Est. Complete(days)</label
-                >
-                <input
-                  type="text"
-                  id="days_to_complete"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="order_status"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Order Status</label
-                >
-                <select
-                  id="small"
-                  class="w-full mb-6 text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                >
-                  <option selected>Choose a country</option>
-                  <option value="US">United States</option>
-                  <option value="CA">Canada</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
-                </select>
-              </div>
-              <div class="mb-5">
-                <label
-                  for="order_total"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Order Total</label
-                >
-                <input
-                  type="text"
-                  id="order_total"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                />
-              </div>
-              <div class="mb-5">
-                <label
-                  for="order_notes"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Notes</label
-                >
-                <textarea
-                  type="text"
-                  id="order_notes"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-              <div class="mb-5">
-                <label
-                  for="order_notes"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >Description</label
-                >
-                <textarea
-                  type="text"
-                  id="order_notes"
-                  class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                ></textarea>
-              </div>
-            </div>
-          </form>
-        } @else if (modalSelectedOrderStatus===2) { 
-          <form class="mx-auto">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Drawing Attachment
-            </h3>
-            <div class="mb-5">
-              <label
-                for="drawing_file"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Drawing File</label
-              >
-              <input
-                type="file"
-                id="drawing_file"
-                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              />
-            </div>
-            <div class="mb-5">
-              <label
-                for="order_notes"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Notes</label
-              >
-              <textarea
-                type="text"
-                id="order_notes"
-                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Submit
-            </button>
-          </form>
-        } @else if(modalSelectedOrderStatus===3) { 
-          <form class="mx-auto">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-              Add Material list
-            </h3>
-            <div class="mb-5">
-              <app-material-edit></app-material-edit>
-            </div>
-            <button
-              type="submit"
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Submit
-            </button>
-          </form>
-        } @else if(modalSelectedOrderStatus===4) {
-                  
-        } @else if (modalSelectedOrderStatus===5) {
-        
-        } @else if (modalSelectedOrderStatus===6) {
-        
-        } @else if (modalSelectedOrderStatus===7) {
-        
-        } @else if (modalSelectedOrderStatus===8) {
-        
-        } @else if (modalSelectedOrderStatus===9) {
-        
-        } @else if (modalSelectedOrderStatus===10) {
-        
-        } @else if (modalSelectedOrderStatus===11) {
-        
-        } @else if (modalSelectedOrderStatus===12) {
-        
-        }
+        @if (modalSelectedOrderStatus === 1) {
+        <app-form-1></app-form-1>
+        } @else if (modalSelectedOrderStatus===2) {
+        <app-form-2></app-form-2>
+        } @else if(modalSelectedOrderStatus===3) {
+        <app-form-3></app-form-3>
+        } @else if(modalSelectedOrderStatus===4) { } @else if
+        (modalSelectedOrderStatus===5) { } @else if
+        (modalSelectedOrderStatus===6) { } @else if
+        (modalSelectedOrderStatus===7) { } @else if
+        (modalSelectedOrderStatus===8) { } @else if
+        (modalSelectedOrderStatus===9) { } @else if
+        (modalSelectedOrderStatus===10) { } @else if
+        (modalSelectedOrderStatus===11) { } @else if
+        (modalSelectedOrderStatus===12) { }
       </div>
+
+      <!-- Modal footer -->
+      <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+        <button data-modal-hide="default-modal" type="button"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">I
+          accept</button>
+
+        <button (click)="closeModal()" type="button"
+          class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
+      </div>
+
     </div>
   </div>
 </div>

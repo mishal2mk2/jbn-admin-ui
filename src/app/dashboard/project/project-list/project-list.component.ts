@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-project-list',
@@ -6,26 +7,65 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
   styleUrl: './project-list.component.css',
 })
 export class ProjectListComponent {
+  @ViewChild('statusChangeModal') defaultModal!: ElementRef;
+
   dropdownOpen: boolean = false;
+
+  // Pagination variables
+  currentPage = 1;
+  itemsPerPage = 10;
+  searchTerm = ''; // Variable to store the search term
 
   //selected modal
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
-  @ViewChild('defaultModal') defaultModal!: ElementRef;
-  
+
   constructor(private elementRef: ElementRef) {}
 
   products = [
     {
       client: 'Dhiraj Jyadav',
+      ordStatus: 1,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfalgdq-3r1',
+      orderNumber: 'ORD-00001',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      ordStatus: 2,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfalqdq-3r1',
+      orderNumber: 'ORD-00002',
+    },
+    {
+      client: 'Dhiraj Jyadav',
       ordStatus: 3,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
-      _id: 'alkdjfalkdq-3r1',
-      orderNumber: 'ORD-00012',
+      _id: 'alkdjfaltdq-3r1',
+      orderNumber: 'ORD-00003',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      ordStatus: 4,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfalydq-3r1',
+      orderNumber: 'ORD-00004',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      ordStatus: 5,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfalqdq-3r1',
+      orderNumber: 'ORD-00005',
     },
     // Add more products as needed
   ];
+
   item = [
     {
       client: 'Dhiraj Jyadav',
@@ -37,22 +77,25 @@ export class ProjectListComponent {
     },
     // Add more products as needed
   ];
+
   ngOnInit(): void {
     this.closeModal();
+    initFlowbite();
   }
 
   closeModal() {
     const modal = this.defaultModal?.nativeElement as HTMLElement;
-    modal?.classList?.add('hidden');
-    modal?.setAttribute('aria-hidden', 'true');
-  }
-  accept() {}
-  // Sample data, replace this with your actual data
+    const modalOverlay = document.getElementById('modal-backdrop');
 
-  // Pagination variables
-  currentPage = 1;
-  itemsPerPage = 10;
-  searchTerm = ''; // Variable to store the search term
+    if (modal && modalOverlay) {
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+      modalOverlay.classList.toggle('hidden');
+    }
+  }
+
+  // Sample data, replace this with your actual data
+  accept() {}
 
   // Function to get the current page of products
   getCurrentPageProducts() {
@@ -68,6 +111,7 @@ export class ProjectListComponent {
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase())
     );
+
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return filteredProducts.slice(startIndex, endIndex);
@@ -77,17 +121,20 @@ export class ProjectListComponent {
   onPageChange(pageNumber: number) {
     this.currentPage = pageNumber;
   }
+
   toggleModal(data: { orderStatus: number; orderId: string }) {
     //modal toggle settings
     const modal = this.defaultModal.nativeElement as HTMLElement;
-    modal.classList.toggle('hidden');
-    modal.setAttribute(
-      'aria-hidden',
-      modal.classList.contains('hidden') ? 'true' : 'false'
-    );
+    const modalOverlay = document.getElementById('modal-backdrop');
 
-    //setting modal for which order
-    this.modalSelectedOrder = data.orderId;
-    this.modalSelectedOrderStatus = data.orderStatus;
+    if (modal && modalOverlay) {
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+      modalOverlay.classList.toggle('hidden');
+
+      //setting modal for which order
+      this.modalSelectedOrder = data.orderId;
+      this.modalSelectedOrderStatus = data.orderStatus;
+    }
   }
 }
