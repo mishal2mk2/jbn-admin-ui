@@ -12,16 +12,21 @@ export class ProjectListComponent {
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
   @ViewChild('defaultModal') defaultModal!: ElementRef;
-  @HostListener('document:click', ['$event'])
-  handleClick(event: Event) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.closeModal();
-    }
-  }
   
   constructor(private elementRef: ElementRef) {}
 
   products = [
+    {
+      client: 'Dhiraj Jyadav',
+      ordStatus: 3,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfalkdq-3r1',
+      orderNumber: 'ORD-00012',
+    },
+    // Add more products as needed
+  ];
+  item = [
     {
       client: 'Dhiraj Jyadav',
       ordStatus: 3,
