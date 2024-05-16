@@ -1,0 +1,7 @@
+<div>
+  <ng-container *ngIf="
+  templateOutletContext.control.hasError(templateOutletContext.validation) &&
+      (templateOutletContext.control.dirty || templateOutletContext.control.touched)">
+    <p class="mt-2 text-sm text-red-600 dark:text-red-500"> {{ templateOutletContext.message }}</p>
+  </ng-container>
+</div>

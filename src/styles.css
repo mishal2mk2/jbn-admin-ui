@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.is-invalid-form {
+  @apply border-red-500 placeholder-red-700 bg-red-50
+}
+
+.is-invalid-form:focus {
+  @apply focus:ring-red-500 focus:border-red-500 dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+}

@@ -1,4 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
 @Component({
@@ -20,11 +21,21 @@ export class ProjectListComponent {
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   products = [
     {
       client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
       ordStatus: 1,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
@@ -33,6 +44,12 @@ export class ProjectListComponent {
     },
     {
       client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
       ordStatus: 2,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
@@ -41,6 +58,12 @@ export class ProjectListComponent {
     },
     {
       client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
       ordStatus: 3,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
@@ -49,6 +72,12 @@ export class ProjectListComponent {
     },
     {
       client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
       ordStatus: 4,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
@@ -57,6 +86,12 @@ export class ProjectListComponent {
     },
     {
       client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
       ordStatus: 5,
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
@@ -83,19 +118,34 @@ export class ProjectListComponent {
     initFlowbite();
   }
 
+  // Close the modal section
   closeModal() {
     const modal = this.defaultModal?.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 
+    // Navigate to the same route with the query parameter
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { id: null },
+      queryParamsHandling: 'merge',
+    });
+
     if (modal && modalOverlay) {
+      //modal toggle settings
       modal.classList.toggle('hidden');
       modal.classList.toggle('flex');
       modalOverlay.classList.toggle('hidden');
     }
   }
 
-  // Sample data, replace this with your actual data
-  accept() {}
+  // get the product data to transfer the data
+  getCurrentProject() {
+    const { id } = this.route.snapshot.queryParams;
+
+    const currentData = this.products.filter((el) => el._id === id)[0];
+
+    return currentData;
+  }
 
   // Function to get the current page of products
   getCurrentPageProducts() {
@@ -123,11 +173,18 @@ export class ProjectListComponent {
   }
 
   toggleModal(data: { orderStatus: number; orderId: string }) {
-    //modal toggle settings
     const modal = this.defaultModal.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 
     if (modal && modalOverlay) {
+      // Add the Order id to query
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { id: data.orderId },
+        queryParamsHandling: 'merge',
+      });
+
+      //modal toggle settings
       modal.classList.toggle('hidden');
       modal.classList.toggle('flex');
       modalOverlay.classList.toggle('hidden');
