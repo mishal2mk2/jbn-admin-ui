@@ -21,12 +21,6 @@ export class Form1Component implements OnInit {
       addressLocation: ['', Validators.required],
       notes: [''],
       descriptions: [''],
-      // strEmail: ['', [Validators.required, Validators.email]],
-      // strPassword: ['', [Validators.required, Validators.minLength(6)]],
-      // strUserTypeId: ['', Validators.required],
-      // strShopId: [''],
-      // strServiceShopId: [''],
-      // serviceType: [''],
     });
   }
 
