@@ -7,8 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './form-3.component.css',
 })
 export class Form3Component implements OnInit {
-  FormGroupData!: FormGroup;
-
   materials = [
     {
       id: 'alkdjfalkdq-3r1',
@@ -47,18 +45,9 @@ export class Form3Component implements OnInit {
 
   isTableInvalid = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.FormGroupData = this.formBuilder.group({
-      itemId_1: ['', Validators.required],
-      itemQuantity_1: ['', Validators.required],
-      itemUnit_1: ['', Validators.required],
-      itemSubTotal_1: ['', Validators.required],
-      itemPrice_1: ['', Validators.required],
-      grossTotal: ['', Validators.required],
-    });
-  }
+  ngOnInit(): void {}
 
   // Get the total values
   get getGrossTotalValue() {
