@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { initFlowbite } from 'flowbite';
 
@@ -21,11 +21,7 @@ export class ProjectListComponent {
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
 
-  constructor(
-    private elementRef: ElementRef,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   products = [
     {
@@ -97,18 +93,6 @@ export class ProjectListComponent {
       lastApprovedBy: 'Safdar Hashimi',
       _id: 'alkdjfalqdq-3r1',
       orderNumber: 'ORD-00005',
-    },
-    // Add more products as needed
-  ];
-
-  item = [
-    {
-      client: 'Dhiraj Jyadav',
-      ordStatus: 3,
-      ordStartDate: new Date(Date.now()).toLocaleDateString(),
-      lastApprovedBy: 'Safdar Hashimi',
-      _id: 'alkdjfalkdq-3r1',
-      orderNumber: 'ORD-00012',
     },
     // Add more products as needed
   ];

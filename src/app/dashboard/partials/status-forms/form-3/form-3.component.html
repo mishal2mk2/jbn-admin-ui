@@ -1,10 +1,101 @@
-<form class="mx-auto">
-  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-    Add Material list
-  </h3>
-  <div class="mb-5">
-    <app-material-edit></app-material-edit>
+<form class="mx-auto" (ngSubmit)="formSubmit()">
+
+  <div class="flex justify-between">
+    <div *ngIf="isTableInvalid" class="p-4 mb-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400" role="alert">
+      Please Fill the Materials table completly ..!
+    </div>
+
+    <div></div>
+
+    <div class="mb-5">
+      <button (click)="addMaterialSection()" type="button"
+        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add
+        Materials</button>
+    </div>
   </div>
+
+  <div class="mb-5">
+    <div class="relative overflow-x-auto">
+      <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Item name</th>
+            <th scope="col" class="px-6 py-3">Unit</th>
+            <th scope="col" class="px-6 py-3">Quantity</th>
+            <th scope="col" class="px-6 py-3">Price</th>
+            <th scope="col" class="px-6 py-3">Total</th>
+            <th scope="col" class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            *ngFor="let data of materialsAdded; let i = index">
+
+            <td class="px-6 py-4">
+              <!-- Item name section -->
+              <select name="itemName_{{i}}" (change)="selectTheMaterials($event, i)"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option selected value="''">Choose a item</option>
+
+                @for (mt of materials; track mt.id) {
+                <option [value]="mt.id">{{ mt.name }}</option>
+                }
+              </select>
+            </td>
+
+            <td class="px-6 py-4">
+              <!-- Item Unit section -->
+              <input type="text" name="itemUnit_{{i}}" disabled placeholder="item unit" [(ngModel)]="data.itemUnit"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </td>
+
+            <td class="px-6 py-4">
+              <!-- Item quatity section -->
+              <input type="number" min="1" name="itemQuantity_{{i}}" placeholder="item quantity"
+                [(ngModel)]="data.itemQuantity"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </td>
+
+            <td class="px-6 py-4">
+              <!-- Item Price section -->
+              <input type="number" name="itemPrice_{{i}}" disabled placeholder="item Price" [(ngModel)]="data.itemPrice"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </td>
+
+            <td class="px-6 py-4">
+              <!-- Item sub Price section -->
+              <input type="number" name="itemSubPrice_{{i}}" disabled placeholder="item Price"
+                [value]="data.itemPrice * data.itemQuantity"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </td>
+
+            <td class="px-6 py-4">
+              <button (click)="removeMaterial(i)">
+                <svg class="w-[31px] h-[31px] text-gray-800 dark:text-white" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+        <tfoot>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+            <td colspan="3" class="px-6 py-4"></td>
+            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              Sub Total
+            </th>
+            <td class="px-6 py-4">{{getGrossTotalValue}}</td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+
   <button type="submit"
     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
     Submit
