@@ -46,67 +46,67 @@ const estimateMaterialArrival = {
 const Production = {
   productionStatus: [
     {
-        status:1,
-        isStarted: true,
-        completed: 10, //in percentage should be less than 100 and not less than 0
+      status: 1,
+      isStarted: true,
+      completed: 10, //in percentage should be less than 100 and not less than 0
     },
     {
-        status:2,
-        isStarted: true,
-        completed: 5, //in percentage should be less than 100 and not less than 0
+      status: 2,
+      isStarted: true,
+      completed: 5, //in percentage should be less than 100 and not less than 0
     },
     {
-        status:3,
-        isStarted: false,
-        completed: 0, //in percentage should be less than 100 and not less than 0
+      status: 3,
+      isStarted: false,
+      completed: 0, //in percentage should be less than 100 and not less than 0
     },
     {
-        status:4,
-        isStarted: false,
-        completed: 0, //in percentage should be less than 100 and not less than 0
+      status: 4,
+      isStarted: false,
+      completed: 0, //in percentage should be less than 100 and not less than 0
     },
     {
-        status:5,
-        isStarted: false,
-        completed: 0, //in percentage should be less than 100 and not less than 0
+      status: 5,
+      isStarted: false,
+      completed: 0, //in percentage should be less than 100 and not less than 0
     },
     {
-        status:6,
-        isStarted: false,
-        completed: 0, //in percentage should be less than 100 and not less than 0
+      status: 6,
+      isStarted: false,
+      completed: 0, //in percentage should be less than 100 and not less than 0
     },
   ],
-  currentStatus: 2,//latest started status
-  isProductionComplete:false
+  currentStatus: 2, // latest started status
+  isProductionComplete: false,
 };
 
-const delivery={
-    driverNumber:987654321,
-    deliveryVehicleNumber:'KL11AD2234',
-}
+const delivery = {
+  driverNumber: 987654321,
+  deliveryVehicleNumber: "KL11AD2234",
+};
 
 const installation = {
-    uploadedImages:File,
-    notes:''
-}
+  uploadedImages: File,
+  notes: "",
+};
 
 const awaitingService = {
-    //no form it is just status
-}
+  //no form it is just status
+};
 
 const service = {
-    serviceReport:File,
-    notes:'',
-    closingReport:File,
-}
+  serviceReport: File,
+  notes: "",
+  closingReport: File,
+};
 
-const Closed ={
-    //project successfully completed and closed 
-    //button to get closing report
-}
+const Closed = {
+  //project successfully completed and closed
+  //button to get closing report
+};
 
-const Cancelled ={
-    //project cancelled 
-    //button to restart project
-    //reason for cancellation
-}
+const Cancelled = {
+  //project cancelled
+  //button to restart project
+  //reason for cancellation
+};

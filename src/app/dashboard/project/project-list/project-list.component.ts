@@ -14,7 +14,7 @@ export class ProjectListComponent {
 
   // Pagination variables
   currentPage = 1;
-  itemsPerPage = 10;
+  itemsPerPage = 20;
   searchTerm = ''; // Variable to store the search term
 
   //selected modal
@@ -92,6 +92,90 @@ export class ProjectListComponent {
       ordStartDate: new Date(Date.now()).toLocaleDateString(),
       lastApprovedBy: 'Safdar Hashimi',
       _id: 'alkdjfalqdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 6,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdj2alqdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 7,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjralqdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 8,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjaalqdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 9,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfaljdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 10,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfilqdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 11,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfklqdq-3r1',
       orderNumber: 'ORD-00005',
     },
     // Add more products as needed

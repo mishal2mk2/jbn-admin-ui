@@ -1,0 +1,15 @@
+.is_Start_Progress {
+  @apply text-blue-600 dark:text-blue-500
+}
+
+.is_Start_Progress span {
+  @apply border-blue-600 dark:border-blue-500
+}
+
+.is_Completed_Progress {
+  @apply text-green-600 dark:text-green-500
+}
+
+.is_Completed_Progress span {
+  @apply border-green-600 dark:border-green-500
+}

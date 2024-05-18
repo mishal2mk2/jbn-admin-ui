@@ -86,7 +86,7 @@
             <span
               class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Closed</span>
 
-            } @else if (product.ordStatus===12) {
+            } @else if (product.ordStatus===11) {
             <span
               class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Cancelled</span>
 
@@ -152,8 +152,9 @@
         <app-form-4></app-form-4>
         } @else if(modalSelectedOrderStatus===5) {
         <app-form-5></app-form-5>
-        } @else if(modalSelectedOrderStatus===6) { } @else if
-        (modalSelectedOrderStatus===7) { } @else if
+        } @else if(modalSelectedOrderStatus===6) {
+        <app-form-6></app-form-6>
+        } @else if(modalSelectedOrderStatus===7) { } @else if
         (modalSelectedOrderStatus===8) { } @else if
         (modalSelectedOrderStatus===9) { } @else if
         (modalSelectedOrderStatus===10) { } @else if
