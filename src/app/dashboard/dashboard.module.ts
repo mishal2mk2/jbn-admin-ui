@@ -18,6 +18,10 @@ import { FormErrorSpanComponent } from './partials/common/form-error-span/form-e
 import { Form4Component } from './partials/status-forms/form-4/form-4.component';
 import { Form5Component } from './partials/status-forms/form-5/form-5.component';
 import { Form6Component } from './partials/status-forms/form-6/form-6.component';
+import { Form7Component } from './partials/status-forms/form-7/form-7.component';
+import { Form8Component } from './partials/status-forms/form-8/form-8.component';
+import { Form9Component } from './partials/status-forms/form-9/form-9.component';
+import { Form10Component } from './partials/status-forms/form-10/form-10.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,10 @@ import { Form6Component } from './partials/status-forms/form-6/form-6.component'
     Form4Component,
     Form5Component,
     Form6Component,
+    Form7Component,
+    Form8Component,
+    Form9Component,
+    Form10Component,
   ],
   imports: [
     CommonModule,
