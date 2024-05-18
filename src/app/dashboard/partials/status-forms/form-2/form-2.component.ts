@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../common/service/form-validation.service';
 
@@ -8,13 +8,10 @@ import { FormValidationService } from '../../common/service/form-validation.serv
   styleUrl: './form-2.component.css',
 })
 export class Form2Component implements OnInit {
-  @Input() formData: any;
-
   FormGroupData!: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private ChangeRef: ChangeDetectorRef,
     private _FormValidationService: FormValidationService
   ) {}
 
