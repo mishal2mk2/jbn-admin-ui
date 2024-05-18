@@ -28,11 +28,6 @@ export class Form2Component implements OnInit {
     const { files } = event.target as HTMLInputElement;
 
     if (files) {
-      this.FormGroupData.controls['file'].setErrors({
-        invalidFile: false,
-        maxSize: false,
-      });
-
       // Check the is File
       if (!this._FormValidationService.isValidImagePdfFileType(files)) {
         this.FormGroupData.patchValue({
@@ -47,7 +42,7 @@ export class Form2Component implements OnInit {
       }
 
       // Check the File size
-      const maxSize = 1 * 1024 * 1024; // 5MB in bytes
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
       const selectFile = files[0];
 
       if (selectFile?.size > maxSize) {

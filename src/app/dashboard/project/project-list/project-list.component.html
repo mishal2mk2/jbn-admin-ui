@@ -80,13 +80,18 @@
 
             } @else if (product.ordStatus===9) {
             <span
-              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Service</span>
+              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">Awaiting
+              Service</span>
 
             } @else if (product.ordStatus===10) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Closed</span>
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Service</span>
 
             } @else if (product.ordStatus===11) {
+            <span
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Closed</span>
+
+            } @else if (product.ordStatus===12) {
             <span
               class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Cancelled</span>
 
@@ -160,8 +165,9 @@
         <app-form-8></app-form-8>
         } @else if(modalSelectedOrderStatus===9) {
         <app-form-9></app-form-9>
-        } @else if(modalSelectedOrderStatus===10) { } @else if
-        (modalSelectedOrderStatus===11) { } @else if
+        } @else if(modalSelectedOrderStatus===10) {
+        <app-form-10></app-form-10>
+        } @else if(modalSelectedOrderStatus===11) { } @else if
         (modalSelectedOrderStatus===12) { }
       </div>
 
