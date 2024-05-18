@@ -178,6 +178,20 @@ export class ProjectListComponent {
       _id: 'alkdjfklqdq-3r1',
       orderNumber: 'ORD-00005',
     },
+    {
+      client: 'Dhiraj Jyadav',
+      mob: 1321,
+      add: {
+        city: 'malappuram',
+        location: 'kottakkal',
+        link: '',
+      },
+      ordStatus: 12,
+      ordStartDate: new Date(Date.now()).toLocaleDateString(),
+      lastApprovedBy: 'Safdar Hashimi',
+      _id: 'alkdjfkltdq-3r1',
+      orderNumber: 'ORD-00005',
+    },
     // Add more products as needed
   ];
 

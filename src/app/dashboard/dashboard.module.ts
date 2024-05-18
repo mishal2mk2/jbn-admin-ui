@@ -22,6 +22,8 @@ import { Form7Component } from './partials/status-forms/form-7/form-7.component'
 import { Form8Component } from './partials/status-forms/form-8/form-8.component';
 import { Form9Component } from './partials/status-forms/form-9/form-9.component';
 import { Form10Component } from './partials/status-forms/form-10/form-10.component';
+import { Form11Component } from './partials/status-forms/form-11/form-11.component';
+import { Form12Component } from './partials/status-forms/form-12/form-12.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { Form10Component } from './partials/status-forms/form-10/form-10.compone
     Form8Component,
     Form9Component,
     Form10Component,
+    Form11Component,
+    Form12Component,
   ],
   imports: [
     CommonModule,
