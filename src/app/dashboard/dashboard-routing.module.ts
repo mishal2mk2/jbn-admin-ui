@@ -9,44 +9,46 @@ import { ProjectCreateComponent } from './project/project-create/project-create.
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 
 const routes: Routes = [
-    {
-      path:'',
-      component:NavHeaderComponent,
-      children:[
-        {
-          path:'',
-          component:ProjectListComponent,
-        },
-        {
-          path:'project',
-          component:ProjectListComponent,
-        },
-        {
-          path:'project/create',
-          component:ProjectCreateComponent,
-        },
-        {
-          path:'project/edit',
-          component:ProjectEditComponent,
-        },
-        {
-          path:'project/:id',
-          component:ProjectDetailsComponent,
-        },
-        {
-          path:'users',
-          component:UserListComponent,
-        },
-        {
-          path:'materials',
-          component:MaterialListComponent,
-        },
-      ]
-    }
-  ];
+  {
+    path: '',
+    component: NavHeaderComponent,
+    children: [
+      {
+        path: '',
+        component: ProjectListComponent,
+      },
+      {
+        path: 'project',
+        component: ProjectListComponent,
+        children: [
+          {
+            path: 'create',
+            component: ProjectCreateComponent,
+          },
+          {
+            path: 'edit',
+            component: ProjectEditComponent,
+          },
+          {
+            path: ':id',
+            component: ProjectDetailsComponent,
+          },
+        ],
+      },
+      {
+        path: 'users',
+        component: UserListComponent,
+      },
+      {
+        path: 'materials',
+        component: MaterialListComponent,
+      },
+    ],
+  },
+];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}
