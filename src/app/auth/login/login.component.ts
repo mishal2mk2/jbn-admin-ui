@@ -8,40 +8,38 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
   roles: any;
-  isLoggedIn: boolean=false;
+  isLoggedIn: boolean = false;
   constructor(
     private authService: AuthService,
-    private router:Router,
-    private toastr:ToastrService  
-  ){
-
-  }
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
       this.isLoggedIn = true;
-      this.router.navigate(['/']).then(()=>{
-        this.toastr.info("Already Logged in","INFO")
-      })
+      this.router.navigate(['/']).then(() => {
+        this.toastr.info('Already Logged in', 'INFO');
+      });
     }
   }
-  onSubmit(form: NgForm){
-    const body=form.value;
+  onSubmit(form: NgForm) {
+    const body = form.value;
     this.authService.login(body).subscribe({
-      next:res=>{
+      next: (res) => {
         this.authService.saveUser(res);
-        this.isLoggedIn = true
+        this.isLoggedIn = true;
         this.authService.decodeToken();
-        this.router.navigate(['/']).then(()=>{
-          this.toastr.success("Logged In Successfully", "Success");
-        })
+        this.router.navigate(['/']).then(() => {
+          this.toastr.success('Logged In Successfully', 'Success');
+        });
       },
-      error:err=>{
-        this.toastr.error(err.error.message,"Error");
-      }
-    })
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
   }
 }
