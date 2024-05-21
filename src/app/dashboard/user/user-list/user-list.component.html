@@ -24,7 +24,7 @@
         <!-- Header row -->
         <tr>
           <th scope="col" class="px-6 py-3">Client Name</th>
-          <th scope="col" class="px-6 py-3">Client username</th>
+          <th scope="col" class="px-6 py-3">Client mail</th>
           <th scope="col" class="px-6 py-3">Phone</th>
           <th scope="col" class="px-6 py-3">Role</th>
           <th scope="col" class="px-6 py-3">Action</th>
@@ -33,20 +33,20 @@
       <tbody>
 
         <!-- Table data -->
-        @for (data of getCurrentPageUsers(); track data.name) {
+        @for (data of getCurrentPageUsers(); track data.username) {
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
           <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {{ data.name }}
+            {{ data.username }}
           </th>
 
           <td class="px-6 py-4">
-            {{ data.username }}
+            {{ data.mail }}
           </td>
 
-          <td class="px-6 py-4">{{ data.phone }}</td>
+          <td class="px-6 py-4">{{ data.mobile }}</td>
           <td class="px-6 py-4">
-            <select id="large" [value]="data.role"
+            <select id="large" [value]="data.role" (change)="roleChange($event,data._id)"
               class="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option value="MD">MD</option>
               <option value="GM">GM</option>
@@ -56,12 +56,18 @@
               <option value="SV">SV</option>
               <option value="WR">WR</option>
               <option value="CU">CU</option>
-              <option value="US">US </option>
+              <option value="US">US</option>
             </select>
           </td>
           <td class="px-6 py-4">
-            <button type="button"
+            @if (!data.isBlocked) {
+            <button type="button" (click)="blockUser(data._id)"
               class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Block</button>
+            }@else{
+            <button type="button" (click)="unBlockUser(data._id)"
+              class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Unblock</button>
+            }
+
           </td>
         </tr>
         }

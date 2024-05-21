@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from '../service.service';
+import { ToastrService } from 'ngx-toastr';
+import { IUser } from '../user.interface';
+
+
 
 @Component({
   selector: 'app-user-list',
@@ -10,73 +15,31 @@ export class UserListComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 20;
   searchTerm = ''; // Variable to store the search term
+  users :IUser[]=[]
 
-  users = [
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'HR',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'MD',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'GM',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'OM',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'PM',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'SV',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'WR',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'CU',
-    },
-    {
-      name: 'Salmanul Fariz',
-      username: 'salman',
-      phone: '84928492923',
-      role: 'US',
-    },
-  ];
+  constructor(private userService: ServiceService, private toastr:ToastrService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //Load UserList
+    this.userService.getUserLIst().subscribe({
+      next:(data:{data:IUser[]})=>{
+        console.log("response data",data);
+        this.users = data.data;
+      },
+      error:err=>{
+        this.toastr.error(err.error.message,"Error");
+      }
+    }
+    )
+  }
 
   // Function to get the current page of users
   getCurrentPageUsers() {
     const filteredUsers = this.users.filter(
       (user) =>
         user.username.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.phone
+        user.mail.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        user.mobile
           .toString()
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase())
@@ -85,5 +48,68 @@ export class UserListComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return filteredUsers.slice(startIndex, endIndex);
+  }
+
+  blockUser(id:string){
+    this.userService.blockUser(id).subscribe({
+      next:(data)=>{
+        debugger;
+        console.log(id);
+        console.log(data);
+        this.users = this.users.map((user)=>{
+          if(user._id===id){
+            user.isBlocked=true;
+          }
+          return user;
+        });
+        this.toastr.success(`User Blocked`,'Success')
+      },
+      error:err=>{
+        this.toastr.error('Error when blocking user','Failed');
+      }
+    })
+  }
+  unBlockUser(id:string){
+    this.userService.unBlockUser(id).subscribe({
+      next:(data)=>{
+        debugger;
+        console.log(id);
+        console.log(data);
+        this.users = this.users.map((user)=>{
+          if(user._id===id){
+            user.isBlocked=false;
+          }
+          return user;
+        });
+        this.toastr.success(`User unblocked`,'Success')
+        
+      },
+      error:err=>{
+        this.toastr.error('Error when unblocking user','Failed');
+      }
+    })
+  }
+  roleChange(event:Event,id:string){
+    const target = event.target as HTMLSelectElement;
+    const {value} = target;
+    this.userService.updateUser(id,value).subscribe({
+      next:data => {
+        console.log(data);
+        this.users = this.users.map((user)=>{
+          if(user._id===id){
+            user.role = value;
+          }
+            return user;
+        })
+        this.toastr.success(`Successfully changed user role to ${value}`,'Success')
+      },
+      error:err=>{
+        this.toastr.error('Error when changing role','Role not changed')
+      }
+    })
+
+    debugger;
+
+    
   }
 }
