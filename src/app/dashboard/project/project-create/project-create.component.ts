@@ -67,7 +67,7 @@ export class ProjectCreateComponent implements OnInit {
 
     this._ProjectService.createProject(object).subscribe({
       next: (res) => {
-        this.router.navigate(['/']).then(() => {
+        this.router.navigate(['project']).then(() => {
           this.toastr.success('Successfully created new project', 'Success');
         });
       },
