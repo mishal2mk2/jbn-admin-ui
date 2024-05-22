@@ -14,7 +14,11 @@ export class ProjectService {
 
   constructor(private http: HttpClient) {}
 
-  createObject(obj: any) {
+  createProject(obj: any) {
     return this.http.post<any>(`${this.AUTH_API}/project/add`, obj);
+  }
+
+  getAllProjects() {
+    return this.http.post<any>(`${this.AUTH_API}/project/list`, {});
   }
 }
