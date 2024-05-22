@@ -11,7 +11,6 @@ import { ProjectCreateComponent } from './project/project-create/project-create.
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 import { MaterialEditComponent } from './material/material-edit/material-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Form1Component } from './partials/status-forms/form-1/form-1.component';
 import { Form2Component } from './partials/status-forms/form-2/form-2.component';
 import { Form3Component } from './partials/status-forms/form-3/form-3.component';
 import { FormErrorSpanComponent } from './partials/form-error-span/form-error-span.component';
@@ -36,7 +35,6 @@ import { Form12Component } from './partials/status-forms/form-12/form-12.compone
     ProjectCreateComponent,
     ProjectEditComponent,
     MaterialEditComponent,
-    Form1Component,
     Form2Component,
     Form3Component,
     FormErrorSpanComponent,

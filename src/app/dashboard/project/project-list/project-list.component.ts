@@ -1,16 +1,25 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../helpers/service/project.service';
+import { initFlowbite } from 'flowbite';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.css',
 })
-export class ProjectListComponent {
+export class ProjectListComponent implements OnInit, OnDestroy {
   @ViewChild('statusChangeModal') defaultModal!: ElementRef;
 
   dropdownOpen: boolean = false;
+  NavigateSubscription!: Subscription;
 
   // Pagination variables
   currentPage = 1;
@@ -31,15 +40,33 @@ export class ProjectListComponent {
 
   ngOnInit(): void {
     this.closeModal();
+    initFlowbite();
 
+    this.getAllProduct();
+
+    // Subscribe the Data Transfer for refresh the data and close the old modal
+    this.NavigateSubscription =
+      this._ProjectService.$ProjectNavigateDataTransfer.subscribe(() => {
+        this.closeModal();
+        this.getAllProduct();
+      });
+  }
+
+  // Unsubscribe the data for the data leackage
+  ngOnDestroy(): void {
+    if (this.NavigateSubscription) this.NavigateSubscription.unsubscribe();
+  }
+
+  // Get all product data
+  getAllProduct() {
     this._ProjectService.getAllProjects().subscribe((res) => {
       this.products = res.data;
-      console.log(this.products);
     });
   }
 
   // Close the modal section
   closeModal() {
+    console.log('S');
     const modal = this.defaultModal?.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 
