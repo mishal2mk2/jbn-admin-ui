@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../helpers/service/project.service';
-import * as jwt_decode from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-create',
@@ -13,26 +14,22 @@ export class ProjectCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
     private _ProjectService: ProjectService
   ) {}
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
-      clientName: ['', Validators.required, Validators.minLength(4)],
+      clientName: ['', [Validators.required, Validators.minLength(4)]],
       clientPhone: ['', Validators.required],
-      clientEmail: ['', Validators.required],
-      addressCity: ['', Validators.required],
+      clientEmail: ['', [Validators.required, Validators.email]],
+      addressCity: ['', [Validators.required]],
       addressLocation: ['', Validators.required],
+      addressLocationLink: ['', Validators.required],
       notes: [''],
       descriptions: [''],
     });
-
-    // const token = window.sessionStorage.getItem('_TOKEN');
-
-    // if (token) {
-    //   const decodedToken = jwt_decode.jwtDecode(JSON.parse(token));
-    //   console.log(decodedToken);
-    // }
   }
 
   formSubmit() {
@@ -41,5 +38,42 @@ export class ProjectCreateComponent implements OnInit {
       this.FormGroupData.markAllAsTouched();
       return;
     }
+
+    const {
+      clientName,
+      clientPhone,
+      clientEmail,
+      addressCity,
+      addressLocation,
+      addressLocationLink,
+      notes,
+      descriptions,
+    } = this.FormGroupData.controls;
+
+    const object = {
+      client: {
+        name: clientName.value,
+        mob: clientPhone.value,
+        email: clientEmail.value,
+        add: {
+          city: addressCity.value,
+          location: addressLocation.value,
+          link: addressLocationLink.value,
+        },
+      },
+      notes: notes.value,
+      description: descriptions.value,
+    };
+
+    this._ProjectService.createProject(object).subscribe({
+      next: (res) => {
+        this.router.navigate(['/']).then(() => {
+          this.toastr.success('Successfully created new project', 'Success');
+        });
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
   }
 }
