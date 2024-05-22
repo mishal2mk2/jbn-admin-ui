@@ -7,9 +7,8 @@ import {
   IRegisterBody,
 } from './auth.interface';
 import * as jwt_decode from 'jwt-decode';
-// import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from '../../environments/environment';
 
-const AUTH_API = 'http://localhost:3000/auth/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -19,6 +18,8 @@ export const USER_KEY = '_TOKEN'; //used in session storage services
   providedIn: 'root',
 })
 export class AuthService {
+  private AUTH_API = environment.API_ENDPOINT;
+
   jwtToken: string | null = null;
   decodedToken: any;
   role: string | null = null;
@@ -26,17 +27,17 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(body: ILoginBody) {
-    const url = AUTH_API + 'login';
+    const url = this.AUTH_API + 'auth/login';
     return this.http.post<ILoginReponse>(url, body, httpOptions);
   }
 
   register(body: IRegisterBody) {
-    const url = AUTH_API + 'register';
+    const url = this.AUTH_API + 'auth/register';
     return this.http.post<IRegResponse>(url, body, httpOptions);
   }
 
   logout() {
-    return this.http.post(AUTH_API + 'logout', {}, httpOptions);
+    return this.http.post(this.AUTH_API + 'auth/logout', {}, httpOptions);
   }
 
   // session storage services

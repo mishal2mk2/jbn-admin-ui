@@ -20,20 +20,18 @@ const routes: Routes = [
       {
         path: 'project',
         component: ProjectListComponent,
-        children: [
-          {
-            path: 'create',
-            component: ProjectCreateComponent,
-          },
-          {
-            path: 'edit',
-            component: ProjectEditComponent,
-          },
-          {
-            path: ':id',
-            component: ProjectDetailsComponent,
-          },
-        ],
+      },
+      {
+        path: 'project/create',
+        component: ProjectCreateComponent,
+      },
+      {
+        path: 'project/edit',
+        component: ProjectEditComponent,
+      },
+      {
+        path: 'project/:id',
+        component: ProjectDetailsComponent,
       },
       {
         path: 'users',
