@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Form1Component } from './partials/status-forms/form-1/form-1.component';
 import { Form2Component } from './partials/status-forms/form-2/form-2.component';
 import { Form3Component } from './partials/status-forms/form-3/form-3.component';
-import { FormErrorSpanComponent } from './partials/common/form-error-span/form-error-span.component';
+import { FormErrorSpanComponent } from './partials/form-error-span/form-error-span.component';
 import { Form4Component } from './partials/status-forms/form-4/form-4.component';
 import { Form5Component } from './partials/status-forms/form-5/form-5.component';
 import { Form6Component } from './partials/status-forms/form-6/form-6.component';

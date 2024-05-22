@@ -27,17 +27,17 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(body: ILoginBody) {
-    const url = this.AUTH_API + 'auth/login';
+    const url = this.AUTH_API + '/auth/login';
     return this.http.post<ILoginReponse>(url, body, httpOptions);
   }
 
   register(body: IRegisterBody) {
-    const url = this.AUTH_API + 'auth/register';
+    const url = this.AUTH_API + '/auth/register';
     return this.http.post<IRegResponse>(url, body, httpOptions);
   }
 
   logout() {
-    return this.http.post(this.AUTH_API + 'auth/logout', {}, httpOptions);
+    return this.http.post(this.AUTH_API + '/auth/logout', {}, httpOptions);
   }
 
   // session storage services
