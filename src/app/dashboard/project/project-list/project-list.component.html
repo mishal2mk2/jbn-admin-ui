@@ -23,10 +23,10 @@
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <!-- Header row -->
         <tr>
-          <th scope="col" class="px-6 py-3">Client</th>
-          <th scope="col" class="px-6 py-3">Order Status</th>
           <th scope="col" class="px-6 py-3">Date</th>
-          <th scope="col" class="px-6 py-3">Last Approved</th>
+          <th scope="col" class="px-6 py-3">Project ID</th>
+          <th scope="col" class="px-6 py-3">Client Name</th>
+          <th scope="col" class="px-6 py-3">Order Status</th>
           <th scope="col" class="px-6 py-3">Approve</th>
           <th scope="col" class="px-6 py-3">Action</th>
         </tr>
@@ -37,71 +37,63 @@
         @for (product of getCurrentPageProducts(); track product._id) {
         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-          <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {{ product.client }}
+          <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+            {{ product.createdAt | date:'longDate' }}
+          </td>
+
+          <th scope="row" class="px-6 py-4">
+            {{ product.orderNumber }}
           </th>
-          <!-- (FYI-Salman)- Here this should be comming from component when giving orderstatus code as input -->
+
+          <th class="px-6 py-4">
+            {{ product.client.name }}
+          </th>
+
           <td class="px-6 py-4">
-            @if (product.ordStatus===1) {
+            @if (product.orderStatus === 1) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Order
-              Entering</span>
-
-            } @else if (product.ordStatus===2) {
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ORDER_ENTERING</span>
+            } @else if (product.orderStatus===2) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Drawing</span>
-
-            } @else if (product.ordStatus===3) {
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">DRAWING</span>
+            } @else if (product.orderStatus===3) {
             <span
-              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">Material
-              Estimate</span>
-
-            } @else if (product.ordStatus===4) {
+              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">MATERIAL_ESTIMATE</span>
+            } @else if (product.orderStatus===4) {
             <span
-              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">Waiting
-              Order Confirmation</span>
-
-            } @else if (product.ordStatus===5) {
+              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">WAITING_CONFIRMATION</span>
+            } @else if (product.orderStatus===5) {
             <span
-              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">Material
-              Arrival</span>
-
-            } @else if (product.ordStatus===6) {
+              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">MATERIAL_ARRIVAL</span>
+            } @else if (product.orderStatus===6) {
             <span
-              class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">Production</span>
-
-            } @else if (product.ordStatus===7) {
+              class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PRODUCTION</span>
+            } @else if (product.orderStatus===7) {
             <span
-              class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">Delivery</span>
-
-            } @else if (product.ordStatus===8) {
+              class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">DELIVERY</span>
+            } @else if (product.orderStatus===8) {
             <span
-              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Installation</span>
-
-            } @else if (product.ordStatus===9) {
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">INSTALLATION</span>
+            } @else if (product.orderStatus===9) {
             <span
-              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">Awaiting
-              Service</span>
-
-            } @else if (product.ordStatus===10) {
+              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">AWAITING_SERVICE</span>
+            } @else if (product.orderStatus===10) {
             <span
-              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Service</span>
-
-            } @else if (product.ordStatus===11) {
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">SERVICE</span>
+            } @else if (product.orderStatus===11) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Closed</span>
-
-            } @else if (product.ordStatus===12) {
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">TO_CLOSE</span>
+            }@else if (product.orderStatus===12) {
             <span
-              class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Cancelled</span>
-
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">CLOSED</span>
+            } @else if (product.orderStatus===13) {
+            <span
+              class="bg-red-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">CANCELLED</span>
             }
           </td>
 
-          <td class="px-6 py-4">{{ product.ordStartDate }}</td>
-          <td class="px-6 py-4">{{ product.lastApprovedBy }} </td>
           <td class="px-6 py-4">
-            <button (click)="toggleModal({ orderStatus: product.ordStatus, orderId: product._id })"
+            <button (click)="toggleModal({ orderStatus: product.orderStatus, orderId: product.orderNumber })"
               class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button">
               Approve to next
@@ -148,7 +140,7 @@
       <div class="p-4 md:p-5 space-y-4">
         <!-- (FYI-Salman)-forms for each flow approval -->
         @if (modalSelectedOrderStatus === 1) {
-        <app-form-1 [formData]="getCurrentProject()"></app-form-1>
+        <app-form-1></app-form-1>
         } @else if (modalSelectedOrderStatus===2) {
         <app-form-2></app-form-2>
         } @else if(modalSelectedOrderStatus===3) {
