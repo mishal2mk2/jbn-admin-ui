@@ -23,6 +23,7 @@ import { Form9Component } from './partials/status-forms/form-9/form-9.component'
 import { Form10Component } from './partials/status-forms/form-10/form-10.component';
 import { Form11Component } from './partials/status-forms/form-11/form-11.component';
 import { Form12Component } from './partials/status-forms/form-12/form-12.component';
+import { StatusCodeToValuePipe } from './project/status-code-to-value.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { Form12Component } from './partials/status-forms/form-12/form-12.compone
     Form10Component,
     Form11Component,
     Form12Component,
+    StatusCodeToValuePipe,
   ],
   imports: [
     CommonModule,
