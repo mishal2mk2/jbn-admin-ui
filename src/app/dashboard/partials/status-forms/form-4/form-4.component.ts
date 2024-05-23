@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ProjectService } from '../../../../helpers/service/project.service';
 
 @Component({
   selector: 'app-form-4',
@@ -9,21 +12,72 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class Form4Component implements OnInit {
   FormGroupData!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private _ProjectService: ProjectService
+  ) {}
 
   ngOnInit(): void {
-    this.FormGroupData = this.formBuilder.group({
-      transactionId: ['', Validators.required],
-      dateOfTransaction: ['', Validators.required],
-      notes: [''],
+    // Take the Project Data
+    const { id } = this.route.snapshot.queryParams;
+    this._ProjectService.getProjectById(id).subscribe((res) => {
+      const { data } = res;
+
+      this.FormGroupData = this.formBuilder.group({
+        transactionId: [
+          data.transactionDetails[0].transactionId,
+          Validators.required,
+        ],
+        amount: [data.transactionDetails[0].amount, Validators.required],
+        paymentType: [
+          data.transactionDetails[0].paymentType,
+          Validators.required,
+        ],
+      });
     });
   }
 
-  formSubmit() {
+  'transactionDetails': [
+    {
+      transactionId: 'Transaction';
+      date: '2024-05-23T10:25:51.426Z';
+      amount: 5000;
+      paymentType: 'CASH';
+      _id: '664f19af6517856ab7b994b6';
+    }
+  ];
+
+  formSubmit(type: string) {
     // Check the form validation is complete
     if (this.FormGroupData.invalid) {
       this.FormGroupData.markAllAsTouched();
       return;
     }
+
+    const { transactionId, amount, paymentType, notes } =
+      this.FormGroupData.controls;
+
+    const object = {
+      transactionId: transactionId.value,
+      amount: amount.value,
+      paymentType: paymentType.value,
+      isApproved: type === 'SUBMIT' ? false : true,
+    };
+
+    // Take the Project ID form the query params
+    const { id } = this.route.snapshot.queryParams;
+
+    // Send the APi for change the Status or submit
+    this._ProjectService.approveStatusConformation(object, id).subscribe({
+      next: () => {
+        this.toastr.success('Successfully update project status', 'Success');
+        this._ProjectService.$ProjectNavigateDataTransfer.emit();
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
   }
 }

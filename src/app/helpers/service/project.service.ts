@@ -41,4 +41,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Conformation API
+  approveStatusConformation(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/confirmation/${orderID}`,
+      obj
+    );
+  }
 }
