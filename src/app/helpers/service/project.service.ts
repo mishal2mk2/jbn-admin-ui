@@ -49,4 +49,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Production API
+  approveStatusProduction(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/production/${orderID}`,
+      obj
+    );
+  }
 }

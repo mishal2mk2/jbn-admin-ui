@@ -27,27 +27,22 @@ export class Form4Component implements OnInit {
 
       this.FormGroupData = this.formBuilder.group({
         transactionId: [
-          data.transactionDetails[0].transactionId,
+          data.transactionDetails[data.transactionDetails.length - 1]
+            .transactionId,
           Validators.required,
         ],
-        amount: [data.transactionDetails[0].amount, Validators.required],
+        amount: [
+          data.transactionDetails[data.transactionDetails.length - 1].amount,
+          Validators.required,
+        ],
         paymentType: [
-          data.transactionDetails[0].paymentType,
+          data.transactionDetails[data.transactionDetails.length - 1]
+            .paymentType,
           Validators.required,
         ],
       });
     });
   }
-
-  'transactionDetails': [
-    {
-      transactionId: 'Transaction';
-      date: '2024-05-23T10:25:51.426Z';
-      amount: 5000;
-      paymentType: 'CASH';
-      _id: '664f19af6517856ab7b994b6';
-    }
-  ];
 
   formSubmit(type: string) {
     // Check the form validation is complete
