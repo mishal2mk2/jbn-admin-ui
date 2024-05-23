@@ -18,53 +18,49 @@
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Order Id</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              {{orderData.orderNumber}}
             </p>
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Customer</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Ahmed Shabeer
+              {{orderData.client.name}}
             </p>
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Customer Contact</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              +321654987
+              {{orderData.client.mob}}
             </p>
           </div>
           <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Date Started</span>
+            <span class="font-semibold text-gray-900 dark:text-white">Created Date</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              12/12/2024
+              {{orderData.createdAt | date}}
             </p>
           </div>
           <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Order Total</span>
+            <span class="font-semibold text-gray-900 dark:text-white">Last Updated</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Rs. 1231
+              {{orderData.updatedAt | date}}
             </p>
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Order Status</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              Drawing Pending
+              {{orderData.orderStatus | statusCodeToValue}}
             </p>
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Notes</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              All of the pages and components are first designed in Figma and we
-              keep a parity between the two versions even as we update the
-              project.
+              {{orderData.notes}}
             </p>
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Description</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              All of the pages and components are first designed in Figma and we
-              keep a parity between the two versions even as we update the
-              project.
+              {{orderData.description}}
             </p>
           </div>
         </div>
@@ -80,11 +76,122 @@
             </svg>
           </span>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Material Required
+            Material Details
+          </h3>
+        </div>
+        @if (orderData?.material_details?.item.length>0) {
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <!-- Table header -->
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <!-- Header row -->
+            <tr>
+              <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3">Unit</th>
+              <th scope="col" class="px-6 py-3">Price</th>
+              <th scope="col" class="px-6 py-3">Nos</th>
+              <th scope="col" class="px-6 py-3">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table data -->
+            @for (item of orderData.material_details.item; track item) {
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ item?.item_id?.name }}
+              </th>
+
+              <td class="px-6 py-4">
+                {{ item?.item_id?.code }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ item?.item_id?.unitCalculated }}
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{ item?.item_id?.price }}
+                </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  {{ item?.quantity }}
+                </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{ item?.item_id?.price * item?.quantity }}
+                </span>
+              </td>
+
+            </tr>
+            }
+
+          </tbody>
+
+        </table>
+        }@else{
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          No Records Found
+        </p>
+        }
+
+      </section>
+
+      <hr class="my-5" />
+      <section>
+        <div class="flex flex-row">
+          <span>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
+                d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+            </svg>
+          </span>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Estimate Details
           </h3>
         </div>
 
-        <app-material-list></app-material-list>
+        <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Estimate Completion(Days)</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.estDaysToComplete) {
+              {{orderData.estDaysToComplete}} Days
+              }@else {
+              -
+              }
+            </p>
+          </div>
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Estimate Date of Arrival</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.estDateOfArrival) {
+              {{orderData.estDateOfArrival|date}}
+              }@else {
+              -
+              }
+            </p>
+          </div>
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Estimate Work start date</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.estStartDate) {
+              {{orderData.estStartDate|date}}
+              }@else {
+              -
+              }
+            </p>
+          </div>
+        </div>
       </section>
       <hr class="my-5" />
       <section>
@@ -103,46 +210,156 @@
         <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Drawing file</span>
+            @if (orderData?.attachments?.drawingFile.length>0) {
+            @for (file of orderData.attachments.drawingFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
+
+
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Material Estimate</span>
+            @if (orderData?.attachments?.materialEstimateFile.length>0) {
+            @for (file of orderData.attachments.materialEstimateFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Installation Photos</span>
+            @if (orderData?.attachments?.installationFile.length>0) {
+            @for (file of orderData.attachments.installationFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Closing Report</span>
+            @if (orderData?.attachments?.closingReportFile.length>0) {
+            @for (file of orderData.attachments.closingReportFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Production Report</span>
+            @if (orderData?.attachments?.serviceReportFile.lenght>0) {
+            @for (file of orderData.attachments.serviceReportFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Service Report</span>
+            @if (orderData?.attachments?.serviceReportFile.length>0) {
+            @for (file of orderData.attachments.serviceReportFile; track file) {
+            <a href="{{file.url}}"
+              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd"
+                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                  clip-rule="evenodd" />
+                <path fill-rule="evenodd"
+                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+            </a>
+            }
+
+            }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              No files attached
             </p>
+            }
           </div>
-          <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Description</span>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
-            </p>
-          </div>
+
         </div>
       </section>
 
@@ -157,35 +374,67 @@
             </svg>
           </span>
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Client Details
+            Payment and Credits
           </h3>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
-          <div>
-            <span class="font-semibold text-gray-900 dark:text-white">City</span>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
-            </p>
-          </div>
-          <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Locality</span>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
-            </p>
-          </div>
-          <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Mail Id</span>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
-            </p>
-          </div>
-          <div>
-            <span class="font-semibold text-gray-900 dark:text-white">WhatsApp</span>
-            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
-            </p>
-          </div>
-        </div>
+        @if (orderData?.transactionDetails?.length>0) {
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <!-- Table header -->
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <!-- Header row -->
+            <tr>
+              <th scope="col" class="px-6 py-3">Transaction Id</th>
+              <th scope="col" class="px-6 py-3">Date</th>
+              <th scope="col" class="px-6 py-3">Payment Type</th>
+              <th scope="col" class="px-6 py-3">Amount Paid</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table data -->
+            @for (payment of orderData.transactionDetails; track payment) {
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ payment?.transactionId }}
+              </th>
+
+              <td class="px-6 py-4">
+                {{ payment?.date|date }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ payment?.paymentType }}
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{ payment?.amount }}
+                </span>
+              </td>
+            </tr>
+            }
+
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td colspan="2"></td>
+              <td class="px-6 py-4">
+                Subtotal
+              </td>
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{calculatePayedSubtotal()}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+        }@else{
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          No Records Found
+        </p>
+        }
       </section>
 
       <hr class="my-5" />
@@ -206,92 +455,177 @@
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Production Status</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              @if (orderData?.production_details?.status) {
+              {{orderData.production_details.status | prodStatusToValue}}
+              }@else {
+              -
+              }
             </p>
           </div>
           <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Supervisor</span>
+            <span class="font-semibold text-gray-900 dark:text-white">Material Arrived Date</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              @if (orderData?.materialArrivedDate) {
+              {{orderData.materialArrivedDate|date}}
+              }@else {
+              -
+              }
             </p>
           </div>
           <div>
-            <span class="font-semibold text-gray-900 dark:text-white">Mail Id</span>
+            <span class="font-semibold text-gray-900 dark:text-white">Production Start Date</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              @if (orderData.production_details?.createdAt) {
+              {{orderData.production_details?.createdAt|date}}
+              }@else {
+              -
+              }
             </p>
           </div>
           <div>
-            <span class="font-semibold text-gray-900 dark:text-white">WhatsApp</span>
+            <span class="font-semibold text-gray-900 dark:text-white">Work Incharge</span>
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-              ORD_123
+              -
             </p>
           </div>
         </div>
+        @if (orderData.production_details) {
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <ol class="items-center w-full grid grid-cols-3 gap-5 rtl:space-x-reverse">
-            <li class="flex items-center text-blue-600 dark:text-blue-500 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['1'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-blue-600 rounded-full shrink-0 dark:border-blue-500">
                 1
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Pressing</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["1"].percentCompleted}}%
+                </p>
               </span>
             </li>
-            <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['2'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 2
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Cutting</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["2"].percentCompleted}}%
+                </p>
               </span>
             </li>
-            <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['3'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 3
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Edgebanding</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["3"].percentCompleted}}%
+                </p>
               </span>
             </li>
-            <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['4'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 4
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Boring</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["4"].percentCompleted}}%
+                </p>
               </span>
             </li>
-            <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['5'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 5
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Checking</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["5"].percentCompleted}}%
+                </p>
               </span>
             </li>
-            <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData.production_details?.productionStatus['6'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
               <span
                 class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
                 6
               </span>
               <span>
                 <h3 class="font-medium leading-tight">Packing</h3>
-                <p class="text-sm">Completed: 0%</p>
+                <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["6"].percentCompleted}}%
+                </p>
               </span>
             </li>
           </ol>
         </div>
+        }@else {
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          No Records Found
+        </p>
+        }
+
+      </section>
+      <hr class="my-5" />
+      <section>
+        <div class="flex flex-row">
+          <span>
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
+                d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+            </svg>
+          </span>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Delivery Details
+          </h3>
+        </div>
+        @if (orderData.delivery) {
+        <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Driver Contact</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.delivery.driverNumber) {
+              {{orderData.delivery.driverNumber}}
+              }@else {
+              -
+              }
+            </p>
+          </div>
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Vehicle Number</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.delivery.vehicleNumber) {
+              {{orderData.delivery.vehicleNumber}}
+              }@else {
+              -
+              }
+            </p>
+          </div>
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">Delivery Date</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              @if (orderData?.delivery.date) {
+              {{orderData.delivery.date|date}}
+              }@else {
+              -
+              }
+            </p>
+          </div>
+        </div>
+        }@else{
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          No Records Found
+        </p>
+        }
+
       </section>
 
       <!-- <footer

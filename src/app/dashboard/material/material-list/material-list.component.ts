@@ -39,7 +39,7 @@ export class MaterialListComponent {
         this.materials = data.data;
       },
       error: err => {
-
+        this.toastr.error("Error while loading item list", "Error")
       }
     })
     //close modal

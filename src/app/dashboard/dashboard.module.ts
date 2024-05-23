@@ -23,7 +23,9 @@ import { Form9Component } from './partials/status-forms/form-9/form-9.component'
 import { Form10Component } from './partials/status-forms/form-10/form-10.component';
 import { Form11Component } from './partials/status-forms/form-11/form-11.component';
 import { Form12Component } from './partials/status-forms/form-12/form-12.component';
-import { StatusCodeToValuePipe } from './project/status-code-to-value.pipe';
+import { StatusCodeToValuePipe } from './project/pipe/status-code-to-value.pipe';
+import { ProdStatusToValuePipe } from './project/pipe/prod-status-to-value.pipe';
+import { DarkModeToggleButtonComponent } from './partials/dark-mode-toggle-button/dark-mode-toggle-button.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { StatusCodeToValuePipe } from './project/status-code-to-value.pipe';
     Form11Component,
     Form12Component,
     StatusCodeToValuePipe,
+    ProdStatusToValuePipe,
+    DarkModeToggleButtonComponent,
   ],
   imports: [
     CommonModule,
