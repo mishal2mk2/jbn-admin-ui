@@ -1,4 +1,4 @@
-<form class="mx-auto" (ngSubmit)="formSubmit()">
+<form class="mx-auto">
 
   <div class="flex justify-between">
     <div *ngIf="isTableInvalid" class="p-4 mb-4 text-sm text-red-800 dark:bg-gray-800 dark:text-red-400" role="alert">
@@ -34,12 +34,12 @@
 
             <td class="px-6 py-4">
               <!-- Item name section -->
-              <select name="itemName_{{i}}" (change)="selectTheMaterials($event, i)"
+              <select name="itemName_{{i}}" (change)="selectTheMaterials($event, i)" [(ngModel)]="data.itemId"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <option selected value="''">Choose a item</option>
 
-                @for (mt of materials; track mt.id) {
-                <option [value]="mt.id">{{ mt.name }}</option>
+                @for (mt of materials; track mt._id) {
+                <option [value]="mt._id">{{ mt.name }}</option>
                 }
               </select>
             </td>
@@ -96,17 +96,47 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-2 gap-3 my-2">
-    <!-- Notes -->
-    <div class="mb-5">
-      <label for="notes" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">Notes</label>
-      <textarea type="text" id="notes" rows="4" id="notes"
-        class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-    </div>
-  </div>
+  <form [formGroup]="FormGroupData">
+    <div class="grid grid-cols-2 gap-3 my-2">
+      <!-- Estimated Days Of Completion section -->
+      <div class="mb-5">
+        <label for="estimatedDaysOfCompletion" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+          Estimated Days Of Completion
+        </label>
+        <div class="relative max-w-sm">
+          <input type="number" id="estimatedDaysOfCompletion" formControlName="estimatedDaysOfCompletion"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Select date" [ngClass]="{
+            'is-invalid-form':
+              FormGroupData.controls['estimatedDaysOfCompletion'].invalid &&
+              (FormGroupData.controls['estimatedDaysOfCompletion'].touched)
+          }">
+        </div>
 
-  <button type="submit"
-    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-    Submit
-  </button>
+        <!-- Error Span -->
+        <app-form-error-span
+          [templateOutletContext]="{  validation: 'required' , message: 'Estimated Days Of Completion is required' , control: FormGroupData.controls['estimatedDaysOfCompletion']}">
+        </app-form-error-span>
+      </div>
+
+      <!-- Notes -->
+      <div class="mb-5">
+        <label for="notes" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">Notes</label>
+        <textarea type="text" id="notes" rows="4" id="notes" formControlName="notes"
+          class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="flex justify-end gap-3">
+    <button type="submit" (click)="formSubmit('SUBMIT')"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Submit
+    </button>
+
+    <button type="button" (click)="formSubmit('APPROVE')"
+      class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      Approve
+    </button>
+  </div>
 </form>

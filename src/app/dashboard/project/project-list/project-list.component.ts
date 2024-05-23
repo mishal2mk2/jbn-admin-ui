@@ -66,7 +66,6 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   // Close the modal section
   closeModal() {
-    console.log('S');
     const modal = this.defaultModal?.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 
