@@ -33,4 +33,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status material report API
+  approveStatusMaterialEstimate(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/material-upload/${orderID}`,
+      obj
+    );
+  }
 }
