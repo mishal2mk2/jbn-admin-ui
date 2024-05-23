@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../helpers/service/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-6',
@@ -9,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './form-6.component.css',
 })
 export class Form6Component implements OnInit {
+  FormGroupData!: FormGroup;
   productionStatus = [
     {
       status: 1,
@@ -49,12 +51,17 @@ export class Form6Component implements OnInit {
   ];
 
   constructor(
+    private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService
   ) {}
 
   ngOnInit(): void {
+    this.FormGroupData = this.formBuilder.group({
+      inCharge: ['', [Validators.required]],
+    });
+
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
@@ -67,6 +74,10 @@ export class Form6Component implements OnInit {
           this.productionStatus[i - 1].isStarted =
             production_details.productionStatus[i].isStarted;
         }
+
+        this.FormGroupData.patchValue({
+          inCharge: production_details.inCharge,
+        });
       }
     });
   }
@@ -97,6 +108,12 @@ export class Form6Component implements OnInit {
   }
 
   formSubmit(type: string) {
+    // Check the form validation is complete
+    if (this.FormGroupData.invalid) {
+      this.FormGroupData.markAllAsTouched();
+      return;
+    }
+
     if (type === 'APPROVE') {
       let isAllStatusComplete = true;
 
@@ -112,10 +129,12 @@ export class Form6Component implements OnInit {
       }
     }
 
+    const { inCharge } = this.FormGroupData.controls;
     const object: any = {
       isApproved: type === 'SUBMIT' ? false : true,
       isCompleted: false,
       productionStatus: null,
+      inCharge: inCharge.value,
     };
 
     // Set Production Status

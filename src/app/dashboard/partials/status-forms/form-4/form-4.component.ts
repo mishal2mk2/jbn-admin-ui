@@ -20,26 +20,26 @@ export class Form4Component implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.FormGroupData = this.formBuilder.group({
+      transactionId: ['', Validators.required],
+      amount: ['', Validators.required],
+      paymentType: ['', Validators.required],
+    });
+
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
       const { data } = res;
 
-      this.FormGroupData = this.formBuilder.group({
-        transactionId: [
+      this.FormGroupData.patchValue({
+        transactionId:
           data.transactionDetails[data.transactionDetails.length - 1]
             .transactionId,
-          Validators.required,
-        ],
-        amount: [
+        amount:
           data.transactionDetails[data.transactionDetails.length - 1].amount,
-          Validators.required,
-        ],
-        paymentType: [
+        paymentType:
           data.transactionDetails[data.transactionDetails.length - 1]
             .paymentType,
-          Validators.required,
-        ],
       });
     });
   }

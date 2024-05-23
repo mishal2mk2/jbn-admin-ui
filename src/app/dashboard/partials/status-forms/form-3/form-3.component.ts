@@ -35,6 +35,11 @@ export class Form3Component implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.FormGroupData = this.formBuilder.group({
+      estimatedDaysOfCompletion: ['', Validators.required],
+      notes: [''],
+    });
+
     // Get all Material Data API Call
     this._MaterialService.getAllMaterialData().subscribe((res) => {
       this.materials = res.data;
@@ -43,12 +48,9 @@ export class Form3Component implements OnInit {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      this.FormGroupData = this.formBuilder.group({
-        estimatedDaysOfCompletion: [
+      this.FormGroupData.patchValue({
+        estimatedDaysOfCompletion:
           res.data.material_details.estimatedDaysOfCompletion,
-          Validators.required,
-        ],
-        notes: [''],
       });
 
       const savedMaterial: any[] = [];

@@ -22,6 +22,11 @@ export class Form2Component implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.FormGroupData = this.formBuilder.group({
+      file: [''],
+      notes: [''],
+    });
+
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
