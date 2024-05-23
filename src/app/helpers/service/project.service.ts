@@ -50,6 +50,14 @@ export class ProjectService {
     );
   }
 
+  // Approve status Arraival API
+  approveStatusArraival(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/arrival/${orderID}`,
+      obj
+    );
+  }
+
   // Approve status Production API
   approveStatusProduction(obj: any, orderID: string) {
     return this.http.post<any>(
