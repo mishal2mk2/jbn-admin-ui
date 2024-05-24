@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Form2Component implements OnInit {
   FormGroupData!: FormGroup;
-
+  drawingFileToUpload:File|null=null;
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -77,7 +77,10 @@ export class Form2Component implements OnInit {
         this.FormGroupData.controls['file'].setErrors({
           maxSize: true,
         });
+        return;
       }
+
+      this.drawingFileToUpload= files[0];
     }
   }
 
@@ -89,11 +92,15 @@ export class Form2Component implements OnInit {
     }
 
     const { file, notes } = this.FormGroupData.controls;
+console.log(file,'file===========');
 
     const form = new FormData();
 
+    if(this.drawingFileToUpload){
+      form.append('drawing', this.drawingFileToUpload);
+    }
+
     form.append('isApproved', String(type === 'SUBMIT' ? false : true)); // Change the value for approve and submit Logic
-    form.append('drawing', file.value);
     form.append('notes', notes.value);
 
     // Take the Project ID form the query params
