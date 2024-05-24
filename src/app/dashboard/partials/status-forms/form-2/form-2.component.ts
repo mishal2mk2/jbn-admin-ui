@@ -92,7 +92,6 @@ export class Form2Component implements OnInit {
     }
 
     const { file, notes } = this.FormGroupData.controls;
-console.log(file,'file===========');
 
     const form = new FormData();
 
