@@ -139,17 +139,17 @@
       <div class="p-4 md:p-5 space-y-4">
         <!-- (FYI-Salman)-forms for each flow approval -->
         @if (modalSelectedOrderStatus===2) {
-        <app-form-2></app-form-2>
+        <app-form-2 [isRefreshDataInput]="isRefreshData"></app-form-2>
         } @else if(modalSelectedOrderStatus===3) {
-        <app-form-3></app-form-3>
+        <app-form-3 [isRefreshDataInput]="isRefreshData"></app-form-3>
         } @else if(modalSelectedOrderStatus===4) {
-        <app-form-4></app-form-4>
+        <app-form-4 [isRefreshDataInput]="isRefreshData"></app-form-4>
         } @else if(modalSelectedOrderStatus===5) {
-        <app-form-5></app-form-5>
+        <app-form-5 [isRefreshDataInput]="isRefreshData"></app-form-5>
         } @else if(modalSelectedOrderStatus===6) {
-        <app-form-6></app-form-6>
+        <app-form-6 [isRefreshDataInput]="isRefreshData"></app-form-6>
         } @else if(modalSelectedOrderStatus===7) {
-        <app-form-7></app-form-7>
+        <app-form-7 [isRefreshDataInput]="isRefreshData"></app-form-7>
         } @else if(modalSelectedOrderStatus===8) {
         <app-form-8></app-form-8>
         } @else if(modalSelectedOrderStatus===9) {

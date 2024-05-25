@@ -1,6 +1,6 @@
 import { ToastrService } from 'ngx-toastr';
 import { MaterialService } from './../../../../helpers/service/material.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../../helpers/service/project.service';
@@ -10,7 +10,9 @@ import { ProjectService } from '../../../../helpers/service/project.service';
   templateUrl: './form-3.component.html',
   styleUrl: './form-3.component.css',
 })
-export class Form3Component implements OnInit {
+export class Form3Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
   materials: any = [];
 
@@ -69,6 +71,12 @@ export class Form3Component implements OnInit {
         this.materialsAdded = savedMaterial;
       }
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   // Get the total values

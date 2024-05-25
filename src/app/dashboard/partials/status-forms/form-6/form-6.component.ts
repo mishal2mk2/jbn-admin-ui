@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ProjectService } from '../../../../helpers/service/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './form-6.component.html',
   styleUrl: './form-6.component.css',
 })
-export class Form6Component implements OnInit {
+export class Form6Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
   productionStatus = [
     {
@@ -80,6 +82,12 @@ export class Form6Component implements OnInit {
         });
       }
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   // Change the range option and change the starter

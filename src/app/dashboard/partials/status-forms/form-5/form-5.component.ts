@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../../helpers/service/project.service';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,9 @@ import { CommonService } from '../../../../helpers/service/common.service';
   templateUrl: './form-5.component.html',
   styleUrl: './form-5.component.css',
 })
-export class Form5Component implements OnInit {
+export class Form5Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
 
   constructor(
@@ -41,6 +43,12 @@ export class Form5Component implements OnInit {
         isArrived: data.isArrived,
       });
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   formSubmit(type: string) {

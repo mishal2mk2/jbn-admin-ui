@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +9,9 @@ import { ProjectService } from '../../../../helpers/service/project.service';
   templateUrl: './form-4.component.html',
   styleUrl: './form-4.component.css',
 })
-export class Form4Component implements OnInit {
+export class Form4Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
 
   constructor(
@@ -42,6 +44,12 @@ export class Form4Component implements OnInit {
             .paymentType,
       });
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   formSubmit(type: string) {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
 import { ProjectService } from '../../../../helpers/service/project.service';
@@ -10,9 +10,12 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './form-2.component.html',
   styleUrl: './form-2.component.css',
 })
-export class Form2Component implements OnInit {
+export class Form2Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
-  drawingFileToUpload:File|null=null;
+  drawingFileToUpload: File | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -44,6 +47,12 @@ export class Form2Component implements OnInit {
         });
       }
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   // Validate File size on Add file
@@ -80,7 +89,7 @@ export class Form2Component implements OnInit {
         return;
       }
 
-      this.drawingFileToUpload= files[0];
+      this.drawingFileToUpload = files[0];
     }
   }
 
@@ -95,7 +104,7 @@ export class Form2Component implements OnInit {
 
     const form = new FormData();
 
-    if(this.drawingFileToUpload){
+    if (this.drawingFileToUpload) {
       form.append('drawing', this.drawingFileToUpload);
     }
 

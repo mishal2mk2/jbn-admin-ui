@@ -20,6 +20,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   dropdownOpen: boolean = false;
   NavigateSubscription!: Subscription;
+  isRefreshData = 1;
 
   // Pagination variables
   currentPage = 1;
@@ -121,6 +122,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
         queryParams: { id: data.orderId },
         queryParamsHandling: 'merge',
       });
+
+      // Connect the event emitter
+      this.isRefreshData++;
 
       //modal toggle settings
       modal.classList.toggle('hidden');
