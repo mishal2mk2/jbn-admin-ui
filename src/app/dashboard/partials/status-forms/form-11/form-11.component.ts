@@ -33,7 +33,7 @@ export class Form11Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      if (res.data.attachments.serviceReportFile.length) {
+      if (res.data.attachments.closingReportFile.length) {
         // Set the form data
         this.FormGroupData = this.formBuilder.group({
           closingReport: [''],
