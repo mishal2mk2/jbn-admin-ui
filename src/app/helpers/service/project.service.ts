@@ -82,4 +82,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Awaiting Service API
+  approveStatusAwaitingService(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/awaiting-service/${orderID}`,
+      obj
+    );
+  }
 }

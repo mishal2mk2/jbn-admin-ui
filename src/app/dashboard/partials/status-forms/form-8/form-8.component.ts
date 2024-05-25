@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,9 @@ import { ProjectService } from '../../../../helpers/service/project.service';
   templateUrl: './form-8.component.html',
   styleUrl: './form-8.component.css',
 })
-export class Form8Component implements OnInit {
+export class Form8Component implements OnInit, OnChanges {
+  @Input() isRefreshDataInput!: number;
+
   FormGroupData!: FormGroup;
 
   constructor(
@@ -44,6 +46,12 @@ export class Form8Component implements OnInit {
         });
       }
     });
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.isRefreshDataInput) {
+      this.ngOnInit();
+    }
   }
 
   // Validate File size on Add file
