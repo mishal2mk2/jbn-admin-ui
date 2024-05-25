@@ -106,4 +106,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Cancell API
+  approveStatusCancell(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/cancel/${orderID}`,
+      obj
+    );
+  }
 }

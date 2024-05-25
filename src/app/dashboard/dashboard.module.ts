@@ -26,6 +26,7 @@ import { Form12Component } from './partials/status-forms/form-12/form-12.compone
 import { StatusCodeToValuePipe } from './project/pipe/status-code-to-value.pipe';
 import { ProdStatusToValuePipe } from './project/pipe/prod-status-to-value.pipe';
 import { DarkModeToggleButtonComponent } from './partials/dark-mode-toggle-button/dark-mode-toggle-button.component';
+import { Form13Component } from './partials/status-forms/form-13/form-13.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DarkModeToggleButtonComponent } from './partials/dark-mode-toggle-butto
     StatusCodeToValuePipe,
     ProdStatusToValuePipe,
     DarkModeToggleButtonComponent,
+    Form13Component,
   ],
   imports: [
     CommonModule,
