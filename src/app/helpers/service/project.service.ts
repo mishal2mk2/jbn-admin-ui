@@ -90,4 +90,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Service API
+  approveStatusService(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/service/${orderID}`,
+      obj
+    );
+  }
 }

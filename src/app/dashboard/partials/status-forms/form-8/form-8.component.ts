@@ -100,7 +100,7 @@ export class Form8Component implements OnInit, OnChanges {
       return;
     }
 
-    const { file, notes } = this.FormGroupData.controls;
+    const { notes } = this.FormGroupData.controls;
 
     const form = new FormData();
 
