@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectService } from '../../../../helpers/service/project.service';
 
 @Component({
   selector: 'app-form-8',
@@ -12,13 +15,34 @@ export class Form8Component implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private _FormValidationService: FormValidationService
+    private _FormValidationService: FormValidationService,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private _ProjectService: ProjectService
   ) {}
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       file: ['', Validators.required],
       notes: [''],
+    });
+
+    // Take the Project Data
+    const { id } = this.route.snapshot.queryParams;
+    this._ProjectService.getProjectById(id).subscribe((res) => {
+      if (res.data.attachments.installationFile.length) {
+        // Set the form data
+        this.FormGroupData = this.formBuilder.group({
+          file: [''],
+          notes: [res.data.notes],
+        });
+      } else {
+        // Set the form data
+        this.FormGroupData = this.formBuilder.group({
+          file: ['', Validators.required],
+          notes: [res.data.notes],
+        });
+      }
     });
   }
 
@@ -57,11 +81,33 @@ export class Form8Component implements OnInit {
     }
   }
 
-  formSubmit() {
+  formSubmit(type: string) {
     // Check the form validation is complete
     if (this.FormGroupData.invalid) {
       this.FormGroupData.markAllAsTouched();
       return;
     }
+
+    const { file, notes } = this.FormGroupData.controls;
+
+    const form = new FormData();
+
+    form.append('isApproved', String(type === 'SUBMIT' ? false : true));
+    form.append('installation', file.value);
+    form.append('notes', notes.value);
+
+    // Take the Project ID form the query params
+    const { id } = this.route.snapshot.queryParams;
+
+    // Send the APi for change the Status or submit
+    this._ProjectService.approveStatusInstallation(form, id).subscribe({
+      next: () => {
+        this.toastr.success('Successfully update project status', 'Success');
+        this._ProjectService.$ProjectNavigateDataTransfer.emit();
+      },
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
   }
 }

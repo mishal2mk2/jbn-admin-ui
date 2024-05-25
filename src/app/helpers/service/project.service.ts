@@ -74,4 +74,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status installation API
+  approveStatusInstallation(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/installation/${orderID}`,
+      obj
+    );
+  }
 }
