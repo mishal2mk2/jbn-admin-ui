@@ -98,4 +98,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Closed API
+  approveStatusClose(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/close/${orderID}`,
+      obj
+    );
+  }
 }

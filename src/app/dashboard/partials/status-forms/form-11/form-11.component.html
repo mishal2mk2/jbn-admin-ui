@@ -1,17 +1,54 @@
-<form class="mx-auto">
+<form class="mx-auto" [formGroup]="FormGroupData">
 
-  <div class="p-4 md:p-5 text-center">
-    <h3 class="mb-5 text-xl font-normal text-gray-500 dark:text-gray-400">The job was successfully finished; are you
-      ready to cLose it ?
-    </h3>
+  <div class="grid grid-cols-2 gap-3 my-2">
 
-    <button data-modal-hide="popup-modal" type="button"
-      class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-      Yes, I'm sure
+    <!-- Closing Report File section -->
+    <div class="mb-5">
+      <label for="closingReport" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+        Closing Report File
+      </label>
+
+      <input
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        aria-describedby="closingReport_help" id="closingReport" formControlName="closingReport" type="file"
+        accept="image/*, application/pdf" [ngClass]="{
+        'is-invalid-form':
+          FormGroupData.controls['closingReport'].invalid &&
+          (FormGroupData.controls['closingReport'].touched)
+      }" (change)="validateFileSize($event,'closingReport')">
+      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="closingReport_help"> Max upload file Size 5MB</div>
+
+      <!-- Error Span -->
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'maxSize' , message: 'Closing Report File size should be less than 5MB' , control: FormGroupData.controls['closingReport']}">
+      </app-form-error-span>
+
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'invalidFile' , message: 'Accept the image or PDF file only ..!' , control: FormGroupData.controls['closingReport']}">
+      </app-form-error-span>
+
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'required' , message: 'Closing Report File is required' , control: FormGroupData.controls['closingReport']}">
+      </app-form-error-span>
+    </div>
+
+    <!-- Notes -->
+    <div class="mb-5">
+      <label for="notes" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">Notes</label>
+      <textarea type="text" id="notes" rows="4" formControlName="notes"
+        class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-3">
+    <button type="submit" (click)="formSubmit('SUBMIT')"
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      Submit
     </button>
 
-    <button data-modal-hide="popup-modal" type="button"
-      class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No,
-      cancel</button>
+    <button type="button" (click)="formSubmit('APPROVE')"
+      class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+      Approve
+    </button>
   </div>
 </form>

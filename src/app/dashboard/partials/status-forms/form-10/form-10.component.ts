@@ -27,7 +27,6 @@ export class Form10Component implements OnInit, OnChanges {
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       serviceReport: ['', Validators.required],
-      // closingReport: ['', Validators.required],
       notes: [''],
     });
 

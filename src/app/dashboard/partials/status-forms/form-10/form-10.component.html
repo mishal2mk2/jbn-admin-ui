@@ -31,36 +31,6 @@
       </app-form-error-span>
     </div>
 
-    <!-- Closing Report File section -->
-    <!-- <div class="mb-5">
-      <label for="closingReport" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
-        Closing Report File
-      </label>
-
-      <input
-        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        aria-describedby="closingReport_help" id="closingReport" formControlName="closingReport" type="file"
-        accept="image/*, application/pdf" [ngClass]="{
-        'is-invalid-form':
-          FormGroupData.controls['closingReport'].invalid &&
-          (FormGroupData.controls['closingReport'].touched)
-      }" (change)="validateFileSize($event,'closingReport')">
-      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="closingReport_help"> Max upload file Size 5MB</div> -->
-
-    <!-- Error Span -->
-    <!-- <app-form-error-span
-        [templateOutletContext]="{  validation: 'maxSize' , message: 'Closing Report File size should be less than 5MB' , control: FormGroupData.controls['closingReport']}">
-      </app-form-error-span>
-
-      <app-form-error-span
-        [templateOutletContext]="{  validation: 'invalidFile' , message: 'Accept the image or PDF file only ..!' , control: FormGroupData.controls['closingReport']}">
-      </app-form-error-span>
-
-      <app-form-error-span
-        [templateOutletContext]="{  validation: 'required' , message: 'Closing Report File is required' , control: FormGroupData.controls['closingReport']}">
-      </app-form-error-span>
-    </div> -->
-
     <!-- Notes -->
     <div class="mb-5">
       <label for="notes" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">Notes</label>
