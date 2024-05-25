@@ -14,6 +14,7 @@ export class Form8Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
 
   FormGroupData!: FormGroup;
+  installationFileToUpload: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,7 +86,10 @@ export class Form8Component implements OnInit, OnChanges {
         this.FormGroupData.controls['file'].setErrors({
           maxSize: true,
         });
+        return;
       }
+
+      this.installationFileToUpload = files[0];
     }
   }
 
@@ -100,8 +104,10 @@ export class Form8Component implements OnInit, OnChanges {
 
     const form = new FormData();
 
+    if (this.installationFileToUpload) {
+      form.append('installation', this.installationFileToUpload);
+    }
     form.append('isApproved', String(type === 'SUBMIT' ? false : true));
-    form.append('installation', file.value);
     form.append('notes', notes.value);
 
     // Take the Project ID form the query params
