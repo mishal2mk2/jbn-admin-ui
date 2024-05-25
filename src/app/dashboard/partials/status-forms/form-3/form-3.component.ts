@@ -48,24 +48,26 @@ export class Form3Component implements OnInit {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      this.FormGroupData.patchValue({
-        estimatedDaysOfCompletion:
-          res.data.material_details.estimatedDaysOfCompletion,
-      });
-
-      const savedMaterial: any[] = [];
-
-      res.data.material_details.item.forEach((el: any) => {
-        savedMaterial.push({
-          itemId: el.item_id._id,
-          itemUnit: el.item_id.unitCalculated,
-          itemName: el.item_id.name,
-          itemQuantity: el.quantity,
-          itemPrice: el.item_id.price,
+      if (res.data.material_details) {
+        this.FormGroupData.patchValue({
+          estimatedDaysOfCompletion:
+            res.data.material_details.estimatedDaysOfCompletion,
         });
-      });
 
-      this.materialsAdded = savedMaterial;
+        const savedMaterial: any[] = [];
+
+        res.data.material_details.item.forEach((el: any) => {
+          savedMaterial.push({
+            itemId: el.item_id._id,
+            itemUnit: el.item_id.unitCalculated,
+            itemName: el.item_id.name,
+            itemQuantity: el.quantity,
+            itemPrice: el.item_id.price,
+          });
+        });
+
+        this.materialsAdded = savedMaterial;
+      }
     });
   }
 
