@@ -65,4 +65,12 @@ export class ProjectService {
       obj
     );
   }
+
+  // Approve status Delivary API
+  approveStatusDelivery(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/delivery/${orderID}`,
+      obj
+    );
+  }
 }
