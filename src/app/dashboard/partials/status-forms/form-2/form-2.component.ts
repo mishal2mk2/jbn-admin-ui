@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
-import { ProjectService } from '../../../../helpers/service/project.service';
+import { ProjectService } from '../../../project/service/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 

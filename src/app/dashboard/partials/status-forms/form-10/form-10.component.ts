@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectService } from '../../../../helpers/service/project.service';
+import { ProjectService } from '../../../project/service/project.service';
 
 @Component({
   selector: 'app-form-10',

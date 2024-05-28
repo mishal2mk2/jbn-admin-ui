@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../../../helpers/service/project.service';
+import { ProjectService } from '../service/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 

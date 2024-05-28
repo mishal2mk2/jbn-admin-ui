@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProjectService } from '../../../helpers/service/project.service';
+import { ProjectService } from '../service/project.service';
 import { initFlowbite } from 'flowbite';
 import { Subscription } from 'rxjs';
 

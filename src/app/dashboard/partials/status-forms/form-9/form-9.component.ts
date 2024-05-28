@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { ProjectService } from '../../../../helpers/service/project.service';
+import { ProjectService } from '../../../project/service/project.service';
 
 @Component({
   selector: 'app-form-9',

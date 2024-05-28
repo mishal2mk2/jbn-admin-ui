@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MaterialService } from '../material.service';
+import { MaterialService } from '../service/material.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -17,31 +17,36 @@ export class MaterialListComponent {
   itemsPerPage = 20;
   searchTerm = ''; // Variable to store the search term
 
-  materials: { name: string; _id: string; price: number; unitCalculated: string; code: string }[] = [];
+  materials: {
+    name: string;
+    _id: string;
+    price: number;
+    unitCalculated: string;
+    code: string;
+  }[] = [];
 
   FormGroupData!: FormGroup;
   isUpdate: boolean = false;
   updateListData: any = {};
 
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private materialService: MaterialService,
+    private _MaterialService: MaterialService,
     private toastr: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     //load material list
-    this.materialService.getItemList().subscribe({
+    this._MaterialService.getAllMaterialData().subscribe({
       next: (data: any) => {
         this.materials = data.data;
       },
-      error: err => {
-        this.toastr.error("Error while loading item list", "Error")
-      }
-    })
+      error: (err) => {
+        this.toastr.error('Error while loading item list', 'Error');
+      },
+    });
     //close modal
     this.closeModal();
 
@@ -50,7 +55,6 @@ export class MaterialListComponent {
       unitCalculated: ['', Validators.required],
       price: ['', Validators.required],
     });
-
   }
 
   // Close the modal section
@@ -75,18 +79,22 @@ export class MaterialListComponent {
 
   // Function to get the current page of materials
   getCurrentPageMaterials() {
-    const filteredMaterials = this.materials.filter(
-      (material) =>{
-        if(!material.name){
-          debugger;
-        }
-        return material.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        material.unitCalculated.toString().toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+    const filteredMaterials = this.materials.filter((material) => {
+      if (!material.name) {
+        debugger;
+      }
+      return (
+        material.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        material.unitCalculated
+          .toString()
+          .toLowerCase()
+          .includes(this.searchTerm.toLowerCase()) ||
         material.price
           .toString()
           .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())}
-    );
+          .includes(this.searchTerm.toLowerCase())
+      );
+    });
 
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
@@ -111,51 +119,52 @@ export class MaterialListComponent {
       this.FormGroupData.markAllAsTouched();
       return;
     }
-    this.materialService.createItem(this.FormGroupData.value).subscribe({
+    this._MaterialService.createItem(this.FormGroupData.value).subscribe({
       next: (data: any) => {
         //pushing new created item to materials array
         const { name, unitCalculated, code, price, _id } = data.data;
         this.materials.push({ name, unitCalculated, code, price, _id });
 
-        this.toastr.success("Item added succefully", "Success");
+        this.toastr.success('Item added succefully', 'Success');
       },
       error: (err: any) => {
         console.log(err);
-        if(err.message){
-          this.toastr.error(err.message, "Error");
-        }else{
-          this.toastr.error("Some error occured", "Error");
+        if (err.message) {
+          this.toastr.error(err.message, 'Error');
+        } else {
+          this.toastr.error('Some error occured', 'Error');
         }
-      }
-    })
+      },
+    });
     this.closeModal();
-
   }
   deleteItem(id: any) {
-    this.materialService.deleteItem(id).subscribe({
+    this._MaterialService.deleteItem(id).subscribe({
       next: (data: any) => {
         console.log(data);
         //filtering material from existing list
         this.materials = this.materials.filter((mat) => {
           return mat._id !== id;
-        })
+        });
 
-        this.toastr.success("Item deleted succefully", "Success");
+        this.toastr.success('Item deleted succefully', 'Success');
       },
       error: (err: any) => {
         console.log(err);
-        this.toastr.error("Some error occured", "Error");
-      }
-    })
-
+        this.toastr.error('Some error occured', 'Error');
+      },
+    });
   }
   updateItem() {
     if (this.FormGroupData.invalid) {
       this.FormGroupData.markAllAsTouched();
       return;
     }
-    const updatedData = Object.assign(this.updateListData, this.FormGroupData.value);
-    this.materialService.updateItem(updatedData).subscribe({
+    const updatedData = Object.assign(
+      this.updateListData,
+      this.FormGroupData.value
+    );
+    this._MaterialService.updateItem(updatedData).subscribe({
       next: (data: any) => {
         console.log(data);
         const { _id, name, unitCalculated, price, code } = data.data;
@@ -163,23 +172,22 @@ export class MaterialListComponent {
           if (mat._id === _id) {
             mat = { _id, name, unitCalculated, price, code };
           }
-          return mat
-        })
-        this.toastr.success("Item edited succefully", "Success");
+          return mat;
+        });
+        this.toastr.success('Item edited succefully', 'Success');
       },
       error: (err: any) => {
-        this.toastr.error("Some error occured", "Error");
-      }
-    })
+        this.toastr.error('Some error occured', 'Error');
+      },
+    });
     this.closeModal();
-    this.isUpdate = false
+    this.isUpdate = false;
     this.updateListData = {};
     this.FormGroupData = this.formBuilder.group({
       name: ['', Validators.required],
       unitCalculated: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', Validators.required],
     });
-
   }
 
   updateModal(data: any) {
@@ -193,14 +201,13 @@ export class MaterialListComponent {
       modalOverlay.classList.toggle('hidden');
     }
 
-    this.isUpdate = true
+    this.isUpdate = true;
     this.updateListData = data;
     this.FormGroupData = this.formBuilder.group({
       name: [data.name, Validators.required],
       unitCalculated: [data.unitCalculated, Validators.required],
       price: [data.price, Validators.required],
     });
-    this.FormGroupData.valueChanges
+    this.FormGroupData.valueChanges;
   }
-
 }
