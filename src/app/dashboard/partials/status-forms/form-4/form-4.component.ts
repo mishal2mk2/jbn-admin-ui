@@ -13,6 +13,7 @@ export class Form4Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
 
   FormGroupData!: FormGroup;
+  TransactionAddedData: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,18 +32,11 @@ export class Form4Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { data } = res;
+      const { transactionDetails } = res.data;
 
-      this.FormGroupData.patchValue({
-        transactionId:
-          data.transactionDetails[data.transactionDetails.length - 1]
-            .transactionId,
-        amount:
-          data.transactionDetails[data.transactionDetails.length - 1].amount,
-        paymentType:
-          data.transactionDetails[data.transactionDetails.length - 1]
-            .paymentType,
-      });
+      if (transactionDetails) {
+        this.TransactionAddedData = transactionDetails;
+      }
     });
   }
 
