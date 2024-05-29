@@ -112,7 +112,16 @@ export class Form6Component implements OnInit, OnChanges {
     // Check Others are Completed
     if (isValid) {
       this.productionStatus[status].isStarted = true;
+
+      if (
+        this.productionStatus[status].isStarted &&
+        this.productionStatus[status].completed === 100
+      ) {
+        this.productionStatus[status + 1].isStarted = true;
+      }
     }
+
+    console.log(this.productionStatus);
   }
 
   formSubmit(type: string) {
