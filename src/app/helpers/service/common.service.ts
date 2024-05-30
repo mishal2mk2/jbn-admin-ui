@@ -5,8 +5,11 @@ import * as jwt_decode from 'jwt-decode';
   providedIn: 'root',
 })
 export class CommonService {
+  MainAdminRoleArray = ['MD', 'GM', 'HR'];
+
   constructor() {}
 
+  // Get all the user data from the Token
   getAllUserData() {
     const token = window.sessionStorage.getItem('_TOKEN');
 
