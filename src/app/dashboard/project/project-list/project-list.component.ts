@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { initFlowbite } from 'flowbite';
 import { Subscription } from 'rxjs';
+import { CommonService } from '../../../helpers/service/common.service';
 
 @Component({
   selector: 'app-project-list',
@@ -34,10 +35,11 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _CommonService: CommonService
   ) {}
 
-  products: any = [];
+  products: any[] = [];
 
   ngOnInit(): void {
     this.closeModal();
@@ -62,6 +64,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   getAllProduct() {
     this._ProjectService.getAllProjects().subscribe((res) => {
       this.products = res.data;
+
+      // this.products.forEach((e:any)=>)
+      this.products = this.products.map((item) => {
+        return {
+          ...item,
+          isAccessToOpen: this._CommonService.statusRoleBasesAccess(
+            item.orderStatus
+          ),
+        };
+      });
     });
   }
 
@@ -112,6 +124,16 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   }
 
   toggleModal(data: { orderStatus: number; orderId: string }) {
+    // Check the role based Access Logic
+    const isHaveRoleAccess = this._CommonService.statusRoleBasesAccess(
+      data.orderStatus
+    );
+
+    if (!isHaveRoleAccess) {
+      return;
+    }
+
+    // Modal Section Logic
     const modal = this.defaultModal.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 

@@ -31,6 +31,91 @@ export class CommonService {
     }
   }
 
+  // Status section Role Based Access
+  private statusRoleBasesAccessCore(accessRoleArray: any[]) {
+    const userData = this.getAllUserData();
+
+    if (userData) {
+      const { role } = userData;
+
+      const isHaveRoleAccess = accessRoleArray.includes(role);
+
+      if (!isHaveRoleAccess) {
+        return false;
+      }
+
+      return true;
+    }
+    return false;
+  }
+
+  // Status section Role Based Access
+  statusRoleBasesAccess(orderStatus: number) {
+    let isHaveRoleAccess;
+
+    // Check the role based Access Logic
+    if (orderStatus === 2) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'DE',
+      ]);
+    } else if (orderStatus === 3) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'PM',
+        'OM',
+      ]);
+    } else if (orderStatus === 4) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'AC',
+      ]);
+    } else if (orderStatus === 5) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'OM',
+      ]);
+    } else if (orderStatus === 6) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'SV',
+      ]);
+    } else if (orderStatus === 7) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'PM',
+        'OM',
+      ]);
+    } else if (orderStatus === 8) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'SV',
+      ]);
+    } else if (orderStatus === 9) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    } else if (orderStatus === 10) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    } else if (orderStatus === 11) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    } else if (orderStatus === 12) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    } else if (orderStatus === 13) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    }
+
+    return isHaveRoleAccess;
+  }
+
   // Set the Date to yyyy-MM-dd Format
   formatDateToYYYY(dateStr: string) {
     const date = new Date(dateStr);
