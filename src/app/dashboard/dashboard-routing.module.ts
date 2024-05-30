@@ -7,7 +7,7 @@ import { MaterialListComponent } from './material/material-list/material-list.co
 import { ProjectDetailsComponent } from './project/project-details/project-details.component';
 import { ProjectCreateComponent } from './project/project-create/project-create.component';
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
-import { createProjectGuard } from '../helpers/guard/create-project.guard';
+import { mainAdminRoleGuard } from '../helpers/guard/main-admin-role.guard';
 
 const routes: Routes = [
   {
@@ -24,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: 'project/create',
-        canActivate: [createProjectGuard],
+        canActivate: [mainAdminRoleGuard],
         component: ProjectCreateComponent,
       },
       {
@@ -37,10 +37,12 @@ const routes: Routes = [
       },
       {
         path: 'users',
+        canActivate: [mainAdminRoleGuard],
         component: UserListComponent,
       },
       {
         path: 'materials',
+        canActivate: [mainAdminRoleGuard],
         component: MaterialListComponent,
       },
     ],

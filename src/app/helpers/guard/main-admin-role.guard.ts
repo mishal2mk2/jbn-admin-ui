@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { CommonService } from '../service/common.service';
 
-export const createProjectGuard: CanActivateFn = (route, state) => {
+export const mainAdminRoleGuard: CanActivateFn = (route, state) => {
   const _CommonService = inject(CommonService);
   const userData = _CommonService.getAllUserData();
 

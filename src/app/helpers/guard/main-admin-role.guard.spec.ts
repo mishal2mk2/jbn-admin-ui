@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn } from '@angular/router';
 
-import { createProjectGuard } from './create-project.guard';
+import { mainAdminRoleGuard } from './main-admin-role.guard';
 
-describe('createProjectGuard', () => {
+describe('mainAdminRoleGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => createProjectGuard(...guardParameters));
+      TestBed.runInInjectionContext(() => mainAdminRoleGuard(...guardParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
