@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../../../helpers/service/common.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,7 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent implements OnInit {
-  constructor() {}
+  isHaveRoleAccess = false;
 
-  ngOnInit(): void {}
+  constructor(private _CommonService: CommonService) {}
+
+  ngOnInit(): void {
+    this.roleBaseAccess();
+  }
+
+  // Set the role base section code
+  roleBaseAccess() {
+    const userData = this._CommonService.getAllUserData();
+    if (userData) {
+      const { role } = userData;
+      this.isHaveRoleAccess =
+        this._CommonService.MainAdminRoleArray.includes(role);
+    }
+  }
 }
