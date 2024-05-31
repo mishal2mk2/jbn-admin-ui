@@ -212,20 +212,20 @@
             <span class="font-semibold text-gray-900 dark:text-white">Drawing file</span>
             @if (orderData?.attachments?.drawingFile.length>0) {
             @for (file of orderData.attachments.drawingFile; track file) {
-            <a href="{{file.url}}"
-              class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
-              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                <path fill-rule="evenodd"
-                  d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
-                  clip-rule="evenodd" />
-                <path fill-rule="evenodd"
-                  d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
-            </a>
-            }
+              <a href="{{file.url}}"
+                class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd"
+                    d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z"
+                    clip-rule="evenodd" />
+                  <path fill-rule="evenodd"
+                    d="M9.657 15.874 7.358 13H5a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.358l-2.3 2.874a3 3 0 0 1-4.685 0ZM17 16a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H17Z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="flex-1 overflow-hidden whitespace-nowrap text-ellipsis">{{file.url.split('_')[1]}}</span>
+              </a>
+              }
             }@else {
             <p class="text-base font-normal text-gray-500 dark:text-gray-400">
               No files attached
@@ -236,8 +236,8 @@
           </div>
           <div>
             <span class="font-semibold text-gray-900 dark:text-white">Material Estimate</span>
-            @if (orderData?.attachments?.materialEstimateFile.length>0) {
-            @for (file of orderData.attachments.materialEstimateFile; track file) {
+            @if (orderData?.attachments?.invoiceFile.length>0) {
+            @for (file of orderData.attachments.invoiceFile; track file) {
             <a href="{{file.url}}"
               class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
               <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
