@@ -1,6 +1,38 @@
 <form class="mx-auto" [formGroup]="FormGroupData">
 
+  <app-file-manage-modal [FileArray]="deliveryFileArray"></app-file-manage-modal>
+
+
   <div class="grid grid-cols-3 gap-3 my-2">
+    <!-- Delivery File section -->
+    <div class="mb-5">
+      <label for="file" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+        Delivery File
+      </label>
+
+      <input
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+        aria-describedby="file_help" id="file" formControlName="file" type="file" accept="image/*, application/pdf"
+        [ngClass]="{
+          'is-invalid-form':
+            FormGroupData.controls['file'].invalid &&
+            (FormGroupData.controls['file'].touched)
+        }" (change)="validateFileSize($event)">
+      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_help"> Max upload file Size 5MB</div>
+
+      <!-- Error Span -->
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'maxSize' , message: 'Delivery file size should be less than 5MB' , control: FormGroupData.controls['file']}">
+      </app-form-error-span>
+
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'invalidFile' , message: 'Accept the image or PDF file only ..!' , control: FormGroupData.controls['file']}">
+      </app-form-error-span>
+
+      <app-form-error-span
+        [templateOutletContext]="{  validation: 'required' , message: 'Delivery file is required' , control: FormGroupData.controls['file']}">
+      </app-form-error-span>
+    </div>
 
     <!-- Delivery Vehicle Number section -->
     <div class="mb-5">

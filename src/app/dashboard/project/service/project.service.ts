@@ -27,6 +27,14 @@ export class ProjectService {
     return this.http.post<any>(`${this.AUTH_API}/project/${id}`, {});
   }
 
+  // Project File Upload API
+  projectFileUpload(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/fileUpload/${orderID}`,
+      obj
+    );
+  }
+
   // Approve Status Drawing approve and submit API
   approveStatusDrawing(obj: any, orderID: string) {
     return this.http.post<any>(

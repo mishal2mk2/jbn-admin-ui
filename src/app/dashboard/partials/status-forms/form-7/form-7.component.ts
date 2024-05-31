@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
-import { Subscription } from 'rxjs';
+import { FormValidationService } from '../../../../helpers/service/form-validation.service';
 
 @Component({
   selector: 'app-form-7',
@@ -14,16 +14,20 @@ export class Form7Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
 
   FormGroupData!: FormGroup;
+  deliveryFileToUpload: File | null = null;
+  deliveryFileArray: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
+    private _FormValidationService: FormValidationService,
     private _ProjectService: ProjectService
   ) {}
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
+      file: [''],
       deliveryVehicleNumber: [
         '',
         [Validators.required, Validators.minLength(4)],
@@ -34,13 +38,15 @@ export class Form7Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { delivery } = res.data;
+      const { delivery, attachments } = res.data;
 
       if (delivery) {
         this.FormGroupData.patchValue({
           deliveryVehicleNumber: delivery.vehicleNumber,
           driverNumber: delivery.driverNumber,
         });
+
+        this.deliveryFileArray = attachments.invoiceFile;
       }
     });
   }
@@ -51,6 +57,44 @@ export class Form7Component implements OnInit, OnChanges {
     }
   }
 
+  // Validate File size on Add file
+  validateFileSize(event: Event) {
+    // Check the File size more the 5mb and if true
+    const { files } = event.target as HTMLInputElement;
+
+    if (files) {
+      // Check the is File
+      if (!this._FormValidationService.isValidImagePdfFileType(files)) {
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+
+        this.FormGroupData.controls['file'].setErrors({
+          invalidFile: true,
+        });
+
+        return;
+      }
+
+      // Check the File size
+      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      const selectFile = files[0];
+
+      if (selectFile?.size > maxSize) {
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+
+        this.FormGroupData.controls['file'].setErrors({
+          maxSize: true,
+        });
+        return;
+      }
+
+      this.deliveryFileToUpload = files[0];
+    }
+  }
+
   formSubmit(type: string) {
     // Check the form validation is complete
     if (this.FormGroupData.invalid) {
@@ -58,16 +102,33 @@ export class Form7Component implements OnInit, OnChanges {
       return;
     }
 
+    // Take the Project ID form the query params
+    const { id } = this.route.snapshot.queryParams;
+
     const { driverNumber, deliveryVehicleNumber } = this.FormGroupData.controls;
 
     const object = {
       isApproved: type === 'SUBMIT' ? false : true,
       driverNumber: driverNumber.value,
       vehicleNumber: deliveryVehicleNumber.value,
+      furnitureList: [],
     };
 
-    // Take the Project ID form the query params
-    const { id } = this.route.snapshot.queryParams;
+    if (this.deliveryFileToUpload) {
+      const formObjectFile = new FormData();
+
+      formObjectFile.append('file', this.deliveryFileToUpload);
+      formObjectFile.append('key', 'invoice');
+
+      this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          this.toastr.error(err.error.message, 'Error');
+        },
+      });
+    }
 
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusDelivery(object, id).subscribe({
