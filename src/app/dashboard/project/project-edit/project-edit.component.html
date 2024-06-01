@@ -1,399 +1,249 @@
-<div class="p-4 sm:ml-64 pt-20">
-  <form class="mx-auto">
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-      Basic Details
-    </h3>
-    <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
-      (unique order_number will generate automatically)
-    </p>
-    <div class="grid grid-cols-4 gap-3 my-2">
-      <div class="mb-5">
-        <label
-          for="order_number"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Order Number</label
-        >
-        <input
-          type="text"
-          id="order_number"
-          disabled
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="customer_name"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Customer</label
-        >
-        <input
-          type="text"
-          id="customer_name"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="customer_contact"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Customer Contact</label
-        >
-        <input
-          type="number"
-          id="customer_contact"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="created_date"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Created Date</label
-        >
-        <input
-          type="text"
-          id="created_date"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="start_date"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Order Est. Start</label
-        >
-        <input
-          type="text"
-          id="start_date"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="days_to_complete"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Est. Complete(days)</label
-        >
-        <input
-          type="text"
-          id="days_to_complete"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="order_status"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Order Status</label
-        >
-        <select id="order_status" class="w-full mb-6 text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-            <option selected>Choose a country</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
-          </select>
-      </div>
-      <div class="mb-5">
-        <label
-          for="order_total"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Order Total</label
-        >
-        <input
-          type="text"
-          id="order_total"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="order_notes"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Notes</label
-        >
-        <textarea
-          type="text"
-          id="order_notes"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        ></textarea>
-      </div>
-      <div class="mb-5">
-        <label
-          for="order_description"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Description</label
-        >
-        <textarea
-          type="text"
-          id="order_description"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        ></textarea>
-      </div>
+<form class="mx-auto">
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+    Basic Details
+  </h3>
+  <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
+    (unique order_number will generate automatically)
+  </p>
+  <div class="grid grid-cols-4 gap-3 my-2">
+    <div class="mb-5">
+      <label for="order_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Order
+        Number</label>
+      <input type="text" id="order_number" disabled
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
     </div>
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-      Materials
-    </h3>
-    <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
+    <div class="mb-5">
+      <label for="customer_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer</label>
+      <input type="text" id="customer_name"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="customer_contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Customer
+        Contact</label>
+      <input type="number" id="customer_contact"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="created_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created
+        Date</label>
+      <input type="text" id="created_date"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="start_date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Order Est.
+        Start</label>
+      <input type="text" id="start_date"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="days_to_complete" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Est.
+        Complete(days)</label>
+      <input type="text" id="days_to_complete"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="order_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Order
+        Status</label>
+      <select id="order_status"
+        class="w-full mb-6 text-xs text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Choose a country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+      </select>
+    </div>
+    <div class="mb-5">
+      <label for="order_total" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Order Total</label>
+      <input type="text" id="order_total"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+    </div>
+    <div class="mb-5">
+      <label for="order_notes" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Notes</label>
+      <textarea type="text" id="order_notes"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+    </div>
+    <div class="mb-5">
+      <label for="order_description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+      <textarea type="text" id="order_description"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+    </div>
+  </div>
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+    Materials
+  </h3>
+  <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
       (unique order_number will generate automatically)
     </p> -->
-    <app-material-edit></app-material-edit>
+  <app-material-edit></app-material-edit>
 
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-      Attachments
-    </h3>
-    <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+    Attachments
+  </h3>
+  <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
       (unique order_number will generate automatically)
     </p> -->
-    <div class="grid grid-cols-4 gap-3 my-2">
-      <div class="mb-5">
-        <label
-          for="drawing_file"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Drawing File</label
-        >
-        <input
-          type="file"
-          id="drawing_file"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="material_estimate"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Material Estimate</label
-        >
-        <input
-          type="file"
-          id="material_estimate"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="production_report"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Production Report</label
-        >
-        <input
-          type="file"
-          id="production_report"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="installation_photos"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Installation Photos</label
-        >
-        <input
-          type="file"
-          id="installation_photos"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        />
-      </div>
-      <div class="mb-5">
-        <label
-          for="closing_report"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Closing Report</label
-        >
-        <input
-          type="file"
-          id="closing_report"
-          class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-        />
-      </div>
+  <div class="grid grid-cols-4 gap-3 my-2">
+    <div class="mb-5">
+      <label for="drawing_file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Drawing
+        File</label>
+      <input type="file" id="drawing_file"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
     </div>
-    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-      Production Workflow
-    </h3>
-    <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
+    <div class="mb-5">
+      <label for="material_estimate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Material
+        Estimate</label>
+      <input type="file" id="material_estimate"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+    </div>
+    <div class="mb-5">
+      <label for="production_report" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production
+        Report</label>
+      <input type="file" id="production_report"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+    </div>
+    <div class="mb-5">
+      <label for="installation_photos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Installation
+        Photos</label>
+      <input type="file" id="installation_photos"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+    </div>
+    <div class="mb-5">
+      <label for="closing_report" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Closing
+        Report</label>
+      <input type="file" id="closing_report"
+        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" />
+    </div>
+  </div>
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+    Production Workflow
+  </h3>
+  <!-- <p class="text-base mb-3 font-normal text-gray-500 dark:text-gray-400">
       (unique order_number will generate automatically)
     </p> -->
-    <div class="grid grid-cols-4 gap-3 my-2">
-      <div class="mb-5">
-        <label
-          for="production_status"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Production Status</label
-        >
-        <select
-          id="production_status"
-          class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        >
-          <option selected>Choose a country</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="FR">France</option>
-          <option value="DE">Germany</option>
-        </select>
-      </div>
-      <div class="mb-5">
-        <label
-          for="supervisor"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          >Supervisor</label
-        >
-        <input
-          type="text"
-          id="supervisor"
-          class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
-      </div>
+  <div class="grid grid-cols-4 gap-3 my-2">
+    <div class="mb-5">
+      <label for="production_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Production
+        Status</label>
+      <select id="production_status"
+        class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option selected>Choose a country</option>
+        <option value="US">United States</option>
+        <option value="CA">Canada</option>
+        <option value="FR">France</option>
+        <option value="DE">Germany</option>
+      </select>
     </div>
-    <div
-      class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-    >
-      <ol
-        class="items-center w-full grid grid-cols-3 gap-5 rtl:space-x-reverse"
-      >
-        <li
-          class="flex items-center text-blue-600 dark:text-blue-500 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-blue-600 rounded-full shrink-0 dark:border-blue-500"
-          >
-            1
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Pressing</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-        <li
-          class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400"
-          >
-            2
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Cutting</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-        <li
-          class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400"
-          >
-            3
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Edgebanding</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-        <li
-          class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400"
-          >
-            4
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Boring</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-        <li
-          class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400"
-          >
-            5
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Checking</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-        <li
-          class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-        >
-          <span
-            class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400"
-          >
-            6
-          </span>
-          <span>
-            <h3 class="font-medium leading-tight">Packing</h3>
-            <p class="text-sm">
-              Completed:
-              <input
-                type="text"
-                id="small-input"
-                class="p-2 w-14 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />%
-            </p>
-          </span>
-        </li>
-      </ol>
+    <div class="mb-5">
+      <label for="supervisor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Supervisor</label>
+      <input type="text" id="supervisor"
+        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
     </div>
-    <br />
-    <br />
-    <footer
-      class="fixed bottom-0 left-0 z-50 p-2 w-full bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between dark:bg-gray-800 dark:border-gray-600"
-    >
-      <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"
-        >© 2023
-        <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>.
-        All Rights Reserved.
-      </span>
-      <ul
-        class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0"
-      >
-        <li>
-          <button
-            type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Submit
-          </button>
-        </li>
-      </ul>
-    </footer>
-  </form>
-</div>
+  </div>
+  <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <ol class="items-center w-full grid grid-cols-3 gap-5 rtl:space-x-reverse">
+      <li class="flex items-center text-blue-600 dark:text-blue-500 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-blue-600 rounded-full shrink-0 dark:border-blue-500">
+          1
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Pressing</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+      <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+          2
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Cutting</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+      <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+          3
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Edgebanding</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+      <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+          4
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Boring</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+      <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+          5
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Checking</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="w-14 p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+      <li class="flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse">
+        <span
+          class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+          6
+        </span>
+        <span>
+          <h3 class="font-medium leading-tight">Packing</h3>
+          <p class="text-sm">
+            Completed:
+            <input type="text" id="small-input"
+              class="p-2 w-14 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />%
+          </p>
+        </span>
+      </li>
+    </ol>
+  </div>
+  <br />
+  <br />
+  <footer
+    class="fixed bottom-0 left-0 z-50 p-2 w-full bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between dark:bg-gray-800 dark:border-gray-600">
+    <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023
+      <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a>.
+      All Rights Reserved.
+    </span>
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+      <li>
+        <button type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          Submit
+        </button>
+      </li>
+    </ul>
+  </footer>
+</form>

@@ -8,6 +8,7 @@ import { ProjectDetailsComponent } from './project/project-details/project-detai
 import { ProjectCreateComponent } from './project/project-create/project-create.component';
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 import { mainAdminRoleGuard } from '../helpers/guard/main-admin-role.guard';
+import { DashboardComponent } from './dashboard.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ProjectListComponent,
+        component: DashboardComponent,
       },
       {
         path: 'project',

@@ -1,5 +1,7 @@
-<div class="p-4 sm:ml-64 pt-20">
-  <div class="relative overflow-x-auto p-3 shadow-md sm:rounded-lg">
+
+
+
+  <div class="relative overflow-x-auto p-3 mt-4 shadow-md sm:rounded-lg ">
     <div class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
 
       <label for="table-search" class="sr-only">Search</label>
@@ -52,19 +54,23 @@
           <td class="px-6 py-4">
             @if (product.orderStatus === 1) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ORDER_ENTERING</span>
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ORDER
+              ENTERING</span>
             } @else if (product.orderStatus===2) {
             <span
               class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">DRAWING</span>
             } @else if (product.orderStatus===3) {
             <span
-              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">MATERIAL_ESTIMATE</span>
+              class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">MATERIAL
+              ESTIMATE</span>
             } @else if (product.orderStatus===4) {
             <span
-              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">WAITING_CONFIRMATION</span>
+              class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">WAITING
+              CONFIRMATION</span>
             } @else if (product.orderStatus===5) {
             <span
-              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">MATERIAL_ARRIVAL</span>
+              class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">MATERIAL
+              ARRIVAL</span>
             } @else if (product.orderStatus===6) {
             <span
               class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PRODUCTION</span>
@@ -76,13 +82,15 @@
               class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">INSTALLATION</span>
             } @else if (product.orderStatus===9) {
             <span
-              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">AWAITING_SERVICE</span>
+              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">AWAITING
+              SERVICE</span>
             } @else if (product.orderStatus===10) {
             <span
               class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">SERVICE</span>
             } @else if (product.orderStatus===11) {
             <span
-              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">TO_CLOSE</span>
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">TO
+              CLOSE</span>
             }@else if (product.orderStatus===12) {
             <span
               class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">CLOSED</span>
@@ -113,7 +121,7 @@
 
     </table>
   </div>
-</div>
+
 
 <!-- Main modal -->
 <div #statusChangeModal tabindex="-1" aria-hidden="true"

@@ -1,26 +1,39 @@
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+        <div
+            class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                 <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                     Create account
                 </h1>
-                <form class="space-y-4 md:space-y-6" #regForm = "ngForm" (ngSubmit)="onSubmit(regForm)">
+                <form class="space-y-4 md:space-y-6" [formGroup]="FormGroupData" (ngSubmit)="onRegister()">
                     <div>
-                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
-                        <input type="text" name="username" ngModel id="username" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Jake Paul" required="">
+                        <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                            name</label>
+                        <input type="text" formControlName="username" ngModel id="username"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Jake Paul" [ngClass]="{'is-invalid-form':FormGroupData.controls['username'].invalid && FormGroupData.controls['username'].touched}">
                     </div>
                     <div>
-                        <label for="mail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your username</label>
-                        <input type="email" name="mail" ngModel id="mail" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                        <label for="mail" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your
+                            username</label>
+                        <input type="email" formControlName="mail" ngModel id="mail"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@company.com" [ngClass]="{'is-invalid-form':FormGroupData.controls['mail'].invalid && FormGroupData.controls['mail'].touched}">
                     </div>
                     <div>
-                        <label for="mobile" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile</label>
-                        <input type="tel" name="mobile" ngModel id="mobile" placeholder="123123123" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        <label for="mobile"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mobile</label>
+                        <input type="tel" formControlName="mobile" ngModel id="mobile" placeholder="123123123"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            [ngClass]="{'is-invalid-form':FormGroupData.controls['mobile'].invalid && FormGroupData.controls['mobile'].touched}">
                     </div>
                     <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" ngModel id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        <label for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                        <input type="password" formControlName="password" ngModel id="password" placeholder="••••••••"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            [ngClass]="{'is-invalid-form':FormGroupData.controls['password'].invalid && FormGroupData.controls['password'].touched}">
                     </div>
                     <!-- Terms and conditions checkbox -->
                     <!-- <div class="flex items-start">
@@ -31,12 +44,15 @@
                           <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
                         </div>
                     </div> -->
-                    <button type="submit" class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create an account</button>
+                    <button type="submit"
+                        class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Create
+                        an account</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <a routerLink="/auth/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                        Already have an account? <a routerLink="/auth/login"
+                            class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                     </p>
                 </form>
             </div>
         </div>
     </div>
-  </section>
+</section>

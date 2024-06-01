@@ -22,7 +22,7 @@ export class ProjectCreateComponent implements OnInit {
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       clientName: ['', [Validators.required, Validators.minLength(4)]],
-      clientPhone: ['', Validators.required],
+      clientPhone: ['', [Validators.required,Validators.minLength(10)]],
       clientEmail: ['', [Validators.required, Validators.email]],
       addressCity: ['', [Validators.required]],
       addressLocation: ['', Validators.required],

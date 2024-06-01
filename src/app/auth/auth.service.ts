@@ -26,12 +26,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(body: ILoginBody) {
+  login(body: any) {
     const url = this.AUTH_API + '/auth/login';
     return this.http.post<ILoginReponse>(url, body, httpOptions);
   }
 
-  register(body: IRegisterBody) {
+  register(body: any) {
     const url = this.AUTH_API + '/auth/register';
     return this.http.post<IRegResponse>(url, body, httpOptions);
   }

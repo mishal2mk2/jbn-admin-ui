@@ -12,14 +12,31 @@ export class NavHeaderComponent implements OnInit {
   userDropdownOpen: boolean = false;
   isHaveRoleAccess = false;
 
+  userName:string='-';
+  userRole:string='-';
+
   constructor(
     private _AuthService: AuthService,
     private _CommonService: CommonService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.roleBaseAccess();
+    this.getUserNameAndRole();
+  }
+
+  getUserNameAndRole(){
+    const userData = this._CommonService.getAllUserData();
+    if(userData){
+      const {role,name} = userData;
+      this.userName=name;
+      this.userRole=role;
+    }else{
+      this.userName='-';
+      this.userRole='-';
+    }
+
   }
 
   // Set the role base section code

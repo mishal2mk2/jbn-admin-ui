@@ -23,7 +23,6 @@ export class UserListComponent implements OnInit {
     //Load UserList
     this.userService.getUserLIst().subscribe({
       next:(data:{data:IUser[]})=>{
-        console.log("response data",data);
         this.users = data.data;
       },
       error:err=>{
@@ -53,9 +52,6 @@ export class UserListComponent implements OnInit {
   blockUser(id:string){
     this.userService.blockUser(id).subscribe({
       next:(data)=>{
-        debugger;
-        console.log(id);
-        console.log(data);
         this.users = this.users.map((user)=>{
           if(user._id===id){
             user.isBlocked=true;
@@ -72,9 +68,6 @@ export class UserListComponent implements OnInit {
   unBlockUser(id:string){
     this.userService.unBlockUser(id).subscribe({
       next:(data)=>{
-        debugger;
-        console.log(id);
-        console.log(data);
         this.users = this.users.map((user)=>{
           if(user._id===id){
             user.isBlocked=false;
@@ -94,7 +87,6 @@ export class UserListComponent implements OnInit {
     const {value} = target;
     this.userService.updateUser(id,value).subscribe({
       next:data => {
-        console.log(data);
         this.users = this.users.map((user)=>{
           if(user._id===id){
             user.role = value;
@@ -108,7 +100,6 @@ export class UserListComponent implements OnInit {
       }
     })
 
-    debugger;
 
     
   }

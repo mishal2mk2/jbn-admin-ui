@@ -80,9 +80,6 @@ export class MaterialListComponent {
   // Function to get the current page of materials
   getCurrentPageMaterials() {
     const filteredMaterials = this.materials.filter((material) => {
-      if (!material.name) {
-        debugger;
-      }
       return (
         material.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         material.unitCalculated
@@ -141,7 +138,6 @@ export class MaterialListComponent {
   deleteItem(id: any) {
     this._MaterialService.deleteItem(id).subscribe({
       next: (data: any) => {
-        console.log(data);
         //filtering material from existing list
         this.materials = this.materials.filter((mat) => {
           return mat._id !== id;
@@ -166,7 +162,6 @@ export class MaterialListComponent {
     );
     this._MaterialService.updateItem(updatedData).subscribe({
       next: (data: any) => {
-        console.log(data);
         const { _id, name, unitCalculated, price, code } = data.data;
         this.materials = this.materials.map((mat) => {
           if (mat._id === _id) {
