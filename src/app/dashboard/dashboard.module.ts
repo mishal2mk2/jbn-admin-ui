@@ -30,6 +30,7 @@ import { Form13Component } from './partials/status-forms/form-13/form-13.compone
 import { RolePipePipe } from './partials/pipe/role-pipe.pipe';
 import { DashboardComponent } from './dashboard.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { FileManageModalComponent } from './partials/file-manage-modal/file-manage-modal.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     Form13Component,
     RolePipePipe,
     DashboardComponent,
+    FileManageModalComponent,
   ],
   imports: [
     CommonModule,

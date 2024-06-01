@@ -8,6 +8,7 @@ import { CommonService } from '../../../helpers/service/common.service';
 })
 export class SidebarComponent implements OnInit {
   isHaveRoleAccess = false;
+  isHaveRoleAccessToUser = false;
 
   constructor(private _CommonService: CommonService) {}
 
@@ -20,8 +21,11 @@ export class SidebarComponent implements OnInit {
     const userData = this._CommonService.getAllUserData();
     if (userData) {
       const { role } = userData;
+
       this.isHaveRoleAccess =
         this._CommonService.MainAdminRoleArray.includes(role);
+
+      this.isHaveRoleAccessToUser = 'MD' === role;
     }
   }
 }

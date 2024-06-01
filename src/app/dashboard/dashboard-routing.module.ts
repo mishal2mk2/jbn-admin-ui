@@ -9,6 +9,7 @@ import { ProjectCreateComponent } from './project/project-create/project-create.
 import { ProjectEditComponent } from './project/project-edit/project-edit.component';
 import { mainAdminRoleGuard } from '../helpers/guard/main-admin-role.guard';
 import { DashboardComponent } from './dashboard.component';
+import { mDAdminRoleGuard } from '../helpers/guard/mdadmin-role.guard';
 
 const routes: Routes = [
   {
@@ -38,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        canActivate: [mainAdminRoleGuard],
+        canActivate: [mDAdminRoleGuard],
         component: UserListComponent,
       },
       {
