@@ -29,7 +29,6 @@ import { DarkModeToggleButtonComponent } from './partials/dark-mode-toggle-butto
 import { Form13Component } from './partials/status-forms/form-13/form-13.component';
 import { RolePipePipe } from './partials/pipe/role-pipe.pipe';
 import { DashboardComponent } from './dashboard.component';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { FileManageModalComponent } from './partials/file-manage-modal/file-manage-modal.component';
 
 @NgModule({
@@ -68,7 +67,6 @@ import { FileManageModalComponent } from './partials/file-manage-modal/file-mana
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgApexchartsModule,
   ],
 })
 export class DashboardModule {}
