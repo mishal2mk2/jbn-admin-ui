@@ -22,8 +22,8 @@
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
       <!-- Header row -->
       <tr>
-        <th scope="col" class="px-6 py-3">Client Name</th>
-        <th scope="col" class="px-6 py-3">Client mail</th>
+        <th scope="col" class="px-6 py-3">Emp_Name</th>
+        <th scope="col" class="px-6 py-3">E-mail</th>
         <th scope="col" class="px-6 py-3">Phone</th>
         <th scope="col" class="px-6 py-3">Role</th>
         <th scope="col" class="px-6 py-3">Action</th>
@@ -32,7 +32,7 @@
     <tbody>
 
       <!-- Table data -->
-      @for (data of getCurrentPageUsers(); track data.username) {
+      @for (data of getCurrentPageUsers(); track data._id) {
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">

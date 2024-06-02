@@ -35,14 +35,12 @@ export class UserListComponent implements OnInit {
   // Function to get the current page of users
   getCurrentPageUsers() {
     const filteredUsers = this.users.filter(
-      (user) =>
-        user.username.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.mail.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        user.mobile
-          .toString()
-          .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())
-    );
+      (user) =>{
+        return (user.username.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+      user.mobile.toString().toLowerCase()
+        .includes(this.searchTerm.toLowerCase()))
+        
+    });
 
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
