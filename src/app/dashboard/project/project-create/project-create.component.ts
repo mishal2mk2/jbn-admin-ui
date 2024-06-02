@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../service/project.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 })
 export class ProjectCreateComponent implements OnInit {
   FormGroupData!: FormGroup;
+  furnitureList=[
+    {text:''},
+    {text:''},
+    {text:''},
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,8 +33,28 @@ export class ProjectCreateComponent implements OnInit {
       addressLocation: ['', Validators.required],
       addressLocationLink: ['', Validators.required],
       notes: [''],
-      descriptions: [''],
+      priceTotal: [''],
     });
+  }
+
+  validateList(){
+    let isValid = true;
+
+    this.furnitureList.forEach((el)=>{
+      if(el.text.trim().length===0){
+        isValid=false;
+      }
+    });
+
+    return isValid;
+  }
+
+  addFurnitureList(){
+    if(this.validateList()){
+      this.furnitureList.push({text:''});
+    }else{
+      this.toastr.error("Pls fill list properly", "Error");
+    }
   }
 
   formSubmit() {
@@ -47,10 +72,10 @@ export class ProjectCreateComponent implements OnInit {
       addressLocation,
       addressLocationLink,
       notes,
-      descriptions,
+      priceTotal,
     } = this.FormGroupData.controls;
 
-    const object = {
+    const object:any = {
       client: {
         name: clientName.value,
         mob: clientPhone.value,
@@ -62,8 +87,19 @@ export class ProjectCreateComponent implements OnInit {
         },
       },
       notes: notes.value,
-      description: descriptions.value,
+      projectTotal: priceTotal.value,
     };
+
+    this.furnitureList=this.furnitureList.filter((list)=>{
+      if(list.text.trim().length===0){
+        return false;
+      }
+      return true;
+    })
+
+    if(this.furnitureList.length>0){
+      object.furnitureList = this.furnitureList;
+    }
 
     this._ProjectService.createProject(object).subscribe({
       next: (res) => {
