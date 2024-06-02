@@ -11,14 +11,15 @@ import { CommonService } from '../../../helpers/service/common.service';
 export class NavHeaderComponent implements OnInit {
   userDropdownOpen: boolean = false;
   isHaveRoleAccess = false;
+  isHaveAccessToSliderBar = false;
 
-  userName:string='-';
-  userRole:string='-';
+  userName: string = '-';
+  userRole: string = '-';
 
   constructor(
     private _AuthService: AuthService,
     private _CommonService: CommonService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -26,17 +27,16 @@ export class NavHeaderComponent implements OnInit {
     this.getUserNameAndRole();
   }
 
-  getUserNameAndRole(){
+  getUserNameAndRole() {
     const userData = this._CommonService.getAllUserData();
-    if(userData){
-      const {role,name} = userData;
-      this.userName=name;
-      this.userRole=role;
-    }else{
-      this.userName='-';
-      this.userRole='-';
+    if (userData) {
+      const { role, name } = userData;
+      this.userName = name;
+      this.userRole = role;
+    } else {
+      this.userName = '-';
+      this.userRole = '-';
     }
-
   }
 
   // Set the role base section code
@@ -46,6 +46,9 @@ export class NavHeaderComponent implements OnInit {
       const { role } = userData;
       this.isHaveRoleAccess =
         this._CommonService.MainAdminRoleArray.includes(role);
+
+      // Check the Nav bar is Accesseble
+      this.isHaveAccessToSliderBar = !['US', 'CU'].includes(role);
     }
   }
 
