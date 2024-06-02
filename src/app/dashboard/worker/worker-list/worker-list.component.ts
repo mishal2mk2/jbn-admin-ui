@@ -43,7 +43,7 @@ export class WorkerListComponent implements OnInit{
         this.workers = data.data;
       },
       error: (err) => {
-        this.toastr.error('Error while loading item list', 'Error');
+        this.toastr.error('Error while loading worker list', 'Error');
       },
     });
     //close modal
@@ -117,11 +117,11 @@ export class WorkerListComponent implements OnInit{
     }
     this._WorkerService.createWorker(this.FormGroupData.value).subscribe({
       next: (data: any) => {
-        //pushing new created item to materials array
+        //pushing new created worker to workers array
         const { name, mobile, pricePerHour, _id } = data.data;
         this.workers.push({ name, mobile, pricePerHour, _id });
 
-        this.toastr.success('Item added succefully', 'Success');
+        this.toastr.success('Worker added succefully', 'Success');
       },
       error: (err: any) => {
         console.log(err);
@@ -137,12 +137,12 @@ export class WorkerListComponent implements OnInit{
   deleteItem(id: any) {
     this._WorkerService.deleteWorker(id).subscribe({
       next: (data: any) => {
-        //filtering material from existing list
+        //filtering worker from existing list
         this.workers = this.workers.filter((worker) => {
           return worker._id !== id;
         });
 
-        this.toastr.success('Item deleted succefully', 'Success');
+        this.toastr.success('Worker deleted succefully', 'Success');
       },
       error: (err: any) => {
         console.log(err);
@@ -169,7 +169,7 @@ export class WorkerListComponent implements OnInit{
           }
           return worker;
         });
-        this.toastr.success('Item edited succefully', 'Success');
+        this.toastr.success('Worker edited succefully', 'Success');
       },
       error: (err: any) => {
         this.toastr.error('Some error occured', 'Error');
