@@ -162,6 +162,7 @@ export class WorkerListComponent implements OnInit{
     this._WorkerService.updateWorker(updatedData).subscribe({
       next: (data: any) => {
         const { _id, name, mobile, pricePerHour } = data.data;
+        
         this.workers = this.workers.map((worker) => {
           if (worker._id === _id) {
             worker = { _id, name, mobile, pricePerHour };
@@ -179,8 +180,8 @@ export class WorkerListComponent implements OnInit{
     this.updateListData = {};
     this.FormGroupData = this.formBuilder.group({
       name: ['', Validators.required],
-      unitCalculated: ['', Validators.required],
-      price: ['', Validators.required],
+      pricePerHour: ['', Validators.required],
+      mobile: ['', Validators.required],
     });
   }
 
