@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         if (userData) {
           const { role } = userData;
 
-          if (role === 'US') {
+          if (role === 'US' || role === 'WR') {
             this.router.navigate(['/basic-user']);
           } else if (role === 'CU') {
             this.router.navigate(['/customer']);

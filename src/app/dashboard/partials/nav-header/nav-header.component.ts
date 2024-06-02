@@ -48,7 +48,7 @@ export class NavHeaderComponent implements OnInit {
         this._CommonService.MainAdminRoleArray.includes(role);
 
       // Check the Nav bar is Accesseble
-      this.isHaveAccessToSliderBar = !['US', 'CU'].includes(role);
+      this.isHaveAccessToSliderBar = !['US', 'CU', 'WR'].includes(role);
     }
   }
 
