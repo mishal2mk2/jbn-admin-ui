@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard.component';
 import { mDAdminRoleGuard } from '../helpers/guard/mdadmin-role.guard';
 import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-static.component';
 import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
+import { WorkerListComponent } from './worker/worker-list/worker-list.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,11 @@ const routes: Routes = [
         path: 'materials',
         canActivate: [mainAdminRoleGuard],
         component: MaterialListComponent,
+      },
+      {
+        path: 'workers',
+        canActivate: [mainAdminRoleGuard],
+        component: WorkerListComponent,
       },
     ],
   },
