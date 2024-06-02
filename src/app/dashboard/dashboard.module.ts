@@ -34,6 +34,7 @@ import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-
 import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
 import { Form1Component } from './partials/status-forms/form-1/form-1.component';
 import { WorkerListComponent } from './worker/worker-list/worker-list.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { WorkerListComponent } from './worker/worker-list/worker-list.component'
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgSelectModule
   ],
 })
 export class DashboardModule {}
