@@ -118,7 +118,7 @@ export class CommonService {
 
   // Filter the Project data relate to the Role Based
   filterProjectWithRoleBased(role: string, orderStatus: number) {
-    if (role === 'SsV') {
+    if (role === 'SV') {
       return (
         orderStatus === 5 ||
         orderStatus === 6 ||

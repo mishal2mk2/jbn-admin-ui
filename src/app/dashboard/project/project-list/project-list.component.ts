@@ -69,10 +69,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       this.products = this.products.map((item) => {
         return {
           ...item,
-          // isAccessToOpen: this._CommonService.statusRoleBasesAccess(
-          //   item.orderStatus
-          // ),
-          isAccessToOpen: true,
+          isAccessToOpen: this._CommonService.statusRoleBasesAccess(
+            item.orderStatus
+          ),
         };
       });
 
@@ -142,9 +141,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       data.orderStatus
     );
 
-    // if (!isHaveRoleAccess) {
-    //   return;
-    // }
+    if (!isHaveRoleAccess) {
+      return;
+    }
 
     // Modal Section Logic
     const modal = this.defaultModal.nativeElement as HTMLElement;
