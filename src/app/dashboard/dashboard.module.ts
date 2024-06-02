@@ -32,6 +32,7 @@ import { DashboardComponent } from './dashboard.component';
 import { FileManageModalComponent } from './partials/file-manage-modal/file-manage-modal.component';
 import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-static.component';
 import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { CustomerStaticComponent } from './common/customer-static/customer-stati
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    NgSelectModule,
   ],
 })
 export class DashboardModule {}

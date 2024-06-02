@@ -93,9 +93,7 @@ export class Form3Component implements OnInit, OnChanges {
   }
 
   // Select the material and add the datas
-  selectTheMaterials(event: any, index: number) {
-    const { value } = event.target;
-
+  selectTheMaterials(value: any, index: number) {
     const currentMaterial = this.materials.find((e: any) => e._id === value);
 
     // Change the datas in the selected Materials
