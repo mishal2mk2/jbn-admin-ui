@@ -116,6 +116,15 @@ export class CommonService {
     return isHaveRoleAccess;
   }
 
+  // Filter the Project data relate to the Role Based
+  filterProjectWithRoleBased(role: string, orderStatus: number) {
+    if (role === 'SV') {
+      return orderStatus === 5 || orderStatus === 6 || orderStatus === 7;
+    }
+
+    return true;
+  }
+
   // Set the Date to yyyy-MM-dd Format
   formatDateToYYYY(dateStr: string) {
     const date = new Date(dateStr);

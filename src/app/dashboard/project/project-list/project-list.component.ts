@@ -65,16 +65,27 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this._ProjectService.getAllProjects().subscribe((res) => {
       this.products = res.data;
 
-      // this.products.forEach((e:any)=>)
+      // Mange button disable section logic
       this.products = this.products.map((item) => {
         return {
           ...item,
-          // isAccessToOpen: this._CommonService.statusRoleBasesAccess(
-          //   item.orderStatus
-          // ),
-          isAccessToOpen: true,
+          isAccessToOpen: this._CommonService.statusRoleBasesAccess(
+            item.orderStatus
+          ),
         };
       });
+
+      // Take the Role of user For Filter project data
+      const userData = this._CommonService.getAllUserData();
+
+      if (userData) {
+        const { role } = userData;
+
+        // Filter the data connect to role based
+        this.products = this.products.filter((el) =>
+          this._CommonService.filterProjectWithRoleBased(role, el.orderStatus)
+        );
+      }
     });
   }
 
@@ -126,13 +137,13 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   toggleModal(data: { orderStatus: number; orderId: string }) {
     // Check the role based Access Logic
-    // const isHaveRoleAccess = this._CommonService.statusRoleBasesAccess(
-    //   data.orderStatus
-    // );
+    const isHaveRoleAccess = this._CommonService.statusRoleBasesAccess(
+      data.orderStatus
+    );
 
-    // if (!isHaveRoleAccess) {
-    //   return;
-    // }
+    if (!isHaveRoleAccess) {
+      return;
+    }
 
     // Modal Section Logic
     const modal = this.defaultModal.nativeElement as HTMLElement;

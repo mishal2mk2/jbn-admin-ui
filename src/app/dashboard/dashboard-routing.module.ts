@@ -10,6 +10,8 @@ import { ProjectEditComponent } from './project/project-edit/project-edit.compon
 import { mainAdminRoleGuard } from '../helpers/guard/main-admin-role.guard';
 import { DashboardComponent } from './dashboard.component';
 import { mDAdminRoleGuard } from '../helpers/guard/mdadmin-role.guard';
+import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-static.component';
+import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
 
 const routes: Routes = [
   {
@@ -19,6 +21,14 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+      },
+      {
+        path: 'basic-user',
+        component: BasicUserStaticComponent,
+      },
+      {
+        path: 'customer',
+        component: CustomerStaticComponent,
       },
       {
         path: 'project',

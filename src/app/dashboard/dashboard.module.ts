@@ -30,6 +30,8 @@ import { Form13Component } from './partials/status-forms/form-13/form-13.compone
 import { RolePipePipe } from './partials/pipe/role-pipe.pipe';
 import { DashboardComponent } from './dashboard.component';
 import { FileManageModalComponent } from './partials/file-manage-modal/file-manage-modal.component';
+import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-static.component';
+import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { FileManageModalComponent } from './partials/file-manage-modal/file-mana
     RolePipePipe,
     DashboardComponent,
     FileManageModalComponent,
+    BasicUserStaticComponent,
+    CustomerStaticComponent,
   ],
   imports: [
     CommonModule,
