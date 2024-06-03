@@ -114,21 +114,24 @@ export class Form7Component implements OnInit, OnChanges {
       furnitureList: [],
     };
 
-    if (this.deliveryFileToUpload) {
-      const formObjectFile = new FormData();
+    if (!this.deliveryFileToUpload && this.deliveryFileArray.length === 0) {
+      this.toastr.error('File is required', 'Error');
 
-      formObjectFile.append('file', this.deliveryFileToUpload);
-      formObjectFile.append('key', 'invoice');
-
-      this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
-        next: (res) => {
-          console.log(res);
-        },
-        error: (err) => {
-          this.toastr.error(err.error.message, 'Error');
-        },
-      });
+      return;
     }
+    const formObjectFile = new FormData();
+
+    if (this.deliveryFileToUpload) {
+      formObjectFile.append('file', this.deliveryFileToUpload);
+    }
+    formObjectFile.append('key', 'invoice');
+
+    this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
+      next: (res) => {},
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
 
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusDelivery(object, id).subscribe({

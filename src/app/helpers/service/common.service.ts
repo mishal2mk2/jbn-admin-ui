@@ -1,13 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonService {
+  private AUTH_API = environment.API_ENDPOINT;
+
   MainAdminRoleArray = ['MD', 'GM', 'HR'];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
+
+  // Project File Delete API
+  projectFileDelete(obj: any, orderID: string) {
+    return this.http.post<any>(
+      `${this.AUTH_API}/project/deleteFile/${orderID}`,
+      obj
+    );
+  }
 
   // Get all the user data from the Token
   getAllUserData() {

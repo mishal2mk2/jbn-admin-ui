@@ -15,6 +15,7 @@ export class Form10Component implements OnInit, OnChanges {
 
   FormGroupData!: FormGroup;
   serviceFileToUpload: File | null = null;
+  serviceFileArray: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,25 +27,17 @@ export class Form10Component implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
-      serviceReport: ['', Validators.required],
+      serviceReport: [''],
       notes: [''],
     });
 
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      if (res.data.attachments.serviceReportFile.length) {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          serviceReport: [''],
-          notes: [res.data.notes],
-        });
-      } else {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          serviceReport: ['', Validators.required],
-          notes: [res.data.notes],
-        });
+      const { attachments } = res.data;
+
+      if (attachments.serviceReportFile.length) {
+        this.serviceFileArray = attachments.serviceReportFile;
       }
     });
   }
@@ -103,6 +96,12 @@ export class Form10Component implements OnInit, OnChanges {
     const { notes } = this.FormGroupData.controls;
 
     const form = new FormData();
+
+    if (!this.serviceFileToUpload && this.serviceFileArray.length === 0) {
+      this.toastr.error('File is required', 'Error');
+
+      return;
+    }
 
     if (this.serviceFileToUpload) {
       form.append('service', this.serviceFileToUpload);

@@ -15,6 +15,7 @@ export class Form11Component implements OnInit, OnChanges {
 
   FormGroupData!: FormGroup;
   closeFileToUpload: File | null = null;
+  closeFileArray: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,18 +34,10 @@ export class Form11Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      if (res.data.attachments.closingReportFile.length) {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          closingReport: [''],
-          notes: [res.data.notes],
-        });
-      } else {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          closingReport: ['', Validators.required],
-          notes: [res.data.notes],
-        });
+      const { attachments } = res.data;
+
+      if (attachments.closingReportFile.length) {
+        this.closeFileArray = attachments.closingReportFile;
       }
     });
   }
@@ -101,6 +94,12 @@ export class Form11Component implements OnInit, OnChanges {
     }
 
     const { notes } = this.FormGroupData.controls;
+
+    if (!this.closeFileToUpload && this.closeFileArray.length === 0) {
+      this.toastr.error('File is required', 'Error');
+
+      return;
+    }
 
     const form = new FormData();
 
