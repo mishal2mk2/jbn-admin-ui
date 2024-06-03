@@ -20,10 +20,14 @@ export class FileManageModalComponent implements OnInit {
     // this.images = this.images.filter((image) => image.id !== id);
   }
 
+  isTheUrlIsPdf(url: string) {
+    return url.endsWith('.pdf');
+  }
+
   // Open the image section
   openImage(url: string) {
     this.fileUrl = url;
-    this.isFilePDF = this.fileUrl.endsWith('.pdf');
+    this.isFilePDF = this.isTheUrlIsPdf(this.fileUrl);
 
     // Modal Section Logic
     const modal = this.defaultModal.nativeElement as HTMLElement;

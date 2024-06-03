@@ -33,6 +33,7 @@ import { FileManageModalComponent } from './partials/file-manage-modal/file-mana
 import { BasicUserStaticComponent } from './common/basic-user-static/basic-user-static.component';
 import { CustomerStaticComponent } from './common/customer-static/customer-static.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    PdfViewerModule,
   ],
 })
 export class DashboardModule {}

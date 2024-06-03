@@ -1,6 +1,8 @@
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4" *ngIf="FileArray.length">
-  <div *ngFor="let image of FileArray" class="relative group border rounded-lg overflow-hidden shadow-md">
-    <img [src]="image.url" [alt]="image.date" class="w-full h-auto" />
+<div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4 p-4" *ngIf="FileArray.length">
+  <div *ngFor="let image of FileArray"
+    [ngStyle]="{'background-image': isTheUrlIsPdf(image.url) ? 'url(assets/images/icons/pdf.png)' : 'url('+image.url+')'}"
+    class="file_view_modal relative group border rounded-lg overflow-hidden shadow-md">
+    <!-- <img  [alt]="image.date" class="w-full h-auto" /> -->
     <div
       class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
       <button (click)="openImage(image.url)"
@@ -34,6 +36,7 @@
 
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
+
         <div class="fixed inset-0 flex items-center justify-center z-50">
           <div class="fixed inset-0 bg-gray-800 bg-opacity-75"></div>
           <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full max-w-4xl z-10">
@@ -48,13 +51,14 @@
             <div class="p-4">
               <ng-container *ngIf="isFilePDF; else imageTemplate">
                 <iframe [src]="fileUrl" class="w-full h-96" frameborder="0"></iframe>
+                <pdf-viewer [src]="fileUrl" [render-text]="true" [original-size]="false"
+                  style="width: 100%;height: 96%;"></pdf-viewer>
               </ng-container>
               <ng-template #imageTemplate>
-                <img [src]="fileUrl" alt="file" class="w-full h-auto" />
+                <img [src]=" fileUrl" alt="file" class="w-full h-auto" />
               </ng-template>
             </div>
           </div>
-
         </div>
       </div>
 

@@ -15,6 +15,7 @@ export class Form2Component implements OnInit, OnChanges {
 
   FormGroupData!: FormGroup;
   drawingFileToUpload: File | null = null;
+  drawingFileArray: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,18 +34,10 @@ export class Form2Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      if (res.data.attachments.drawingFile.length) {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          file: [''],
-          notes: [res.data.notes],
-        });
-      } else {
-        // Set the form data
-        this.FormGroupData = this.formBuilder.group({
-          file: ['', Validators.required],
-          notes: [res.data.notes],
-        });
+      const { attachments } = res.data;
+
+      if (attachments.drawingFile.length) {
+        this.drawingFileArray = attachments.drawingFile;
       }
     });
   }
@@ -103,6 +96,12 @@ export class Form2Component implements OnInit, OnChanges {
     const { notes } = this.FormGroupData.controls;
 
     const form = new FormData();
+
+    if (!this.drawingFileToUpload && this.drawingFileArray.length === 0) {
+      this.toastr.error('File is required', 'Error');
+
+      return;
+    }
 
     if (this.drawingFileToUpload) {
       form.append('drawing', this.drawingFileToUpload);
