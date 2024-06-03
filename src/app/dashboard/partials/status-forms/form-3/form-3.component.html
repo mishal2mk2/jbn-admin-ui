@@ -35,7 +35,8 @@
             <td class="px-6 py-4" style="min-width: 300px;">
               <!-- Item name section -->
 
-              <ng-select [(ngModel)]="data.itemId" (change)="selectTheMaterials($event, i)">
+              <ng-select [(ngModel)]="data.itemId" [ngModelOptions]="{standalone: true}"
+                (change)="selectTheMaterials($event, i)">
                 <ng-option selected value="">Choose a item</ng-option>
 
                 @for (mt of materials; track mt._id) {

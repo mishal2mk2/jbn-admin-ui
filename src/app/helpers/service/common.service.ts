@@ -66,7 +66,11 @@ export class CommonService {
     let isHaveRoleAccess;
 
     // Check the role based Access Logic
-    if (orderStatus === 2) {
+    if (orderStatus === 1) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+      ]);
+    } else if (orderStatus === 2) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
         'DE',

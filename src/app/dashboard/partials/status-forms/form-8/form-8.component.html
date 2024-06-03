@@ -4,7 +4,7 @@
     <div class="mb-5">
       <button (click)="addWagesSection()" type="button"
         class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add
-        Wages</button>f
+        Wages</button>
     </div>
   </div>
 
@@ -25,7 +25,8 @@
 
             <td class="px-6 py-4">
               <!-- Emp name section -->
-              <ng-select (change)="storeWorkerName($event,i)">
+              <ng-select [(ngModel)]="data.empName" [ngModelOptions]="{standalone: true}"
+                (change)="storeWorkerName($event,i)">
                 <ng-option selected value="">Choose a item</ng-option>
 
                 @for (mt of workers; track mt._id) {
@@ -78,6 +79,31 @@
       </span>
     </div>
     }
+
+    <div class="mb-3 flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
+      [ngClass]="{'is_Start_Progress': clientSignature.isStarted && !clientSignature.completed, 'is_Completed_Progress': clientSignature.isStarted && clientSignature.completed}">
+
+      <label for=""
+        class="flex items-center justify-center w-8 h-8 border rounded-full shrink-0 border-gray-500 dark:border-gray-400">
+        {{ clientSignature.status }}
+      </label>
+
+      <span class="w-full">
+        <h2 class="font-medium text-lg leading-tight">{{ clientSignature.statusName }}</h2>
+
+        <label class="inline-flex items-center cursor-pointer mt-2">
+          <input [id]="clientSignature.statusName" [disabled]="!clientSignature.isStarted"
+            [name]="clientSignature.statusName" [(ngModel)]="clientSignature.completed" type="checkbox"
+            class="sr-only peer">
+
+          <div
+            class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+          </div>
+        </label>
+      </span>
+
+    </div>
+
   </div>
 
   <form class="mx-auto" [formGroup]="FormGroupData">

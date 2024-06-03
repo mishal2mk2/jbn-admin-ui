@@ -47,13 +47,20 @@ export class Form8Component implements OnInit, OnChanges {
       isStarted: false,
       completed: 0,
     },
-    {
-      status: 6,
-      statusName: 'Client Signature',
-      isStarted: false,
-      completed: 0,
-    },
+    // {
+    //   status: 6,
+    //   statusName: 'Client Signature',
+    //   isStarted: false,
+    //   completed: 0,
+    // },
   ];
+
+  clientSignature = {
+    status: 6,
+    statusName: 'Client Signature',
+    isStarted: false,
+    completed: false,
+  };
 
   WagesAdded = [
     {
@@ -107,6 +114,14 @@ export class Form8Component implements OnInit, OnChanges {
             this.installationStatus[0].isStarted = true;
           }
         }
+        console.log(installationData.installationStatus['6']);
+        this.clientSignature.isStarted =
+          installationData.installationStatus['6'].isStarted;
+
+        this.clientSignature.completed =
+          installationData.installationStatus['6'].percentCompleted === 100
+            ? true
+            : false;
 
         const savedWages: any[] = [];
 
@@ -170,6 +185,10 @@ export class Form8Component implements OnInit, OnChanges {
   onChangeTheRange(event: any, status: number) {
     const { value } = event.target;
     let isValid = true;
+
+    if (status === 5) {
+      this.clientSignature.isStarted = true;
+    }
 
     if (status > 1) {
       for (let i = 0; i < status - 1; i++) {
@@ -244,6 +263,10 @@ export class Form8Component implements OnInit, OnChanges {
         }
       });
 
+      if (!this.clientSignature.completed) {
+        isAllStatusComplete = false;
+      }
+
       if (!isAllStatusComplete) {
         this.toastr.error('Fill all production 100%', 'Error');
         return;
@@ -277,6 +300,11 @@ export class Form8Component implements OnInit, OnChanges {
         isStarted: el.isStarted,
       };
     });
+
+    installationStatus[this.clientSignature.status] = {
+      percentCompleted: this.clientSignature.completed ? 100 : 0,
+      isStarted: this.clientSignature.isStarted,
+    };
 
     object.installationStatus = installationStatus;
 
