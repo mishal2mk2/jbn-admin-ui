@@ -78,6 +78,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    PdfViewerModule,
   ],
 })
 export class DashboardModule {}

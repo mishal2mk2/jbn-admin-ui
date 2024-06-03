@@ -1,4 +1,85 @@
 <form>
+
+  <div class="flex justify-end mt-5">
+    <div class="mb-5">
+      <button (click)="addWagesSection()" type="button"
+        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add
+        Wages</button>f
+    </div>
+  </div>
+
+  <div class="mb-5">
+    <div class="relative overflow-x-auto">
+      <table class="w-full min-h-20 my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Employee Name</th>
+            <th scope="col" class="px-6 py-3">Total Hour</th>
+            <th scope="col" class="px-6 py-3">Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+            *ngFor="let data of WagesAdded; let i = index">
+
+            <td class="px-6 py-4">
+              <!-- Emp name section -->
+              <ng-select (change)="storeWorkerName($event,i)">
+                <ng-option selected value="">Choose a item</ng-option>
+
+                @for (mt of workers; track mt._id) {
+                <ng-option [value]="mt.name">{{ mt.name }}</ng-option>
+                }
+              </ng-select>
+
+            </td>
+
+            <td class="px-6 py-4">
+              <!-- Total Hour section -->
+              <input type="number" name="totalHour_{{i}}" placeholder="Total Hour" [(ngModel)]="data.totalHour"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </td>
+
+            <td class="px-6 py-4">
+              <button (click)="removeWages(i)">
+                <svg class="w-[31px] h-[31px] text-gray-800 dark:text-white" aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"
+                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-4 my-2">
+
+    @for (data of installationStatus; track data.status) {
+    <div class="mb-3 flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
+      [ngClass]="{'is_Start_Progress': data.isStarted && data.completed < 100, 'is_Completed_Progress': data.isStarted && data.completed === 100}">
+      <span
+        class="flex items-center justify-center w-8 h-8 border rounded-full shrink-0 border-gray-500 dark:border-gray-400">
+        {{ data.status }}
+      </span>
+
+      <span class="w-full">
+        <h2 class="font-medium text-lg leading-tight">{{ data.statusName }}</h2>
+        <p class="text-base mt-1">Completed: {{ data.completed }} %</p>
+
+        <input [id]="data.statusName" [disabled]="!data.isStarted || data.completed === 100" [name]="data.statusName"
+          type="range" [(ngModel)]="data.completed" (change)="onChangeTheRange($event,data.status)"
+          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+      </span>
+    </div>
+    }
+  </div>
+
   <form class="mx-auto" [formGroup]="FormGroupData">
 
     <div class="grid grid-cols-2 gap-3 my-2">
@@ -90,105 +171,6 @@
     </div>
 
   </form>
-
-  <div class="grid grid-cols-3 gap-4 my-2">
-
-    @for (data of installationStatus; track data.status) {
-    <div class="mb-3 flex items-center text-gray-500 dark:text-gray-400 space-x-2.5 rtl:space-x-reverse"
-      [ngClass]="{'is_Start_Progress': data.isStarted && data.completed < 100, 'is_Completed_Progress': data.isStarted && data.completed === 100}">
-      <span
-        class="flex items-center justify-center w-8 h-8 border rounded-full shrink-0 border-gray-500 dark:border-gray-400">
-        {{ data.status }}
-      </span>
-
-      <span class="w-full">
-        <h2 class="font-medium text-lg leading-tight">{{ data.statusName }}</h2>
-        <p class="text-base mt-1">Completed: {{ data.completed }} %</p>
-
-        <input [id]="data.statusName" [disabled]="!data.isStarted || data.completed === 100" [name]="data.statusName"
-          type="range" [(ngModel)]="data.completed" (change)="onChangeTheRange($event,data.status)"
-          class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
-      </span>
-    </div>
-    }
-  </div>
-
-  <div class="flex justify-end mt-5">
-
-    <div class="mb-5">
-      <button (click)="addWagesSection()" type="button"
-        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add
-        Wages</button>
-    </div>
-  </div>
-
-  <div class="mb-5">
-    <div class="relative overflow-x-auto">
-      <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">Employee Name</th>
-            <th scope="col" class="px-6 py-3">Total Hour</th>
-            <th scope="col" class="px-6 py-3">Price Per Hour</th>
-            <th scope="col" class="px-6 py-3">Total</th>
-            <th scope="col" class="px-6 py-3">Actions</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-            *ngFor="let data of WagesAdded; let i = index">
-
-            <td class="px-6 py-4">
-              <!-- Emp name section -->
-              <input type="text" name="empName_{{i}}" placeholder="Employee Name" [(ngModel)]="data.empName"
-                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </td>
-
-            <td class="px-6 py-4">
-              <!-- Total Hour section -->
-              <input type="number" name="totalHour_{{i}}" placeholder="Total Hour" [(ngModel)]="data.totalHour"
-                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </td>
-
-            <td class="px-6 py-4">
-              <!-- Per Hour Wage section -->
-              <input type="number" name="perHourWage_{{i}}" placeholder="Per Hour Wage" [(ngModel)]="data.perHourWage"
-                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </td>
-
-            <td class="px-6 py-4">
-              <!-- Wage sub Total section -->
-              <input type="number" name="wageSubTotal_{{i}}" disabled placeholder="Wage Total"
-                [value]="data.totalHour * data.perHourWage"
-                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-            </td>
-
-            <td class="px-6 py-4">
-              <button (click)="removeWages(i)">
-                <svg class="w-[31px] h-[31px] text-gray-800 dark:text-white" aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.9"
-                    d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-                </svg>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-
-        <tfoot>
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td colspan="3" class="px-6 py-4"></td>
-            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              Sub Total
-            </th>
-            <td class="px-6 py-4">{{getGrossTotalValue}}</td>
-          </tr>
-        </tfoot>
-      </table>
-
-    </div>
-  </div>
 
   <div class="flex justify-end gap-3">
     <button type="submit" (click)="formSubmit('SUBMIT')"

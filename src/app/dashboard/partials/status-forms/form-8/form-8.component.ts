@@ -1,3 +1,4 @@
+import { WorkerService } from './../../../worker/worker.service';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
@@ -57,17 +58,19 @@ export class Form8Component implements OnInit, OnChanges {
   WagesAdded = [
     {
       empName: '',
-      perHourWage: 0,
       totalHour: 0,
     },
   ];
 
+  workers: any = [];
+
   constructor(
     private formBuilder: FormBuilder,
-    private _FormValidationService: FormValidationService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _FormValidationService: FormValidationService,
+    private _ProjectService: ProjectService,
+    private _WorkerService: WorkerService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +79,11 @@ export class Form8Component implements OnInit, OnChanges {
       dayWorkNote: ['', [Validators.required]],
       inCharge: ['', [Validators.required]],
       serviceAfter: ['', [Validators.required]],
+    });
+
+    // Get the Workers list section
+    this._WorkerService.getWorkerList().subscribe((res) => {
+      this.workers = res.data;
     });
 
     // Take the Project Data
@@ -91,9 +99,13 @@ export class Form8Component implements OnInit, OnChanges {
 
         for (let i = 1; i <= this.installationStatus.length; i++) {
           this.installationStatus[i - 1].completed =
-            installationData.installationStatus[i].percentCompleted;
+            installationData.installationStatus[i].percentCompleted || 0;
           this.installationStatus[i - 1].isStarted =
             installationData.installationStatus[i].isStarted;
+
+          if (i === 1) {
+            this.installationStatus[0].isStarted = true;
+          }
         }
 
         const savedWages: any[] = [];
@@ -101,12 +113,11 @@ export class Form8Component implements OnInit, OnChanges {
         installationData.workersData.forEach((el: any) => {
           savedWages.push({
             empName: el.name,
-            perHourWage: el.perHourWage,
             totalHour: el.hours,
           });
         });
 
-        this.WagesAdded = savedWages;
+        if (savedWages.length) this.WagesAdded = savedWages;
       }
     });
   }
@@ -180,19 +191,6 @@ export class Form8Component implements OnInit, OnChanges {
     }
   }
 
-  // Get the total values
-  get getGrossTotalValue() {
-    let result = 0;
-
-    this.WagesAdded.forEach((el) => {
-      const subTotal = el.perHourWage * el.totalHour;
-
-      result += subTotal;
-    });
-
-    return result;
-  }
-
   // Remove the data from the Selected array
   removeWages(index: number) {
     if (this.WagesAdded.length > 1) {
@@ -205,7 +203,7 @@ export class Form8Component implements OnInit, OnChanges {
     let isValid = true;
 
     this.WagesAdded.forEach((el) => {
-      if (!el.empName || el.perHourWage < 1 || el.totalHour < 1) {
+      if (!el.empName || el.totalHour < 1) {
         isValid = false;
       }
     });
@@ -218,12 +216,16 @@ export class Form8Component implements OnInit, OnChanges {
     if (this.validateTheSelectedMaterial()) {
       this.WagesAdded.push({
         empName: '',
-        perHourWage: 0,
         totalHour: 0,
       });
     } else {
       this.toastr.error('Please Fill the Wages table completly ..!', 'Error');
     }
+  }
+
+  // Set the worker name
+  storeWorkerName(name: any, index: number) {
+    this.WagesAdded[index].empName = name;
   }
 
   formSubmit(type: string) {
@@ -263,8 +265,6 @@ export class Form8Component implements OnInit, OnChanges {
       object.workersData.push({
         name: el.empName,
         hours: el.totalHour,
-        perHourWage: el.perHourWage,
-        subTotal: Number(el.perHourWage * el.totalHour),
       });
     });
 
