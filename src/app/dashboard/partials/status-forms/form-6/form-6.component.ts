@@ -52,6 +52,8 @@ export class Form6Component implements OnInit, OnChanges {
     },
   ];
 
+  furnitureData: any[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -67,7 +69,11 @@ export class Form6Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { production_details } = res.data;
+      const { production_details, furnitureList } = res.data;
+
+      if (furnitureList.length) {
+        this.furnitureData = furnitureList || [];
+      }
 
       if (production_details) {
         for (let i = 1; i <= this.productionStatus.length; i++) {
@@ -152,6 +158,7 @@ export class Form6Component implements OnInit, OnChanges {
       isCompleted: false,
       productionStatus: null,
       inCharge: inCharge.value,
+      furnitureList: [],
     };
 
     // Set Production Status
@@ -169,8 +176,16 @@ export class Form6Component implements OnInit, OnChanges {
       }
     });
 
+    // Set furniture data
+    const resultFurniture: any = [];
+
+    this.furnitureData.forEach((el) => {
+      resultFurniture.push({ text: el.text, isInstalled: el.isInstalled });
+    });
+
     object.productionStatus = projectStatus;
     object.isCompleted = isAllStatusComplete;
+    object.furnitureList = resultFurniture;
 
     // Take the Project ID form the query params
     const { id } = this.route.snapshot.queryParams;
