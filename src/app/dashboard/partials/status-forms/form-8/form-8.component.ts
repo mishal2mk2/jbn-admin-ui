@@ -47,12 +47,6 @@ export class Form8Component implements OnInit, OnChanges {
       isStarted: false,
       completed: 0,
     },
-    // {
-    //   status: 6,
-    //   statusName: 'Client Signature',
-    //   isStarted: false,
-    //   completed: 0,
-    // },
   ];
 
   clientSignature = {
@@ -69,6 +63,7 @@ export class Form8Component implements OnInit, OnChanges {
     },
   ];
 
+  furnitureData: any[] = [];
   workers: any = [];
 
   constructor(
@@ -96,7 +91,11 @@ export class Form8Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { installationData } = res.data;
+      const { installationData, furnitureList } = res.data;
+
+      if (furnitureList.length) {
+        this.furnitureData = furnitureList || [];
+      }
 
       if (installationData) {
         this.FormGroupData.patchValue({
@@ -282,6 +281,7 @@ export class Form8Component implements OnInit, OnChanges {
       installationStatus: null,
       dayWorkNote: dayWorkNote.value,
       workersData: [],
+      furnitureList: [],
     };
 
     this.WagesAdded.forEach((el) => {
@@ -289,6 +289,13 @@ export class Form8Component implements OnInit, OnChanges {
         name: el.empName,
         hours: el.totalHour,
       });
+    });
+
+    // Set furniture data
+    const resultFurniture: any = [];
+
+    this.furnitureData.forEach((el) => {
+      resultFurniture.push({ text: el.text, isInstalled: el.isInstalled });
     });
 
     // Set installtion Status
@@ -307,6 +314,7 @@ export class Form8Component implements OnInit, OnChanges {
     };
 
     object.installationStatus = installationStatus;
+    object.furnitureList = resultFurniture;
 
     // Take the Project ID form the query params
     const { id } = this.route.snapshot.queryParams;
