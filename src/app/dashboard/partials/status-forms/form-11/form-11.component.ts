@@ -104,7 +104,7 @@ export class Form11Component implements OnInit, OnChanges {
     const form = new FormData();
 
     if (this.closeFileToUpload) {
-      form.append('closing', this.closeFileToUpload);
+      form.append('close', this.closeFileToUpload);
     }
     form.append('isApproved', String(type === 'SUBMIT' ? false : true));
     form.append('notes', notes.value);

@@ -27,6 +27,12 @@ export class ProjectService {
     return this.http.post<any>(`${this.AUTH_API}/project/${id}`, {});
   }
 
+  // get Project by ID API data
+  updateProject(id: string,obj:any) {
+    return this.http.put<any>(`${this.AUTH_API}/project/${id}`, obj);
+  }
+
+
   // Project File Upload API
   projectFileUpload(obj: any, orderID: string) {
     return this.http.post<any>(
