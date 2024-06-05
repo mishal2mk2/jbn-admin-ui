@@ -12,6 +12,7 @@ import { ProjectService } from '../../../project/service/project.service';
 })
 export class Form11Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   closeFileToUpload: File | null = null;

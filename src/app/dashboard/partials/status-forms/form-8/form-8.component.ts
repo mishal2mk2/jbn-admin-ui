@@ -13,6 +13,7 @@ import { ProjectService } from '../../../project/service/project.service';
 })
 export class Form8Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   installationFileToUpload: File | null = null;

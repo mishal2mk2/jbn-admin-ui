@@ -1,4 +1,4 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -8,24 +8,23 @@ import { ProjectService } from '../../../project/service/project.service';
 @Component({
   selector: 'app-form-1',
   templateUrl: './form-1.component.html',
-  styleUrl: './form-1.component.css'
+  styleUrl: './form-1.component.css',
 })
 export class Form1Component implements OnInit {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
-  FormGroupData!:FormGroup;
-  
+  FormGroupData!: FormGroup;
+
   constructor(
-    private formBuilder:FormBuilder,
-    private toastr:ToastrService,
-    private route:ActivatedRoute,
-    private _FormValidationService:FormValidationService,
-    private _ProjectService:ProjectService,
-  ){}
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private route: ActivatedRoute,
+    private _FormValidationService: FormValidationService,
+    private _ProjectService: ProjectService
+  ) {}
 
   ngOnInit(): void {
-    this.FormGroupData= this.formBuilder.group({
-      
-    })
+    this.FormGroupData = this.formBuilder.group({});
   }
 }

@@ -11,6 +11,7 @@ import { ProjectService } from '../../../project/service/project.service';
 })
 export class Form4Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   TransactionAddedData: any[] = [];
