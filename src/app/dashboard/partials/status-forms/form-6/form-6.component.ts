@@ -180,7 +180,7 @@ export class Form6Component implements OnInit, OnChanges {
     const resultFurniture: any = [];
 
     this.furnitureData.forEach((el) => {
-      resultFurniture.push({ text: el.text, isInstalled: el.isInstalled });
+      resultFurniture.push({ text: el.text, isDelivered: el.isDelivered });
     });
 
     object.productionStatus = projectStatus;
