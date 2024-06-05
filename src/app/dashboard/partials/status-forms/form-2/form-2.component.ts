@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Form2Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   drawingFileToUpload: File | null = null;

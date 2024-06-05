@@ -18,10 +18,13 @@ import { CommonService } from '../../../helpers/service/common.service';
 })
 export class ProjectListComponent implements OnInit, OnDestroy {
   @ViewChild('statusChangeModal') defaultModal!: ElementRef;
+  @ViewChild('masterStatusApproveModal') masterStatusApproveModal!: ElementRef;
 
   dropdownOpen: boolean = false;
   NavigateSubscription!: Subscription;
   isRefreshData = 1;
+  isMainAdmin = false;
+  masterModalStatus: any[] = [];
 
   // Pagination variables
   currentPage = 1;
@@ -31,6 +34,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   //selected modal
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
+  modalSelectedOrderApproveBtn!: boolean;
 
   constructor(
     private router: Router,
@@ -81,6 +85,10 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       if (userData) {
         const { role } = userData;
 
+        // Mange if the role is main admin want to show master Modal
+        this.isMainAdmin =
+          this._CommonService.MainAdminRoleArray.includes(role);
+
         // Filter the data connect to role based
         this.products = this.products.filter((el) =>
           this._CommonService.filterProjectWithRoleBased(role, el.orderStatus)
@@ -91,7 +99,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   // Close the modal section
   closeModal() {
-    const modal = this.defaultModal?.nativeElement as HTMLElement;
+    const defaultModal = this.defaultModal?.nativeElement as HTMLElement;
+    const masterStatusApproveModal = this.masterStatusApproveModal
+      ?.nativeElement as HTMLElement;
     const modalOverlay = document.getElementById('modal-backdrop');
 
     // Navigate to the same route with the query parameter
@@ -101,11 +111,18 @@ export class ProjectListComponent implements OnInit, OnDestroy {
       queryParamsHandling: 'merge',
     });
 
-    if (modal && modalOverlay) {
-      //modal toggle settings
-      modal.classList.toggle('hidden');
-      modal.classList.toggle('flex');
-      modalOverlay.classList.toggle('hidden');
+    //modal toggle settings
+    if (defaultModal && modalOverlay) {
+      defaultModal.classList.remove('flex');
+      defaultModal.classList.add('hidden');
+
+      modalOverlay.classList.add('hidden');
+    }
+
+    if (masterStatusApproveModal && modalOverlay) {
+      masterStatusApproveModal.classList.add('hidden');
+      masterStatusApproveModal.classList.remove('flex');
+      modalOverlay.classList.add('hidden');
     }
   }
 
@@ -135,7 +152,50 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     this.currentPage = pageNumber;
   }
 
-  toggleModal(data: { orderStatus: number; orderId: string }) {
+  // Open modal for the Modal
+
+  toggleMasterModal(data: { orderStatus: number; orderId: string }) {
+    this.masterModalStatus = [];
+
+    for (let i = 1; i <= data.orderStatus; i++) {
+      if (data.orderStatus === i) {
+        this.masterModalStatus.push({
+          status: i,
+          id: data.orderId,
+          isApproveBtnShow: true,
+        });
+      } else {
+        this.masterModalStatus.push({
+          status: i,
+          id: data.orderId,
+          isApproveBtnShow: false,
+        });
+      }
+    }
+
+    // Modal Section Logic
+    const modal = this.masterStatusApproveModal.nativeElement as HTMLElement;
+    const modalOverlay = document.getElementById('modal-backdrop');
+
+    if (modal && modalOverlay) {
+      //modal toggle settings
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+      modalOverlay.classList.toggle('hidden');
+    }
+  }
+
+  // Open the modal for approve the status
+  toggleModal(data: {
+    orderStatus: number;
+    orderId: string;
+    isApproveBtnShow: boolean;
+  }) {
+    // Close the modal is there is
+    this.closeModal();
+
+    this.modalSelectedOrderApproveBtn = data.isApproveBtnShow;
+
     // Check the role based Access Logic
     const isHaveRoleAccess = this._CommonService.statusRoleBasesAccess(
       data.orderStatus

@@ -12,6 +12,7 @@ import { MaterialService } from '../../../material/service/material.service';
 })
 export class Form3Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   materials: any = [];

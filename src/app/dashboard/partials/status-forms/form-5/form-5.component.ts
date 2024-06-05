@@ -12,6 +12,7 @@ import { CommonService } from '../../../../helpers/service/common.service';
 })
 export class Form5Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
 

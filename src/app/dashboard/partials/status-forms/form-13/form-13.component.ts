@@ -11,6 +11,7 @@ import { ProjectService } from '../../../project/service/project.service';
 })
 export class Form13Component {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   installationFileToUpload: File | null = null;

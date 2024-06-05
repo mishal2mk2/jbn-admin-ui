@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
@@ -14,6 +14,8 @@ export class Form9Component {
     private route: ActivatedRoute,
     private _ProjectService: ProjectService
   ) {}
+
+  @Input() isApproveBtnShow!: boolean;
 
   formSubmit(approve: boolean) {
     const object = { isApproved: approve };

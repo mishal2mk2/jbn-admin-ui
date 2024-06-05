@@ -12,6 +12,7 @@ import { FormValidationService } from '../../../../helpers/service/form-validati
 })
 export class Form7Component implements OnInit, OnChanges {
   @Input() isRefreshDataInput!: number;
+  @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
   deliveryFileToUpload: File | null = null;
