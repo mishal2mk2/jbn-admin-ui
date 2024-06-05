@@ -20,7 +20,7 @@ export class WorkerListComponent implements OnInit{
   workers: {
     name: string;
     _id: string;
-    pricePerHour: number;
+    perHourWage: number;
     mobile: number;
   }[] = [];
 
@@ -51,7 +51,7 @@ export class WorkerListComponent implements OnInit{
 
     this.FormGroupData = this.formBuilder.group({
       name: ['', Validators.required],
-      pricePerHour: ['', Validators.required],
+      perHourWage: ['', Validators.required],
       mobile: ['', Validators.required],
     });
   }
@@ -85,7 +85,7 @@ export class WorkerListComponent implements OnInit{
           .toString()
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase()) ||
-        worker.pricePerHour
+        worker.perHourWage
           .toString()
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase())
@@ -118,8 +118,8 @@ export class WorkerListComponent implements OnInit{
     this._WorkerService.createWorker(this.FormGroupData.value).subscribe({
       next: (data: any) => {
         //pushing new created worker to workers array
-        const { name, mobile, pricePerHour, _id } = data.data;
-        this.workers.push({ name, mobile, pricePerHour, _id });
+        const { name, mobile, perHourWage, _id } = data.data;
+        this.workers.push({ name, mobile, perHourWage, _id });
 
         this.toastr.success('Worker added succefully', 'Success');
       },
@@ -161,11 +161,11 @@ export class WorkerListComponent implements OnInit{
     );
     this._WorkerService.updateWorker(updatedData).subscribe({
       next: (data: any) => {
-        const { _id, name, mobile, pricePerHour } = data.data;
+        const { _id, name, mobile, perHourWage } = data.data;
         
         this.workers = this.workers.map((worker) => {
           if (worker._id === _id) {
-            worker = { _id, name, mobile, pricePerHour };
+            worker = { _id, name, mobile, perHourWage };
           }
           return worker;
         });
@@ -180,7 +180,7 @@ export class WorkerListComponent implements OnInit{
     this.updateListData = {};
     this.FormGroupData = this.formBuilder.group({
       name: ['', Validators.required],
-      pricePerHour: ['', Validators.required],
+      perHourWage: ['', Validators.required],
       mobile: ['', Validators.required],
     });
   }
@@ -201,7 +201,7 @@ export class WorkerListComponent implements OnInit{
     this.FormGroupData = this.formBuilder.group({
       name: [data.name, Validators.required],
       mobile: [data.mobile, Validators.required],
-      pricePerHour: [data.pricePerHour, Validators.required],
+      perHourWage: [data.perHourWage, Validators.required],
     });
     this.FormGroupData.valueChanges;
   }
