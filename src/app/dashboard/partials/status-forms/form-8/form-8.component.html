@@ -143,6 +143,7 @@
   <!-- Info Details Section -->
   <p class="my-4 text-2xl text-black-500 font-bold dark:text-white">Info</p>
 
+
   <form class="mx-auto" [formGroup]="FormGroupData">
 
     <div class="grid grid-cols-2 gap-3 my-2">
@@ -213,9 +214,40 @@
           [templateOutletContext]="{  validation: 'required' , message: 'Service After Installation ( Days ) is required' , control: FormGroupData.controls['serviceAfter']}">
         </app-form-error-span>
       </div>
+    </div>
 
+    <p class="my-4 text-2xl text-black-500 font-bold dark:text-white">Note Section</p>
+
+    <div class="relative overflow-x-auto mt-5">
+      <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Date</th>
+            <th scope="col" class="px-6 py-3">Text</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let data of dayWorkNoteArray;">
+
+            <td class="px-6 py-4">
+              {{data.date | date:'longDate' }}
+            </td>
+
+            <td class="px-6 py-4">
+              {{data.text}}
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="grid grid-cols-2 gap-3 my-2">
       <!-- dayWorkNote -->
-      <div class="mb-5">
+      <div class="mb-5 mt-5">
         <label for="dayWorkNote" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">Day Work
           Note</label>
         <textarea type="text" id="dayWorkNote" rows="4" formControlName="dayWorkNote"

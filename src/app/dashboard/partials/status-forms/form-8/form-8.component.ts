@@ -66,6 +66,7 @@ export class Form8Component implements OnInit, OnChanges {
 
   furnitureData: any[] = [];
   workers: any = [];
+  dayWorkNoteArray: any[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -79,7 +80,7 @@ export class Form8Component implements OnInit, OnChanges {
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       // file: [''],
-      dayWorkNote: ['', [Validators.required]],
+      dayWorkNote: [''],
       inCharge: ['', [Validators.required]],
       serviceAfter: ['', [Validators.required]],
     });
@@ -104,6 +105,8 @@ export class Form8Component implements OnInit, OnChanges {
           serviceAfter: installationData.serviceAfter,
         });
 
+        this.dayWorkNoteArray = installationData.dayWorkNote;
+
         for (let i = 1; i <= this.installationStatus.length; i++) {
           this.installationStatus[i - 1].completed =
             installationData.installationStatus[i].percentCompleted || 0;
@@ -114,7 +117,7 @@ export class Form8Component implements OnInit, OnChanges {
             this.installationStatus[0].isStarted = true;
           }
         }
-        console.log(installationData.installationStatus['6']);
+
         this.clientSignature.isStarted =
           installationData.installationStatus['6'].isStarted;
 
