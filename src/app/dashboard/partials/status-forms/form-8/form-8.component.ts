@@ -59,7 +59,7 @@ export class Form8Component implements OnInit, OnChanges {
 
   WagesAdded = [
     {
-      empName: '',
+      empId: '',
       totalHour: 0,
     },
   ];
@@ -83,6 +83,9 @@ export class Form8Component implements OnInit, OnChanges {
       dayWorkNote: [''],
       inCharge: ['', [Validators.required]],
       serviceAfter: ['', [Validators.required]],
+      foodExpense: ['', [Validators.required]],
+      travelExpense: ['', [Validators.required]],
+      accomodationExpense: ['', [Validators.required]],
     });
 
     // Get the Workers list section
@@ -103,6 +106,9 @@ export class Form8Component implements OnInit, OnChanges {
         this.FormGroupData.patchValue({
           inCharge: installationData.inCharge,
           serviceAfter: installationData.serviceAfter,
+          foodExpense: installationData.extraExpense.food,
+          travelExpense: installationData.extraExpense.travel,
+          accomodationExpense: installationData.extraExpense.accomodation,
         });
 
         this.dayWorkNoteArray = installationData.dayWorkNote;
@@ -130,7 +136,7 @@ export class Form8Component implements OnInit, OnChanges {
 
         installationData.workersData.forEach((el: any) => {
           savedWages.push({
-            empName: el.name,
+            empId: el.workerId,
             totalHour: el.hours,
           });
         });
@@ -225,7 +231,7 @@ export class Form8Component implements OnInit, OnChanges {
     let isValid = true;
 
     this.WagesAdded.forEach((el) => {
-      if (!el.empName || el.totalHour < 1) {
+      if (!el.empId || el.totalHour < 1) {
         isValid = false;
       }
     });
@@ -237,17 +243,12 @@ export class Form8Component implements OnInit, OnChanges {
   addWagesSection() {
     if (this.validateTheSelectedMaterial()) {
       this.WagesAdded.push({
-        empName: '',
+        empId: '',
         totalHour: 0,
       });
     } else {
       this.toastr.error('Please Fill the Wages table completly ..!', 'Error');
     }
-  }
-
-  // Set the worker name
-  storeWorkerName(name: any, index: number) {
-    this.WagesAdded[index].empName = name;
   }
 
   formSubmit(type: string) {
@@ -276,7 +277,29 @@ export class Form8Component implements OnInit, OnChanges {
       }
     }
 
-    const { dayWorkNote, inCharge, serviceAfter } = this.FormGroupData.controls;
+    // Validate the Employee Wages Added Section
+    let isAllWagesValid = true;
+
+    for (let i = 0; i < this.WagesAdded.length; i++) {
+      if (!this.WagesAdded[i].empId || this.WagesAdded[i].totalHour < 0) {
+        isAllWagesValid = false;
+        break;
+      }
+    }
+
+    if (!isAllWagesValid) {
+      this.toastr.error('Fill all Wages Input Section', 'Error');
+      return;
+    }
+
+    const {
+      dayWorkNote,
+      inCharge,
+      serviceAfter,
+      foodExpense,
+      travelExpense,
+      accomodationExpense,
+    } = this.FormGroupData.controls;
 
     const object: any = {
       isApproved: type === 'SUBMIT' ? false : true,
@@ -286,11 +309,16 @@ export class Form8Component implements OnInit, OnChanges {
       dayWorkNote: dayWorkNote.value,
       workersData: [],
       furnitureList: [],
+      extraExpense: {
+        food: foodExpense.value,
+        travel: travelExpense.value,
+        accomodation: accomodationExpense.value,
+      },
     };
 
     this.WagesAdded.forEach((el) => {
       object.workersData.push({
-        name: el.empName,
+        workerId: el.empId,
         hours: el.totalHour,
       });
     });

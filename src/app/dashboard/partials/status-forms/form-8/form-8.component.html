@@ -27,12 +27,12 @@
 
             <td class="px-6 py-4">
               <!-- Emp name section -->
-              <ng-select [(ngModel)]="data.empName" [ngModelOptions]="{standalone: true}"
-                (change)="storeWorkerName($event,i)">
+              <ng-select [(ngModel)]="data.empId" [ngModelOptions]="{standalone: true}">
+
                 <ng-option selected value="">Choose a item</ng-option>
 
                 @for (mt of workers; track mt._id) {
-                <ng-option [value]="mt.name">{{ mt.name }}</ng-option>
+                <ng-option [value]="mt._id">{{ mt.name }}</ng-option>
                 }
               </ng-select>
 
@@ -216,9 +216,73 @@
       </div>
     </div>
 
+    <!-- Expense Details Section -->
+    <p class="my-4 text-2xl text-black-500 font-bold dark:text-white">Expense Details</p>
+
+    <div class="grid grid-cols-2 gap-3 my-2">
+
+      <!-- foodExpense section -->
+      <div class="mb-5">
+        <label for="foodExpense" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+          Food Expense
+        </label>
+        <input type="number" id="foodExpense" formControlName="foodExpense" placeholder="Food Expence"
+          class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          [ngClass]="{
+        'is-invalid-form':
+          FormGroupData.controls['foodExpense'].invalid &&
+          (FormGroupData.controls['foodExpense'].touched)
+        }" />
+
+        <!-- Error Span -->
+        <app-form-error-span
+          [templateOutletContext]="{  validation: 'required' , message: 'Food Expense is required' , control: FormGroupData.controls['foodExpense']}">
+        </app-form-error-span>
+      </div>
+
+      <!-- travelExpense section -->
+      <div class="mb-5">
+        <label for="travelExpense" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+          Travel Expense
+        </label>
+        <input type="number" id="travelExpense" formControlName="travelExpense" placeholder="Travel Expense"
+          class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          [ngClass]="{
+        'is-invalid-form':
+          FormGroupData.controls['travelExpense'].invalid &&
+          (FormGroupData.controls['travelExpense'].touched)
+        }" />
+
+        <!-- Error Span -->
+        <app-form-error-span
+          [templateOutletContext]="{  validation: 'required' , message: 'Travel Expense is required' , control: FormGroupData.controls['travelExpense']}">
+        </app-form-error-span>
+      </div>
+
+      <!-- accomodationExpense section -->
+      <div class="mb-5">
+        <label for="accomodationExpense" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
+          Accomodation Expense
+        </label>
+        <input type="number" id="accomodationExpense" formControlName="accomodationExpense"
+          placeholder="Accomodation Expense"
+          class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          [ngClass]="{
+        'is-invalid-form':
+          FormGroupData.controls['accomodationExpense'].invalid &&
+          (FormGroupData.controls['accomodationExpense'].touched)
+        }" />
+
+        <!-- Error Span -->
+        <app-form-error-span
+          [templateOutletContext]="{  validation: 'required' , message: 'Accomodation Expense is required' , control: FormGroupData.controls['accomodationExpense']}">
+        </app-form-error-span>
+      </div>
+    </div>
+
     <p class="my-4 text-2xl text-black-500 font-bold dark:text-white">Note Section</p>
 
-    <div class="relative overflow-x-auto mt-5">
+    <div class="relative overflow-x-auto mt-5" *ngIf="dayWorkNoteArray.length">
       <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
