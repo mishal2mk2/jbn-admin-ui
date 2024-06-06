@@ -114,7 +114,7 @@ export class Form7Component implements OnInit, OnChanges {
       isApproved: type === 'SUBMIT' ? false : true,
       driverNumber: driverNumber.value,
       vehicleNumber: deliveryVehicleNumber.value,
-      isDelivered: isDelivered.value,
+      isDelivered: this.isApproveBtnShow ? true : isDelivered.value,
       furnitureList: [],
     };
 
