@@ -143,12 +143,14 @@
   <!-- Info Details Section -->
   <p class="my-4 text-2xl text-black-500 font-bold dark:text-white">Info</p>
 
+  <app-file-manage-modal [FileArray]="installationFileArray" FileKey="installation"></app-file-manage-modal>
+
 
   <form class="mx-auto" [formGroup]="FormGroupData">
 
     <div class="grid grid-cols-2 gap-3 my-2">
       <!-- Instalation File section -->
-      <!-- <div class="mb-5">
+      <div class="mb-5">
         <label for="file" class="block mb-2 text-medium font-medium text-gray-900 dark:text-white">
           Instalation File
         </label>
@@ -161,10 +163,10 @@
             FormGroupData.controls['file'].invalid &&
             (FormGroupData.controls['file'].touched)
         }" (change)="validateFileSize($event)">
-        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_help"> Max upload file Size 5MB</div> -->
+        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_help"> Max upload file Size 5MB</div>
 
-      <!-- Error Span -->
-      <!-- <app-form-error-span
+        <!-- Error Span -->
+        <app-form-error-span
           [templateOutletContext]="{  validation: 'maxSize' , message: 'Installation File size should be less than 5MB' , control: FormGroupData.controls['file']}">
         </app-form-error-span>
 
@@ -175,7 +177,7 @@
         <app-form-error-span
           [templateOutletContext]="{  validation: 'required' , message: 'Installation File is required' , control: FormGroupData.controls['file']}">
         </app-form-error-span>
-      </div> -->
+      </div>
 
       <!-- in charge name section -->
       <div class="mb-5">

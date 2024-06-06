@@ -66,6 +66,7 @@ export class Form8Component implements OnInit, OnChanges {
 
   furnitureData: any[] = [];
   workers: any = [];
+  installationFileArray: any[] = [];
   dayWorkNoteArray: any[] = [];
 
   constructor(
@@ -79,7 +80,7 @@ export class Form8Component implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
-      // file: [''],
+      file: [''],
       dayWorkNote: [''],
       inCharge: ['', [Validators.required]],
       serviceAfter: ['', [Validators.required]],
@@ -96,7 +97,7 @@ export class Form8Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { installationData, furnitureList } = res.data;
+      const { installationData, furnitureList, attachments } = res.data;
 
       if (furnitureList.length) {
         this.furnitureData = furnitureList || [];
@@ -142,6 +143,9 @@ export class Form8Component implements OnInit, OnChanges {
         });
 
         if (savedWages.length) this.WagesAdded = savedWages;
+
+        // Add the Files to preview
+        this.installationFileArray = attachments.installationFile;
       }
     });
   }
@@ -350,6 +354,29 @@ export class Form8Component implements OnInit, OnChanges {
 
     // Take the Project ID form the query params
     const { id } = this.route.snapshot.queryParams;
+
+    // File Upload Section
+    if (
+      !this.installationFileToUpload &&
+      this.installationFileArray.length === 0
+    ) {
+      this.toastr.error('File is required', 'Error');
+
+      return;
+    }
+    const formObjectFile = new FormData();
+
+    if (this.installationFileToUpload) {
+      formObjectFile.append('file', this.installationFileToUpload);
+    }
+    formObjectFile.append('key', 'installation');
+
+    this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
+      next: (res) => {},
+      error: (err) => {
+        this.toastr.error(err.error.message, 'Error');
+      },
+    });
 
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusInstallation(object, id).subscribe({
