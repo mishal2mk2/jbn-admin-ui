@@ -368,15 +368,15 @@ export class Form8Component implements OnInit, OnChanges {
 
     if (this.installationFileToUpload) {
       formObjectFile.append('file', this.installationFileToUpload);
-    }
-    formObjectFile.append('key', 'installation');
+      formObjectFile.append('key', 'installation');
 
-    this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
-      next: (res) => {},
-      error: (err) => {
-        this.toastr.error(err.error.message, 'Error');
-      },
-    });
+      this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
+        next: (res) => {},
+        error: (err) => {
+          this.toastr.error(err.error.message, 'Error');
+        },
+      });
+    }
 
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusInstallation(object, id).subscribe({

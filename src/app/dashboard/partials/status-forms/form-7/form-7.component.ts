@@ -29,6 +29,7 @@ export class Form7Component implements OnInit, OnChanges {
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       file: [''],
+      isDelivered: [false, [Validators.required]],
       deliveryVehicleNumber: [
         '',
         [Validators.required, Validators.minLength(4)],
@@ -106,12 +107,14 @@ export class Form7Component implements OnInit, OnChanges {
     // Take the Project ID form the query params
     const { id } = this.route.snapshot.queryParams;
 
-    const { driverNumber, deliveryVehicleNumber } = this.FormGroupData.controls;
+    const { driverNumber, deliveryVehicleNumber, isDelivered } =
+      this.FormGroupData.controls;
 
     const object = {
       isApproved: type === 'SUBMIT' ? false : true,
       driverNumber: driverNumber.value,
       vehicleNumber: deliveryVehicleNumber.value,
+      isDelivered: isDelivered.value,
       furnitureList: [],
     };
 
@@ -120,19 +123,20 @@ export class Form7Component implements OnInit, OnChanges {
 
       return;
     }
+
     const formObjectFile = new FormData();
 
     if (this.deliveryFileToUpload) {
       formObjectFile.append('file', this.deliveryFileToUpload);
-    }
-    formObjectFile.append('key', 'invoice');
+      formObjectFile.append('key', 'invoice');
 
-    this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
-      next: (res) => {},
-      error: (err) => {
-        this.toastr.error(err.error.message, 'Error');
-      },
-    });
+      this._ProjectService.projectFileUpload(formObjectFile, id).subscribe({
+        next: (res) => {},
+        error: (err) => {
+          this.toastr.error(err.error.message, 'Error');
+        },
+      });
+    }
 
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusDelivery(object, id).subscribe({
