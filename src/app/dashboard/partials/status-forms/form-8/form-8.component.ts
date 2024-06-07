@@ -398,6 +398,10 @@ export class Form8Component implements OnInit, OnChanges {
     this._ProjectService.approveStatusInstallation(object, id).subscribe({
       next: () => {
         this.toastr.success('Successfully update project status', 'Success');
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+        this.installationFileToUpload= null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {

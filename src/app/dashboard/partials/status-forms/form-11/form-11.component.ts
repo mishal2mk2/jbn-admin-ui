@@ -117,6 +117,10 @@ export class Form11Component implements OnInit, OnChanges {
     this._ProjectService.approveStatusClose(form, id).subscribe({
       next: () => {
         this.toastr.success('Successfully update project status', 'Success');
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+        this.closeFileToUpload= null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
