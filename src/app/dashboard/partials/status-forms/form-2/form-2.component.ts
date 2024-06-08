@@ -117,6 +117,10 @@ export class Form2Component implements OnInit, OnChanges {
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusDrawing(form, id).subscribe({
       next: () => {
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+        this.drawingFileToUpload= null;
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },

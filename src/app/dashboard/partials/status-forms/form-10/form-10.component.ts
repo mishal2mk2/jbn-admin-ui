@@ -117,6 +117,10 @@ export class Form10Component implements OnInit, OnChanges {
     this._ProjectService.approveStatusService(form, id).subscribe({
       next: () => {
         this.toastr.success('Successfully update project status', 'Success');
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+        this.serviceFileToUpload= null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {

@@ -2,50 +2,50 @@
 
   <span
     class="bg-gray-100 text-gray-800 text-lg font-medium me-2 p-4 rounded dark:bg-gray-700 dark:text-gray-300">DRAWING
-    : {{statusCountObject.drawing}}</span>
+    : {{statusCountObject.drawing?statusCountObject.drawing:0}}</span>
 
   <span class="bg-red-100 text-red-800 text-lg font-medium me-2 p-4 rounded dark:bg-red-900 dark:text-red-300">MATERIAL
-    ESTIMATE : {{statusCountObject.materialEstimate}}</span>
+    ESTIMATE : {{statusCountObject.materialEstimate?statusCountObject.materialEstimate:0}}</span>
 
   <span
     class="bg-green-100 text-green-800 text-lg font-medium me-2 p-4 rounded dark:bg-green-900 dark:text-green-300">WAITING
-    CONFIRMATION : {{statusCountObject.waitingConfirmation}}</span>
+    CONFIRMATION : {{statusCountObject.waitingConfirmation?statusCountObject.waitingConfirmation:0}}</span>
 
   <span
     class="bg-yellow-100 text-yellow-800 text-lg font-medium me-2 p-4 rounded dark:bg-yellow-900 dark:text-yellow-300">MATERIAL
-    ARRIVAL : {{statusCountObject.materialArrival}}</span>
+    ARRIVAL : {{statusCountObject.materialArrival?statusCountObject.materialArrival:statusCountObject.materialArrival}}</span>
 
   <span
     class="bg-indigo-100 text-indigo-800 text-lg font-medium me-2 p-4 rounded dark:bg-indigo-900 dark:text-indigo-300">PRODUCTION
-    : {{statusCountObject.production}}</span>
+    : {{statusCountObject.production?statusCountObject.production:0}}</span>
 
   <span
     class="bg-purple-100 text-purple-800 text-lg font-medium me-2 p-4 rounded dark:bg-purple-900 dark:text-purple-300">DELIVERY
-    : {{statusCountObject.delivery}}</span>
+    : {{statusCountObject.delivery?statusCountObject.delivery:0}}</span>
 
   <span
     class="bg-pink-100 text-pink-800 text-lg me-2 p-4 font-medium rounded dark:bg-pink-900 dark:text-pink-300">INSTALLATION
-    : {{statusCountObject.installation}}</span>
+    : {{statusCountObject.installation?statusCountObject.installation:0}}</span>
 
   <span
     class="bg-green-100 text-green-800 text-lg font-medium me-2 p-4 rounded dark:bg-green-900 dark:text-green-300">AWAITING
-    SERVICE : {{statusCountObject.awaitingService}}</span>
+    SERVICE : {{statusCountObject.awaitingService?statusCountObject.awaitingService:0}}</span>
 
   <span
     class="bg-yellow-100 text-yellow-800 text-lg font-medium me-2 p-4 rounded dark:bg-yellow-900 dark:text-yellow-300">SERVICE
-    : {{statusCountObject.service}}</span>
+    : {{statusCountObject.service?statusCountObject.service:0}}</span>
 
   <span
     class="bg-indigo-100 text-indigo-800 text-lg font-medium me-2 p-4 rounded dark:bg-indigo-900 dark:text-indigo-300">TO
-    CLOSE : {{statusCountObject.toClose}}</span>
+    CLOSE : {{statusCountObject.toClose?statusCountObject.toClose:0}}</span>
 
   <span
     class="bg-purple-100 text-purple-800 text-lg font-medium me-2 p-4 rounded dark:bg-purple-900 dark:text-purple-300">CLOSED
-    : {{statusCountObject.closed}}</span>
+    : {{statusCountObject.closed?statusCountObject.closed:0}}</span>
 
   <span
     class="bg-pink-100 text-pink-800 text-lg font-medium me-2 p-4 rounded dark:bg-pink-900 dark:text-pink-300">CANCELLED
-    : {{statusCountObject.cancelled}}</span>
+    : {{statusCountObject.cancelled?statusCountObject.cancelled:0}}</span>
 
 </div>
 

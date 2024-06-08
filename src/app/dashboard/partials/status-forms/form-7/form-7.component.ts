@@ -142,6 +142,10 @@ export class Form7Component implements OnInit, OnChanges {
     this._ProjectService.approveStatusDelivery(object, id).subscribe({
       next: () => {
         this.toastr.success('Successfully update project status', 'Success');
+        this.FormGroupData.patchValue({
+          file: '',
+        });
+        this.deliveryFileToUpload= null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
