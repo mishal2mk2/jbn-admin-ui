@@ -17,7 +17,9 @@ export class DashboardComponent implements OnInit {
   // },
 
   ngOnInit(): void {
+    this._DashboardService.isLoading(true);
     this._DashboardService.statusCountDashboardAPI().subscribe((res) => {
+      this._DashboardService.isLoading(false);
       const { data } = res;
 
       if (data) {

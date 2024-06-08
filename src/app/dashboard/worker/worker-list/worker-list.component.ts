@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WorkerService } from '../worker.service';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-worker-list',
@@ -33,16 +34,20 @@ export class WorkerListComponent implements OnInit{
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _WorkerService: WorkerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _DashboardService:DashboardService,
   ) {}
 
   ngOnInit(): void {
     //load worker list
+    this._DashboardService.isLoading(true);
     this._WorkerService.getWorkerList().subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         this.workers = data.data;
       },
       error: (err) => {
+        this._DashboardService.isLoading(false);
         this.toastr.error('Error while loading worker list', 'Error');
       },
     });
@@ -115,15 +120,18 @@ export class WorkerListComponent implements OnInit{
       this.FormGroupData.markAllAsTouched();
       return;
     }
+    this._DashboardService.isLoading(true);
     this._WorkerService.createWorker(this.FormGroupData.value).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         //pushing new created worker to workers array
         const { name, mobile, perHourWage, _id } = data.data;
         this.workers.push({ name, mobile, perHourWage, _id });
-
+        
         this.toastr.success('Worker added succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         console.log(err);
         if (err.message) {
           this.toastr.error(err.message, 'Error');
@@ -135,16 +143,19 @@ export class WorkerListComponent implements OnInit{
     this.closeModal();
   }
   deleteItem(id: any) {
+    this._DashboardService.isLoading(true);
     this._WorkerService.deleteWorker(id).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         //filtering worker from existing list
         this.workers = this.workers.filter((worker) => {
           return worker._id !== id;
         });
-
+        
         this.toastr.success('Worker deleted succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         console.log(err);
         this.toastr.error('Some error occured', 'Error');
       },
@@ -159,8 +170,10 @@ export class WorkerListComponent implements OnInit{
       this.updateListData,
       this.FormGroupData.value
     );
+    this._DashboardService.isLoading(true);
     this._WorkerService.updateWorker(updatedData).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         const { _id, name, mobile, perHourWage } = data.data;
         
         this.workers = this.workers.map((worker) => {
@@ -172,6 +185,7 @@ export class WorkerListComponent implements OnInit{
         this.toastr.success('Worker edited succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         this.toastr.error('Some error occured', 'Error');
       },
     });

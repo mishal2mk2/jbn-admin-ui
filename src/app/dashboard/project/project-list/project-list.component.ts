@@ -10,6 +10,7 @@ import { ProjectService } from '../service/project.service';
 import { initFlowbite } from 'flowbite';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../../../helpers/service/common.service';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-project-list',
@@ -40,7 +41,8 @@ export class ProjectListComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _CommonService: CommonService
+    private _CommonService: CommonService,
+    private _DashboardService: DashboardService,
   ) {}
 
   products: any[] = [];
@@ -66,7 +68,9 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   // Get all product data
   getAllProduct() {
+    this._DashboardService.isLoading(true);
     this._ProjectService.getAllProjects().subscribe((res) => {
+      this._DashboardService.isLoading(false);
       this.products = res.data;
 
       // Mange button disable section logic
