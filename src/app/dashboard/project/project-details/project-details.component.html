@@ -99,45 +99,45 @@
             <!-- Table data -->
             @for (item of orderData.material_details.item; track item) {
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-  
+
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ item?.item_id?.name }}
               </th>
-  
+
               <td class="px-6 py-4">
                 {{ item?.item_id?.code }}
               </td>
-  
+
               <td class="px-6 py-4">
                 {{ item?.item_id?.unitCalculated }}
               </td>
-  
+
               <td class="px-6 py-4">
                 <span
                   class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
                   ₹ {{ item?.item_id?.price }}
                 </span>
               </td>
-  
+
               <td class="px-6 py-4">
                 <span
                   class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
                   {{ item?.quantity }}
                 </span>
               </td>
-  
+
               <td class="px-6 py-4">
                 <span
                   class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
                   ₹ {{ item?.item_id?.price * item?.quantity }}
                 </span>
               </td>
-  
+
             </tr>
             }
-  
+
           </tbody>
-  
+
         </table>
         }@else{
         <p class="text-base font-normal text-gray-500 dark:text-gray-400">
@@ -197,6 +197,8 @@
       </div>
     </section>
     <hr class="my-5" />
+
+    <!-- Attachments Section -->
     <section>
       <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
         <span>
@@ -210,7 +212,7 @@
           Attachments
         </h3>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
+      <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-8 m-2">
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Drawing file</span>
           @if (orderData?.attachments?.drawingFile.length>0) {
@@ -629,6 +631,88 @@
       </p>
       }
 
+    </section>
+    <hr class="my-5" />
+
+    <!-- Installation details section -->
+    <section>
+      <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
+        <span>
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
+              d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+          </svg>
+        </span>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Installation Details
+        </h3>
+      </div>
+      <div class="m-2">
+        @if (orderData?.material_details?.item.length>0) {
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <!-- Table header -->
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <!-- Header row -->
+            <tr>
+              <th scope="col" class="px-6 py-3">Name</th>
+              <th scope="col" class="px-6 py-3">ID</th>
+              <th scope="col" class="px-6 py-3">Unit</th>
+              <th scope="col" class="px-6 py-3">Price</th>
+              <th scope="col" class="px-6 py-3">Nos</th>
+              <th scope="col" class="px-6 py-3">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Table data -->
+            @for (item of orderData.material_details.item; track item) {
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ item?.item_id?.name }}
+              </th>
+
+              <td class="px-6 py-4">
+                {{ item?.item_id?.code }}
+              </td>
+
+              <td class="px-6 py-4">
+                {{ item?.item_id?.unitCalculated }}
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{ item?.item_id?.price }}
+                </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  {{ item?.quantity }}
+                </span>
+              </td>
+
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  ₹ {{ item?.item_id?.price * item?.quantity }}
+                </span>
+              </td>
+
+            </tr>
+            }
+
+          </tbody>
+
+        </table>
+        }@else{
+        <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+          No Records Found
+        </p>
+        }
+      </div>
     </section>
 
     <!-- <footer
