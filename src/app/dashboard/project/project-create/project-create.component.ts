@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../service/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-project-create',
@@ -11,23 +12,24 @@ import { Router } from '@angular/router';
 })
 export class ProjectCreateComponent implements OnInit {
   FormGroupData!: FormGroup;
-  furnitureList=[
-    {text:''},
-    {text:''},
-    {text:''},
+  furnitureList = [
+    { text: '' },
+    { text: '' },
+    { text: '' },
   ];
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private _ProjectService: ProjectService
-  ) {}
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService,
+  ) { }
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
       clientName: ['', [Validators.required, Validators.minLength(4)]],
-      clientPhone: ['', [Validators.required,Validators.minLength(10)]],
+      clientPhone: ['', [Validators.required, Validators.minLength(10)]],
       clientEmail: ['', [Validators.required, Validators.email]],
       addressCity: ['', [Validators.required]],
       addressLocation: ['', Validators.required],
@@ -37,22 +39,22 @@ export class ProjectCreateComponent implements OnInit {
     });
   }
 
-  validateList(){
+  validateList() {
     let isValid = true;
 
-    this.furnitureList.forEach((el)=>{
-      if(el.text.trim().length===0){
-        isValid=false;
+    this.furnitureList.forEach((el) => {
+      if (el.text.trim().length === 0) {
+        isValid = false;
       }
     });
 
     return isValid;
   }
 
-  addFurnitureList(){
-    if(this.validateList()){
-      this.furnitureList.push({text:''});
-    }else{
+  addFurnitureList() {
+    if (this.validateList()) {
+      this.furnitureList.push({ text: '' });
+    } else {
       this.toastr.error("Pls fill list properly", "Error");
     }
   }
@@ -75,7 +77,7 @@ export class ProjectCreateComponent implements OnInit {
       priceTotal,
     } = this.FormGroupData.controls;
 
-    const object:any = {
+    const object: any = {
       client: {
         name: clientName.value,
         mob: clientPhone.value,
@@ -90,24 +92,26 @@ export class ProjectCreateComponent implements OnInit {
       projectTotal: priceTotal.value,
     };
 
-    this.furnitureList=this.furnitureList.filter((list)=>{
-      if(list.text.trim().length===0){
+    this.furnitureList = this.furnitureList.filter((list) => {
+      if (list.text.trim().length === 0) {
         return false;
       }
       return true;
     })
 
-    if(this.furnitureList.length>0){
+    if (this.furnitureList.length > 0) {
       object.furnitureList = this.furnitureList;
     }
-
+    this._DashboardService.isLoading(true);
     this._ProjectService.createProject(object).subscribe({
       next: (res) => {
+        this._DashboardService.isLoading(false);
         this.router.navigate(['project']).then(() => {
           this.toastr.success('Successfully created new project', 'Success');
         });
       },
       error: (err) => {
+        this._DashboardService.isLoading(false);
         this.toastr.error(err.error.message, 'Error');
       },
     });

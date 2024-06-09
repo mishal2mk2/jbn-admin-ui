@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ProjectService {
   private AUTH_API = environment.API_ENDPOINT;
+  isLoading:boolean=false;
   $ProjectNavigateDataTransfer = new EventEmitter();
   $ProjectFormOpenDataTransfer = new EventEmitter<number>();
 

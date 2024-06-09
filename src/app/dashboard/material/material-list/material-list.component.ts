@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialService } from '../service/material.service';
 import { ToastrService } from 'ngx-toastr';
+import { DashboardService } from '../../dashboard.service';
 
 @Component({
   selector: 'app-material-list',
@@ -34,16 +35,20 @@ export class MaterialListComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _MaterialService: MaterialService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _DashboardService:DashboardService,
   ) {}
 
   ngOnInit(): void {
     //load material list
+    this._DashboardService.isLoading(true);
     this._MaterialService.getAllMaterialData().subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         this.materials = data.data;
       },
       error: (err) => {
+        this._DashboardService.isLoading(false);
         this.toastr.error('Error while loading item list', 'Error');
       },
     });
@@ -116,15 +121,18 @@ export class MaterialListComponent {
       this.FormGroupData.markAllAsTouched();
       return;
     }
+    this._DashboardService.isLoading(true);
     this._MaterialService.createItem(this.FormGroupData.value).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         //pushing new created item to materials array
         const { name, unitCalculated, code, price, _id } = data.data;
         this.materials.push({ name, unitCalculated, code, price, _id });
-
+        
         this.toastr.success('Item added succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         console.log(err);
         if (err.message) {
           this.toastr.error(err.message, 'Error');
@@ -136,16 +144,19 @@ export class MaterialListComponent {
     this.closeModal();
   }
   deleteItem(id: any) {
+    this._DashboardService.isLoading(true);
     this._MaterialService.deleteItem(id).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         //filtering material from existing list
         this.materials = this.materials.filter((mat) => {
           return mat._id !== id;
         });
-
+        
         this.toastr.success('Item deleted succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         console.log(err);
         this.toastr.error('Some error occured', 'Error');
       },
@@ -160,8 +171,10 @@ export class MaterialListComponent {
       this.updateListData,
       this.FormGroupData.value
     );
+    this._DashboardService.isLoading(true);
     this._MaterialService.updateItem(updatedData).subscribe({
       next: (data: any) => {
+        this._DashboardService.isLoading(false);
         const { _id, name, unitCalculated, price, code } = data.data;
         this.materials = this.materials.map((mat) => {
           if (mat._id === _id) {
@@ -172,6 +185,7 @@ export class MaterialListComponent {
         this.toastr.success('Item edited succefully', 'Success');
       },
       error: (err: any) => {
+        this._DashboardService.isLoading(false);
         this.toastr.error('Some error occured', 'Error');
       },
     });
