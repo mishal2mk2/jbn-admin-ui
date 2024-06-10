@@ -1,5 +1,6 @@
 <div class="flex justify-between">
   <div class="w-3/4">
+
     <!-- Basic details section -->
     <section>
       <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
@@ -18,53 +19,121 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Order Id</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.orderNumber}}
+            {{orderData?.orderNumber}}
           </p>
         </div>
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Customer</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.client.name}}
+            {{orderData?.client.name}}
           </p>
         </div>
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Customer Contact</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.client.mob}}
+            {{orderData?.client.mob}}
           </p>
         </div>
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Created Date</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.createdAt | date}}
+            {{orderData?.createdAt | date}}
           </p>
         </div>
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Last Updated</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.updatedAt | date}}
+            {{orderData?.updatedAt | date}}
           </p>
         </div>
+
+        <div>
+          <span class="font-semibold text-gray-900 dark:text-white">Project Total</span>
+          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+            {{orderData?.projectTotal }}
+          </p>
+        </div>
+
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Order Status</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.orderStatus | statusCodeToValue}}
+            {{orderData?.orderStatus | statusCodeToValue}}
           </p>
         </div>
+
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Notes</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.notes}}
-          </p>
-        </div>
-        <div>
-          <span class="font-semibold text-gray-900 dark:text-white">Description</span>
-          <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            {{orderData.description}}
+            {{orderData?.notes}}
           </p>
         </div>
       </div>
+
+
+
+      <div class="mb-5 mt-5" *ngIf="orderData?.furnitureList.length">
+        <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Furniture Info</p>
+        <div class="relative overflow-x-auto">
+          <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">SL.NO</th>
+                <th scope="col" class="px-6 py-3">Furniture Name</th>
+                <th scope="col" class="px-6 py-3">Delivered</th>
+                <th scope="col" class="px-6 py-3">Installed</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                *ngFor="let furniture of orderData?.furnitureList ; let i = index">
+
+                <td class="px-6 py-4">
+                  <!-- Sl no -->
+                  <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <em> {{ i + 1 }} </em>
+                  </p>
+                </td>
+
+                <td class="px-6 py-4">
+                  <!-- Furniture  section -->
+                  <p class="text-base text-gray-500 dark:text-gray-400">
+                    <em> {{furniture.text}} </em>
+                  </p>
+                </td>
+
+                <td class="px-6 py-4">
+                  <!-- Deliverd section -->
+                  @if (furniture.isDelivered ) {
+                  <span
+                    class="bg-blue-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-blue-300">{{furniture.isDelivered}}</span>
+                  } @else {
+                  <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{furniture.isDelivered}}</span>
+                  }
+                </td>
+
+                <td class="px-6 py-4">
+                  <!-- Installed section -->
+                  @if (furniture.isInstalled ) {
+                  <span
+                    class="bg-blue-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-blue-300">{{furniture.isDelivered}}</span>
+                  } @else {
+                  <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{furniture.isDelivered}}</span>
+                  }
+                </td>
+
+              </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+      </div>
     </section>
+
+
     <hr class="my-5" />
     <!-- Material details section -->
     <section>
@@ -97,7 +166,7 @@
           </thead>
           <tbody>
             <!-- Table data -->
-            @for (item of orderData.material_details.item; track item) {
+            @for (item of orderData?.material_details.item; track item) {
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -168,7 +237,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Estimate Completion(Days)</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.estDaysToComplete) {
-            {{orderData.estDaysToComplete}} Days
+            {{orderData?.estDaysToComplete}} Days
             }@else {
             -
             }
@@ -178,7 +247,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Estimate Date of Arrival</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.estDateOfArrival) {
-            {{orderData.estDateOfArrival|date}}
+            {{orderData?.estDateOfArrival|date}}
             }@else {
             -
             }
@@ -188,7 +257,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Estimate Work start date</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.estStartDate) {
-            {{orderData.estStartDate|date}}
+            {{orderData?.estStartDate|date}}
             }@else {
             -
             }
@@ -216,7 +285,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Drawing file</span>
           @if (orderData?.attachments?.drawingFile.length>0) {
-          @for (file of orderData.attachments.drawingFile; track file) {
+          @for (file of orderData?.attachments.drawingFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +311,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Material Estimate</span>
           @if (orderData?.attachments?.invoiceFile.length>0) {
-          @for (file of orderData.attachments.invoiceFile; track file) {
+          @for (file of orderData?.attachments.invoiceFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -267,7 +336,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Installation Photos</span>
           @if (orderData?.attachments?.installationFile.length>0) {
-          @for (file of orderData.attachments.installationFile; track file) {
+          @for (file of orderData?.attachments.installationFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -292,7 +361,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Closing Report</span>
           @if (orderData?.attachments?.closingReportFile.length>0) {
-          @for (file of orderData.attachments.closingReportFile; track file) {
+          @for (file of orderData?.attachments.closingReportFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -317,7 +386,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Production Report</span>
           @if (orderData?.attachments?.serviceReportFile.lenght>0) {
-          @for (file of orderData.attachments.serviceReportFile; track file) {
+          @for (file of orderData?.attachments.serviceReportFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -342,7 +411,7 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Service Report</span>
           @if (orderData?.attachments?.serviceReportFile.length>0) {
-          @for (file of orderData.attachments.serviceReportFile; track file) {
+          @for (file of orderData?.attachments.serviceReportFile; track file) {
           <a href="{{file.url}}"
             class="flex items-center my-2 p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -396,7 +465,7 @@
         </thead>
         <tbody>
           <!-- Table data -->
-          @for (payment of orderData.transactionDetails; track payment) {
+          @for (payment of orderData?.transactionDetails; track payment) {
           <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -461,7 +530,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Production Status</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.production_details?.status) {
-            {{orderData.production_details.status | prodStatusToValue}}
+            {{orderData?.production_details.status | prodStatusToValue}}
             }@else {
             -
             }
@@ -471,7 +540,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Material Arrived Date</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.materialArrivedDate) {
-            {{orderData.materialArrivedDate|date}}
+            {{orderData?.materialArrivedDate|date}}
             }@else {
             -
             }
@@ -480,8 +549,8 @@
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Production Start Date</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-            @if (orderData.production_details?.createdAt) {
-            {{orderData.production_details?.createdAt|date}}
+            @if (orderData?.production_details?.createdAt) {
+            {{orderData?.production_details?.createdAt|date}}
             }@else {
             -
             }
@@ -494,83 +563,84 @@
           </p>
         </div>
       </div>
-      @if (orderData.production_details) {
+      @if (orderData?.production_details) {
       <div class="p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <ol class="items-center w-full grid grid-cols-3 gap-5 rtl:space-x-reverse">
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['1'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['1'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-blue-600 rounded-full shrink-0 dark:border-blue-500">
               1
             </span>
             <span>
               <h3 class="font-medium leading-tight">Pressing</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["1"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["1"].percentCompleted}}%
               </p>
             </span>
           </li>
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['2'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['2'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
               2
             </span>
             <span>
               <h3 class="font-medium leading-tight">Cutting</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["2"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["2"].percentCompleted}}%
               </p>
             </span>
           </li>
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['3'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['3'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
               3
             </span>
             <span>
               <h3 class="font-medium leading-tight">Edgebanding</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["3"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["3"].percentCompleted}}%
               </p>
             </span>
           </li>
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['4'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['4'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
               4
             </span>
             <span>
               <h3 class="font-medium leading-tight">Boring</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["4"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["4"].percentCompleted}}%
               </p>
             </span>
           </li>
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['5'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['5'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
               5
             </span>
             <span>
               <h3 class="font-medium leading-tight">Checking</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["5"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["5"].percentCompleted}}%
               </p>
             </span>
           </li>
           <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
-            [ngClass]="orderData.production_details?.productionStatus['6'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+            [ngClass]="orderData?.production_details?.productionStatus['6'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
             <span
               class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
               6
             </span>
             <span>
               <h3 class="font-medium leading-tight">Packing</h3>
-              <p class="text-sm">Completed: {{orderData.production_details?.productionStatus["6"].percentCompleted}}%
+              <p class="text-sm">Completed: {{orderData?.production_details?.productionStatus["6"].percentCompleted}}%
               </p>
             </span>
           </li>
         </ol>
       </div>
+
       }@else {
       <p class="text-base font-normal text-gray-500 dark:text-gray-400">
         No Records Found
@@ -592,13 +662,13 @@
           Delivery Details
         </h3>
       </div>
-      @if (orderData.delivery) {
+      @if (orderData?.delivery) {
       <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-3 my-2">
         <div>
           <span class="font-semibold text-gray-900 dark:text-white">Driver Contact</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.delivery.driverNumber) {
-            {{orderData.delivery.driverNumber}}
+            {{orderData?.delivery.driverNumber}}
             }@else {
             -
             }
@@ -608,7 +678,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Vehicle Number</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.delivery.vehicleNumber) {
-            {{orderData.delivery.vehicleNumber}}
+            {{orderData?.delivery.vehicleNumber}}
             }@else {
             -
             }
@@ -618,7 +688,7 @@
           <span class="font-semibold text-gray-900 dark:text-white">Delivery Date</span>
           <p class="text-base font-normal text-gray-500 dark:text-gray-400">
             @if (orderData?.delivery.date) {
-            {{orderData.delivery.date|date}}
+            {{orderData?.delivery.date|date}}
             }@else {
             -
             }
@@ -649,64 +719,260 @@
         </h3>
       </div>
       <div class="m-2">
-        @if (orderData?.material_details?.item.length>0) {
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <!-- Table header -->
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <!-- Header row -->
-            <tr>
-              <th scope="col" class="px-6 py-3">Name</th>
-              <th scope="col" class="px-6 py-3">ID</th>
-              <th scope="col" class="px-6 py-3">Unit</th>
-              <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3">Nos</th>
-              <th scope="col" class="px-6 py-3">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Table data -->
-            @for (item of orderData.material_details.item; track item) {
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        @if (orderData?.installationData) {
+        <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-8 m-2 mt-4 mb-4">
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">InCharge</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              {{orderData?.installationData.inCharge}}
+            </p>
+          </div>
+        </div>
 
-              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ item?.item_id?.name }}
-              </th>
+        <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Installation Status Info</p>
 
-              <td class="px-6 py-4">
-                {{ item?.item_id?.code }}
-              </td>
+        <div
+          class="p-6 mt-3 mb-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+          <ol class="items-center w-full grid grid-cols-3 gap-5 rtl:space-x-reverse">
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['1'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-blue-600 rounded-full shrink-0 dark:border-blue-500">
+                1
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Unloading</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["1"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['2'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                2
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Caracus Assembly</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["2"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['3'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                3
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Accessories Installation</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["3"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['4'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                4
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Shutter Fitting</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["4"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['5'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                5
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Cleaning</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["5"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+            <li class="flex items-center space-x-2.5 rtl:space-x-reverse"
+              [ngClass]="orderData?.installationData?.installationStatus['6'].isStarted?'text-blue-600 dark:text-blue-500':'text-gray-500 dark:text-gray-400'">
+              <span
+                class="flex items-center justify-center w-8 h-8 border border-gray-500 rounded-full shrink-0 dark:border-gray-400">
+                6
+              </span>
+              <span>
+                <h3 class="font-medium leading-tight">Client Signature</h3>
+                <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["6"].percentCompleted}}%
+                </p>
+              </span>
+            </li>
+          </ol>
+        </div>
 
-              <td class="px-6 py-4">
-                {{ item?.item_id?.unitCalculated }}
-              </td>
 
-              <td class="px-6 py-4">
-                <span
-                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
-                  ₹ {{ item?.item_id?.price }}
-                </span>
-              </td>
+        <div class="mb-5 mt-5" *ngIf="orderData?.installationData.workersData.length">
 
-              <td class="px-6 py-4">
-                <span
-                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
-                  {{ item?.quantity }}
-                </span>
-              </td>
+          <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Workers Hours Info</p>
 
-              <td class="px-6 py-4">
-                <span
-                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
-                  ₹ {{ item?.item_id?.price * item?.quantity }}
-                </span>
-              </td>
+          <div class="relative overflow-x-auto">
+            <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">SL.NO</th>
+                  <th scope="col" class="px-6 py-3">Name Of Works</th>
+                  <th scope="col" class="px-6 py-3">Hours Worked</th>
+                </tr>
+              </thead>
 
-            </tr>
-            }
+              <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  *ngFor="let worker of orderData?.installationData.workersData ; let i = index">
 
-          </tbody>
+                  <td class="px-6 py-4">
+                    <!-- Sl no -->
+                    <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <em> {{ i + 1 }} </em>
+                    </p>
+                  </td>
 
-        </table>
+                  <td class="px-6 py-4">
+                    <!-- Worker Name  section -->
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{worker.name}} </em>
+                    </p>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <!-- Worked Hour  section -->
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{worker.hours}} </em>
+                    </p>
+                  </td>
+
+
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+        </div>
+
+
+        <div class="mb-5 mt-5" *ngIf="orderData?.installationData?.dayWorkNote.length">
+
+          <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Day work notes Info</p>
+
+          <div class="relative overflow-x-auto">
+            <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">Date</th>
+                  <th scope="col" class="px-6 py-3">Notes</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                  *ngFor="let note of orderData?.installationData?.dayWorkNote">
+
+                  <td class="px-6 py-4">
+                    <!-- Date Section-->
+                    <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <em> {{ note.date | date:'short' }} </em>
+                    </p>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <!-- Note  section -->
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{note.text}} </em>
+                    </p>
+                  </td>
+
+
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+        </div>
+
+        <div class="mb-5 mt-5" *ngIf="orderData?.installationData?.extraExpense">
+
+          <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Extra Expense Info</p>
+
+          <div class="relative overflow-x-auto">
+            <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                  <th scope="col" class="px-6 py-3">Expense type</th>
+                  <th scope="col" class="px-6 py-3">Amount</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <td class="px-6 py-4">
+                    <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <em> Food </em>
+                    </p>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{orderData?.installationData?.extraExpense.food}} </em>
+                    </p>
+                  </td>
+
+
+                </tr>
+
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <td class="px-6 py-4">
+                    <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <em> Travel </em>
+                    </p>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{orderData?.installationData?.extraExpense.travel}} </em>
+                    </p>
+                  </td>
+
+
+                </tr>
+
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+
+                  <td class="px-6 py-4">
+                    <p scope="row" class="font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <em> Accomodation </em>
+                    </p>
+                  </td>
+
+                  <td class="px-6 py-4">
+                    <p class="text-base text-gray-500 dark:text-gray-400">
+                      <em> {{orderData?.installationData?.extraExpense.accomodation}} </em>
+                    </p>
+                  </td>
+
+
+                </tr>
+              </tbody>
+
+            </table>
+
+          </div>
+        </div>
+
+
+
+
         }@else{
         <p class="text-base font-normal text-gray-500 dark:text-gray-400">
           No Records Found
@@ -715,43 +981,8 @@
       </div>
     </section>
 
-    <!-- <footer
-        class="fixed bottom-0 w-7/12 bg-white rounded-lg shadow m-4 dark:bg-gray-800"
-      >
-        <div
-          class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between"
-        >
-          <ul
-            class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0"
-          >
-            <li>
-              <a
-                href="#"
-                class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
-                >Cancel</a
-              >
-            </li>
-          </ul>
-          <ul
-            class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0"
-          >
-            <li>
-              <a
-                href="#"
-                class="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
-                >Hold</a
-              >
-            </li>
-            <li>
-              <a
-                class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"
-                >Approve to next Step</a
-              >
-            </li>
-          </ul>
-        </div>
-      </footer> -->
   </div>
+
   <div>
     <ol class="relative text-gray-500 m-3 border-s border-gray-200 dark:border-gray-700 dark:text-gray-400">
       <li class="mb-10 ms-6">

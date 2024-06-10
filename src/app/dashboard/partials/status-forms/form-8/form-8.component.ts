@@ -126,10 +126,10 @@ export class Form8Component implements OnInit, OnChanges {
         }
 
         this.clientSignature.isStarted =
-          installationData.installationStatus['6'].isStarted;
+          installationData.installationStatus['5'].isStarted;
 
         this.clientSignature.completed =
-          installationData.installationStatus['6'].percentCompleted === 100
+          installationData.installationStatus['5'].percentCompleted === 100
             ? true
             : false;
 
@@ -194,50 +194,48 @@ export class Form8Component implements OnInit, OnChanges {
     }
   }
 
- // Change the range option and change the starter
- onChangeTheRange(event: any, status: number) {
-  const { value } = event.target;
-  let isValid = true;
+  // Change the range option and change the starter
+  onChangeTheRange(event: any, status: number) {
+    const { value } = event.target;
+    let isValid = true;
 
-
-  
-  if (status > 1) {
-    for (let i = status-2; i >=0; i--) {
-      if (
-        !this.installationStatus[i].isStarted ||
-        this.installationStatus[i].completed === 0 ||
-        this.installationStatus[i].completed < value
-      ) {
-        if(this.installationStatus[i].completed < value){
-          this.installationStatus[status-1].completed=this.installationStatus[i].completed;
-          if(this.installationStatus[status-1].completed>0){
-            this.installationStatus[status].isStarted = true;
+    if (status > 1) {
+      for (let i = status - 2; i >= 0; i--) {
+        if (
+          !this.installationStatus[i].isStarted ||
+          this.installationStatus[i].completed === 0 ||
+          this.installationStatus[i].completed < value
+        ) {
+          if (this.installationStatus[i].completed < value) {
+            this.installationStatus[status - 1].completed =
+              this.installationStatus[i].completed;
+            if (this.installationStatus[status - 1].completed > 0) {
+              this.installationStatus[status].isStarted = true;
+            }
           }
+          isValid = false;
+          this.toastr.warning('Not a valid range', 'Warning');
+          break;
         }
-        isValid = false;
-        this.toastr.warning("Not a valid range","Warning");
-        break;
+      }
+    }
+
+    if (status === 5 && this.installationStatus[4].completed) {
+      this.clientSignature.isStarted = true;
+    }
+
+    // Check Others are Completed
+    if (isValid) {
+      this.installationStatus[status].isStarted = true;
+
+      if (
+        this.installationStatus[status].isStarted &&
+        this.installationStatus[status].completed > 0
+      ) {
+        this.installationStatus[status + 1].isStarted = true;
       }
     }
   }
-  if (status === 5 && this.installationStatus[5].completed) {
-    this.clientSignature.isStarted = true;
-  }
-
-  // Check Others are Completed
-  if (isValid) {
-    this.installationStatus[status].isStarted = true;
-
-    if (
-      this.installationStatus[status].isStarted &&
-      this.installationStatus[status].completed >0
-    ) {
-      this.installationStatus[status + 1].isStarted = true;
-    }
-  }
-
-  console.log(this.installationStatus);
-}
 
   // Remove the data from the Selected array
   removeWages(index: number) {
@@ -401,7 +399,7 @@ export class Form8Component implements OnInit, OnChanges {
         this.FormGroupData.patchValue({
           file: '',
         });
-        this.installationFileToUpload= null;
+        this.installationFileToUpload = null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {

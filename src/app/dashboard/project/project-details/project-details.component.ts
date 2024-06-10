@@ -12,12 +12,14 @@ import { DashboardService } from '../../dashboard.service';
 export class ProjectDetailsComponent implements OnInit {
   orderData: any;
   payedSubtotal: any;
+
   constructor(
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _DashboardService: DashboardService,
+    private _DashboardService: DashboardService
   ) {}
+
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const id = params.get('id');
@@ -27,6 +29,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   loadOrderDetails(id: any) {
     this._DashboardService.isLoading(true);
+
     this._ProjectService.getProjectById(id).subscribe({
       next: (data: any) => {
         this._DashboardService.isLoading(false);
