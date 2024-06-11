@@ -8,9 +8,9 @@ import { DashboardService } from '../../dashboard.service';
 @Component({
   selector: 'app-worker-list',
   templateUrl: './worker-list.component.html',
-  styleUrl: './worker-list.component.css'
+  styleUrl: './worker-list.component.css',
 })
-export class WorkerListComponent implements OnInit{
+export class WorkerListComponent implements OnInit {
   @ViewChild('WorkerModal') defaultModal!: ElementRef;
 
   // Pagination variables
@@ -35,7 +35,7 @@ export class WorkerListComponent implements OnInit{
     private formBuilder: FormBuilder,
     private _WorkerService: WorkerService,
     private toastr: ToastrService,
-    private _DashboardService:DashboardService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -127,12 +127,11 @@ export class WorkerListComponent implements OnInit{
         //pushing new created worker to workers array
         const { name, mobile, perHourWage, _id } = data.data;
         this.workers.push({ name, mobile, perHourWage, _id });
-        
+
         this.toastr.success('Worker added succefully', 'Success');
       },
       error: (err: any) => {
         this._DashboardService.isLoading(false);
-        console.log(err);
         if (err.message) {
           this.toastr.error(err.message, 'Error');
         } else {
@@ -151,12 +150,11 @@ export class WorkerListComponent implements OnInit{
         this.workers = this.workers.filter((worker) => {
           return worker._id !== id;
         });
-        
+
         this.toastr.success('Worker deleted succefully', 'Success');
       },
       error: (err: any) => {
         this._DashboardService.isLoading(false);
-        console.log(err);
         this.toastr.error('Some error occured', 'Error');
       },
     });
@@ -175,7 +173,7 @@ export class WorkerListComponent implements OnInit{
       next: (data: any) => {
         this._DashboardService.isLoading(false);
         const { _id, name, mobile, perHourWage } = data.data;
-        
+
         this.workers = this.workers.map((worker) => {
           if (worker._id === _id) {
             worker = { _id, name, mobile, perHourWage };

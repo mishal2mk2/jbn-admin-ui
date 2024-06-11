@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../service/project.service';
 import { DashboardService } from '../../dashboard.service';
+import { PdfGenerationService } from '../../../helpers/service/pdf-generation.service';
 
 @Component({
   selector: 'app-project-details',
@@ -17,7 +18,8 @@ export class ProjectDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _DashboardService: DashboardService
+    private _DashboardService: DashboardService,
+    private _PdfGenerationService: PdfGenerationService
   ) {}
 
   ngOnInit(): void {
@@ -27,6 +29,15 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
+  // Dowload the Page to PDF
+  downloadPDF(): void {
+    this.route.paramMap.subscribe((params) => {
+      const id = params.get('id');
+      this._PdfGenerationService.captureScreen('pdf-content', `${id}.pdf`);
+    });
+  }
+
+  // Load Order Details Code
   loadOrderDetails(id: any) {
     this._DashboardService.isLoading(true);
 

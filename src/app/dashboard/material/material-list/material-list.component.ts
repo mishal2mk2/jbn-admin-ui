@@ -36,7 +36,7 @@ export class MaterialListComponent {
     private formBuilder: FormBuilder,
     private _MaterialService: MaterialService,
     private toastr: ToastrService,
-    private _DashboardService:DashboardService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -128,12 +128,11 @@ export class MaterialListComponent {
         //pushing new created item to materials array
         const { name, unitCalculated, code, price, _id } = data.data;
         this.materials.push({ name, unitCalculated, code, price, _id });
-        
+
         this.toastr.success('Item added succefully', 'Success');
       },
       error: (err: any) => {
         this._DashboardService.isLoading(false);
-        console.log(err);
         if (err.message) {
           this.toastr.error(err.message, 'Error');
         } else {
@@ -152,12 +151,11 @@ export class MaterialListComponent {
         this.materials = this.materials.filter((mat) => {
           return mat._id !== id;
         });
-        
+
         this.toastr.success('Item deleted succefully', 'Success');
       },
       error: (err: any) => {
         this._DashboardService.isLoading(false);
-        console.log(err);
         this.toastr.error('Some error occured', 'Error');
       },
     });
