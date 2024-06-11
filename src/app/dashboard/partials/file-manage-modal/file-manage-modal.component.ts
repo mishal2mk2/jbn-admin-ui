@@ -47,6 +47,12 @@ export class FileManageModalComponent implements OnInit {
     });
   }
 
+  getFileName(url: string) {
+    const splitedUrl = url.split('/');
+
+    return splitedUrl[splitedUrl.length - 1];
+  }
+
   isTheUrlIsPdf(url: string) {
     return url.endsWith('.pdf');
   }
