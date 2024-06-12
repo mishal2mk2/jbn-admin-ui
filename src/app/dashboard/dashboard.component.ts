@@ -50,8 +50,6 @@ export class DashboardComponent implements OnInit {
             this.statusCountObject.cancelled = el.count;
           }
         });
-
-        console.log(this.statusCountObject);
       }
     });
   }

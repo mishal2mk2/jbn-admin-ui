@@ -103,20 +103,21 @@ export class Form6Component implements OnInit, OnChanges {
     let isValid = true;
 
     if (status > 1) {
-      for (let i = status-2; i >=0; i--) {
+      for (let i = status - 2; i >= 0; i--) {
         if (
           !this.productionStatus[i].isStarted ||
           this.productionStatus[i].completed === 0 ||
           this.productionStatus[i].completed < value
         ) {
-          if(this.productionStatus[i].completed < value){
-            this.productionStatus[status-1].completed=this.productionStatus[i].completed;
-            if(this.productionStatus[status-1].completed>0){
+          if (this.productionStatus[i].completed < value) {
+            this.productionStatus[status - 1].completed =
+              this.productionStatus[i].completed;
+            if (this.productionStatus[status - 1].completed > 0) {
               this.productionStatus[status].isStarted = true;
             }
           }
           isValid = false;
-          this.toastr.warning("Not a valid range","Warning");
+          this.toastr.warning('Not a valid range', 'Warning');
           break;
         }
       }
@@ -128,13 +129,11 @@ export class Form6Component implements OnInit, OnChanges {
 
       if (
         this.productionStatus[status].isStarted &&
-        this.productionStatus[status].completed >0
+        this.productionStatus[status].completed > 0
       ) {
         this.productionStatus[status + 1].isStarted = true;
       }
     }
-
-    console.log(this.productionStatus);
   }
 
   formSubmit(type: string) {
