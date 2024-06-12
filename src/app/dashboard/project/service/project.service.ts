@@ -129,4 +129,12 @@ export class ProjectService {
       obj
     );
   }
+
+    // Edit Transaction Details
+    editTransaction(obj: any, orderID: string) {
+      return this.http.post<any>(
+        `${this.AUTH_API}/project/edit-transaction/${orderID}`,
+        obj
+      );
+    }
 }

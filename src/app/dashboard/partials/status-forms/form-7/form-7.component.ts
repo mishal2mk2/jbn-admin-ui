@@ -17,6 +17,7 @@ export class Form7Component implements OnInit, OnChanges {
   FormGroupData!: FormGroup;
   deliveryFileToUpload: File | null = null;
   deliveryFileArray: any[] = [];
+  locationLink: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -40,8 +41,8 @@ export class Form7Component implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { delivery, attachments } = res.data;
-
+      const { delivery, attachments,client } = res.data;
+      this.locationLink = client?.add?.link
       if (delivery) {
         this.FormGroupData.patchValue({
           deliveryVehicleNumber: delivery.vehicleNumber,

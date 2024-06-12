@@ -85,19 +85,20 @@
         </div>
 
 
+      <hr class="my-3" />
 
-        <div class="mb-5 mt-5" *ngIf="orderData?.furnitureList.length">
-          <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Furniture Info</p>
-          <div class="relative overflow-x-auto">
-            <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-              <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                  <th scope="col" class="px-6 py-3">SL.NO</th>
-                  <th scope="col" class="px-6 py-3">Furniture Name</th>
-                  <th scope="col" class="px-6 py-3">Delivered</th>
-                  <th scope="col" class="px-6 py-3">Installed</th>
-                </tr>
-              </thead>
+      <div class="mb-5 mt-5" *ngIf="orderData?.furnitureList.length">
+        <p class=" text-lg text-black-500 font-bold dark:text-white">Furniture Info</p>
+        <div class="relative overflow-x-auto">
+          <table class="w-full my-5 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" class="px-6 py-3">SL.NO</th>
+                <th scope="col" class="px-6 py-3">Furniture Name</th>
+                <th scope="col" class="px-6 py-3">Delivered</th>
+                <th scope="col" class="px-6 py-3">Installed</th>
+              </tr>
+            </thead>
 
               <tbody>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
@@ -128,16 +129,16 @@
                     }
                   </td>
 
-                  <td class="px-6 py-4">
-                    <!-- Installed section -->
-                    @if (furniture.isInstalled ) {
-                    <span
-                      class="bg-blue-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-blue-300">{{furniture.isDelivered}}</span>
-                    } @else {
-                    <span
-                      class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{furniture.isDelivered}}</span>
-                    }
-                  </td>
+                <td class="px-6 py-4">
+                  <!-- Installed section -->
+                  @if (furniture.isInstalled ) {
+                  <span
+                    class="bg-blue-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-blue-300">{{furniture.isInstalled}}</span>
+                  } @else {
+                  <span
+                    class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">{{furniture.isInstalled}}</span>
+                  }
+                </td>
 
                 </tr>
               </tbody>
@@ -218,8 +219,20 @@
                   </span>
                 </td>
 
-              </tr>
-              }
+            </tr>
+            }
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <td colspan="4"></td>
+              <td class="px-6 py-4">
+                Subtotal
+              </td>
+              <td class="px-6 py-4">
+                <span
+                  class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
+                  {{materialEstimateTotal() | currency:'INR':'symbol'}}
+                </span>
+              </td>
+            </tr>
 
             </tbody>
 
@@ -453,20 +466,21 @@
         </div>
       </section>
 
-      <hr class="my-5" />
-      <section>
-        <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
-          <span>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-width="2.3"
-                d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-          </span>
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Payment and Credits
-          </h3>
-        </div>
+    <hr class="my-5" />
+    <section>
+      <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
+        <span>
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="2.3"
+              d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          </svg>
+        </span>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Payment and Credits
+        </h3>
+      </div>
+      <div  class="m-2">
         @if (orderData?.transactionDetails?.length>0) {
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <!-- Table header -->
@@ -483,19 +497,19 @@
             <!-- Table data -->
             @for (payment of orderData?.transactionDetails; track payment) {
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-
+  
               <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                 {{ payment?.transactionId }}
               </th>
-
+  
               <td class="px-6 py-4">
                 {{ payment?.date|date }}
               </td>
-
+  
               <td class="px-6 py-4">
                 {{ payment?.paymentType }}
               </td>
-
+  
               <td class="px-6 py-4">
                 <span
                   class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
@@ -504,7 +518,7 @@
               </td>
             </tr>
             }
-
+  
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               <td colspan="2"></td>
               <td class="px-6 py-4">
@@ -513,19 +527,21 @@
               <td class="px-6 py-4">
                 <span
                   class="bg-gray-100 text-gray-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-gray-900 dark:text-gray-300">
-                  ₹ {{calculatePayedSubtotal()}}
+                  {{calculatePayedSubtotal()| currency:'INR':'symbol'}}
                 </span>
               </td>
             </tr>
           </tbody>
-
+  
         </table>
         }@else{
         <p class="text-base font-normal text-gray-500 dark:text-gray-400">
           No Records Found
         </p>
         }
-      </section>
+        
+      </div>
+    </section>
 
       <hr class="my-5" />
       <section>
@@ -720,31 +736,32 @@
       </section>
       <hr class="my-5" />
 
-      <!-- Installation details section -->
-      <section>
-        <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
-          <span>
-            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" fill="none" viewBox="0 0 24 24">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
-                d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
-            </svg>
-          </span>
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-            Installation Details
-          </h3>
-        </div>
-        <div class="m-2">
-          @if (orderData?.installationData) {
-          <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-8 m-2 mt-4 mb-4">
-            <div>
-              <span class="font-semibold text-gray-900 dark:text-white">InCharge</span>
-              <p class="text-base font-normal text-gray-500 dark:text-gray-400">
-                {{orderData?.installationData.inCharge}}
-              </p>
-            </div>
+    <!-- Installation details section -->
+    <section>
+      <div class="flex flex-row bg-blue-400 p-1 rounded-sm">
+        <span>
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3"
+              d="M7 8v8a5 5 0 1 0 10 0V6.5a3.5 3.5 0 1 0-7 0V15a2 2 0 0 0 4 0V8" />
+          </svg>
+        </span>
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Installation Details
+        </h3>
+      </div>
+      <div class="m-2">
+        @if (orderData?.installationData) {
+        <div class="grid grid-cols-1 md:grid-cols-4 sm:grid-cols-2 gap-8 m-2 mt-4 mb-4">
+          <div>
+            <span class="font-semibold text-gray-900 dark:text-white">InCharge</span>
+            <p class="text-base font-normal text-gray-500 dark:text-gray-400">
+              {{orderData?.installationData.inCharge || '-'}}
+            </p>
           </div>
+        </div>
 
+        <div class="mb-5 mt-5" *ngIf="orderData?.installationData?.installationStatus['1'].isStarted">
           <p class="my-4 text-lg text-black-500 font-bold dark:text-white">Installation Status Info</p>
 
           <div
@@ -758,8 +775,7 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Unloading</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["1"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["1"].percentCompleted}}%
                   </p>
                 </span>
               </li>
@@ -771,8 +787,7 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Caracus Assembly</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["2"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["2"].percentCompleted}}%
                   </p>
                 </span>
               </li>
@@ -784,8 +799,7 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Accessories Installation</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["3"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["3"].percentCompleted}}%
                   </p>
                 </span>
               </li>
@@ -797,8 +811,7 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Shutter Fitting</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["4"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["4"].percentCompleted}}%
                   </p>
                 </span>
               </li>
@@ -810,8 +823,7 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Cleaning</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["5"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["5"].percentCompleted}}%
                   </p>
                 </span>
               </li>
@@ -823,13 +835,14 @@
                 </span>
                 <span>
                   <h3 class="font-medium leading-tight">Client Signature</h3>
-                  <p class="text-sm">Completed:
-                    {{orderData?.installationData?.installationStatus["6"].percentCompleted}}%
+                  <p class="text-sm">Completed: {{orderData?.installationData?.installationStatus["6"].percentCompleted}}%
                   </p>
                 </span>
               </li>
             </ol>
           </div>
+        </div>
+        
 
 
           <div class="mb-5 mt-5" *ngIf="orderData?.installationData.workersData.length">
