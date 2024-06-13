@@ -63,4 +63,11 @@ export class ProjectDetailsComponent implements OnInit {
     );
     return this.payedSubtotal;
   }
+
+  materialEstimateTotal(){
+    return this.orderData?.material_details.item.reduce(
+      (acc:number,itm:any)=>acc+(itm.item_id?.price * itm.quantity),
+      0
+    )
+  }
 }
