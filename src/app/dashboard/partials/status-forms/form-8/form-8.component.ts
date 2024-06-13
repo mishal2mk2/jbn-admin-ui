@@ -5,6 +5,7 @@ import { FormValidationService } from '../../../../helpers/service/form-validati
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../project/service/project.service';
+import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 
 @Component({
   selector: 'app-form-8',
@@ -176,7 +177,7 @@ export class Form8Component implements OnInit, OnChanges {
       }
 
       // Check the File size
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      const maxSize = upload_file_size * 1024 * 1024; // 5MB in bytes
       const selectFile = files[0];
 
       if (selectFile?.size > maxSize) {

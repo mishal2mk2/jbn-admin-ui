@@ -4,6 +4,7 @@ import { FormValidationService } from '../../../../helpers/service/form-validati
 import { ProjectService } from '../../../project/service/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 
 @Component({
   selector: 'app-form-2',
@@ -69,7 +70,7 @@ export class Form2Component implements OnInit, OnChanges {
       }
 
       // Check the File size
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      const maxSize = upload_file_size * 1024 * 1024; // 5MB in bytes
       const selectFile = files[0];
 
       if (selectFile?.size > maxSize) {
@@ -120,7 +121,7 @@ export class Form2Component implements OnInit, OnChanges {
         this.FormGroupData.patchValue({
           file: '',
         });
-        this.drawingFileToUpload= null;
+        this.drawingFileToUpload = null;
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },

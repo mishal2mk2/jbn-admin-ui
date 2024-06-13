@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
+import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 
 @Component({
   selector: 'app-form-7',
@@ -79,7 +80,7 @@ export class Form7Component implements OnInit, OnChanges {
       }
 
       // Check the File size
-      const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+      const maxSize = upload_file_size * 1024 * 1024; // 5MB in bytes
       const selectFile = files[0];
 
       if (selectFile?.size > maxSize) {
@@ -145,7 +146,7 @@ export class Form7Component implements OnInit, OnChanges {
         this.FormGroupData.patchValue({
           file: '',
         });
-        this.deliveryFileToUpload= null;
+        this.deliveryFileToUpload = null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
