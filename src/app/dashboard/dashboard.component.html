@@ -1,5 +1,13 @@
 <div class="grid grid-cols-4 gap-3 border-gray-600 dark:border-blue-100 border-solid border rounded-md p-4">
 
+  <span class="bg-gray-100 text-gray-800 text-lg font-medium me-2 p-4 rounded dark:bg-gray-700 dark:text-gray-300">ORDER
+    ENTERING
+    : {{statusCountObject.orderEntering?statusCountObject.orderEntering:0}}</span>
+
+  <span
+    class="bg-gray-100 text-gray-800 text-lg font-medium me-2 p-4 rounded dark:bg-gray-700 dark:text-gray-300">WAITING
+    CONFIRMATION : {{statusCountObject.waitingConfirmation?statusCountObject.waitingConfirmation:0}}</span>
+
   <span
     class="bg-gray-100 text-gray-800 text-lg font-medium me-2 p-4 rounded dark:bg-gray-700 dark:text-gray-300">DRAWING
     : {{statusCountObject.drawing?statusCountObject.drawing:0}}</span>
@@ -8,16 +16,17 @@
     ESTIMATE : {{statusCountObject.materialEstimate?statusCountObject.materialEstimate:0}}</span>
 
   <span
-    class="bg-green-100 text-green-800 text-lg font-medium me-2 p-4 rounded dark:bg-green-900 dark:text-green-300">WAITING
-    CONFIRMATION : {{statusCountObject.waitingConfirmation?statusCountObject.waitingConfirmation:0}}</span>
-
-  <span
     class="bg-yellow-100 text-yellow-800 text-lg font-medium me-2 p-4 rounded dark:bg-yellow-900 dark:text-yellow-300">MATERIAL
-    ARRIVAL : {{statusCountObject.materialArrival?statusCountObject.materialArrival:statusCountObject.materialArrival}}</span>
+    ARRIVAL :
+    {{statusCountObject.materialArrival?statusCountObject.materialArrival:0}}</span>
 
   <span
     class="bg-indigo-100 text-indigo-800 text-lg font-medium me-2 p-4 rounded dark:bg-indigo-900 dark:text-indigo-300">PRODUCTION
     : {{statusCountObject.production?statusCountObject.production:0}}</span>
+
+  <span
+    class="bg-green-100 text-green-800 text-lg font-medium me-2 p-4 rounded dark:bg-green-900 dark:text-green-300">PAYMENT
+    CLOSE : {{statusCountObject.paymentClose?statusCountObject.paymentClose:0}}</span>
 
   <span
     class="bg-purple-100 text-purple-800 text-lg font-medium me-2 p-4 rounded dark:bg-purple-900 dark:text-purple-300">DELIVERY

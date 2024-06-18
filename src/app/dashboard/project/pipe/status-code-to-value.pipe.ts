@@ -10,28 +10,30 @@ export class StatusCodeToValuePipe implements PipeTransform {
       case 1:
         return 'Order Entering';
       case 2:
-        return 'Drawing';
-      case 3:
-        return 'Material Estimate';
-      case 4:
         return 'Waiting Confirmation';
+      case 3:
+        return 'Drawing';
+      case 4:
+        return 'Material Estimate';
       case 5:
         return 'Material Arrival';
       case 6:
         return 'Production';
       case 7:
-        return 'Delivery';
+        return 'Payment Close';
       case 8:
-        return 'Installation';
+        return 'Delivery';
       case 9:
-        return 'Awaiting Service';
+        return 'Installation';
       case 10:
-        return 'Service';
+        return 'Awaiting Service';
       case 11:
-        return 'To Close';
+        return 'Service';
       case 12:
-        return 'Closed';
+        return 'To Close';
       case 13:
+        return 'Closed';
+      case 14:
         return 'Cancelled';
       default:
         return '-';
