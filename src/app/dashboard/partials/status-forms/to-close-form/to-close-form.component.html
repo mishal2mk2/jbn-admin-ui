@@ -18,11 +18,12 @@
           FormGroupData.controls['closingReport'].invalid &&
           (FormGroupData.controls['closingReport'].touched)
       }" (change)="validateFileSize($event,'closingReport')">
-      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="closingReport_help"> Max upload file Size 5MB</div>
+      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="closingReport_help"> Max upload file Size
+        {{uploadFileSize}}</div>
 
       <!-- Error Span -->
       <app-form-error-span
-        [templateOutletContext]="{  validation: 'maxSize' , message: 'Closing Report File size should be less than 5MB' , control: FormGroupData.controls['closingReport']}">
+        [templateOutletContext]="{  validation: 'maxSize' , message: 'Closing Report File size should be less than {{uploadFileSize}}' , control: FormGroupData.controls['closingReport']}">
       </app-form-error-span>
 
       <app-form-error-span

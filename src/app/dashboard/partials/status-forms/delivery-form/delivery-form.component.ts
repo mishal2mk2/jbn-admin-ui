@@ -19,6 +19,7 @@ export class DeliveryFormComponent implements OnInit, OnChanges {
   deliveryFileToUpload: File | null = null;
   deliveryFileArray: any[] = [];
   locationLink: any;
+  uploadFileSize: string = `${upload_file_size} MB`;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,8 +43,8 @@ export class DeliveryFormComponent implements OnInit, OnChanges {
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
-      const { delivery, attachments,client } = res.data;
-      this.locationLink = client?.add?.link
+      const { delivery, attachments, client } = res.data;
+      this.locationLink = client?.add?.link;
       if (delivery) {
         this.FormGroupData.patchValue({
           deliveryVehicleNumber: delivery.vehicleNumber,

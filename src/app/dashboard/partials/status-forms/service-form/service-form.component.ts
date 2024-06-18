@@ -16,6 +16,7 @@ export class ServiceFormComponent implements OnInit, OnChanges {
   @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
+  uploadFileSize: string = `${upload_file_size} MB`;
   serviceFileToUpload: File | null = null;
   serviceFileArray: any[] = [];
 

@@ -18,11 +18,12 @@
             FormGroupData.controls['file'].invalid &&
             (FormGroupData.controls['file'].touched)
         }" (change)="validateFileSize($event)">
-      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_help"> Max upload file Size 5MB</div>
+      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_help"> Max upload file Size {{uploadFileSize}}
+      </div>
 
       <!-- Error Span -->
       <app-form-error-span
-        [templateOutletContext]="{  validation: 'maxSize' , message: 'Delivery file size should be less than 5MB' , control: FormGroupData.controls['file']}">
+        [templateOutletContext]="{  validation: 'maxSize' , message: 'Delivery file size should be less than {{uploadFileSize}}' , control: FormGroupData.controls['file']}">
       </app-form-error-span>
 
       <app-form-error-span
@@ -109,7 +110,7 @@
         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         Submit
       </button>
-  
+
       <button type="button" (click)="formSubmit('APPROVE')" *ngIf="isApproveBtnShow"
         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
         Approve

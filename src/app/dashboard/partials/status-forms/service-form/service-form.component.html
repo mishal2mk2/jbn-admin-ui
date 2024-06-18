@@ -17,11 +17,12 @@
             FormGroupData.controls['serviceReport'].invalid &&
             (FormGroupData.controls['serviceReport'].touched)
         }" (change)="validateFileSize($event,'serviceReport')">
-      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="serviceReport_help"> Max upload file Size 5MB</div>
+      <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="serviceReport_help"> Max upload file Size
+        {{uploadFileSize}}</div>
 
       <!-- Error Span -->
       <app-form-error-span
-        [templateOutletContext]="{  validation: 'maxSize' , message: 'Service Report File size should be less than 5MB' , control: FormGroupData.controls['serviceReport']}">
+        [templateOutletContext]="{  validation: 'maxSize' , message: 'Service Report File size should be less than {{uploadFileSize}}' , control: FormGroupData.controls['serviceReport']}">
       </app-form-error-span>
 
       <app-form-error-span

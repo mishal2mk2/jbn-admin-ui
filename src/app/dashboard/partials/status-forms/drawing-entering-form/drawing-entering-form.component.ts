@@ -18,6 +18,7 @@ export class DrawingEnteringFormComponent implements OnInit, OnChanges {
   FormGroupData!: FormGroup;
   drawingFileToUpload: File | null = null;
   drawingFileArray: any[] = [];
+  uploadFileSize: string = `${upload_file_size} MB`;
 
   constructor(
     private formBuilder: FormBuilder,

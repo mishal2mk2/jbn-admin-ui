@@ -17,6 +17,7 @@ export class ToCloseFormComponent implements OnInit, OnChanges {
 
   FormGroupData!: FormGroup;
   closeFileToUpload: File | null = null;
+  uploadFileSize: string = `${upload_file_size} MB`;
   closeFileArray: any[] = [];
 
   constructor(

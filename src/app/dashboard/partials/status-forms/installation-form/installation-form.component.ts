@@ -17,6 +17,7 @@ export class InstallationFormComponent implements OnInit, OnChanges {
   @Input() isApproveBtnShow!: boolean;
 
   FormGroupData!: FormGroup;
+  uploadFileSize: string = `${upload_file_size} MB`;
   installationFileToUpload: File | null = null;
   installationStatus = [
     {
