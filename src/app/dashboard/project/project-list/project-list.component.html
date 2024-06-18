@@ -49,52 +49,55 @@
         </th>
 
         <td class="px-6 py-4">
-          @if (product.orderStatus === 1) {
+          @if (product.orderStatus ===orderStatusObject?.ORDER_ENTERING) {
           <span
             class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ORDER
             ENTERING</span>
-          } @else if (product.orderStatus===2) {
-          <span
-            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">DRAWING</span>
-          } @else if (product.orderStatus===3) {
-          <span
-            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">MATERIAL
-            ESTIMATE</span>
-          } @else if (product.orderStatus===4) {
+          } @else if (product.orderStatus===orderStatusObject?.WAITING_CONFIRMATION) {
           <span
             class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">WAITING
             CONFIRMATION</span>
-          } @else if (product.orderStatus===5) {
+          } @else if (product.orderStatus===orderStatusObject?.DRAWING) {
+          <span
+            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">DRAWING</span>
+          } @else if (product.orderStatus===orderStatusObject?.MATERIAL_ESTIMATE) {
+          <span
+            class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">MATERIAL
+            ESTIMATE</span>
+          } @else if (product.orderStatus===orderStatusObject?.MATERIAL_ARRIVAL) {
           <span
             class="bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">MATERIAL
             ARRIVAL</span>
-          } @else if (product.orderStatus===6) {
+          } @else if (product.orderStatus===orderStatusObject?.PRODUCTION) {
           <span
             class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PRODUCTION</span>
-          } @else if (product.orderStatus===7) {
-          <span
+          } @else if (product.orderStatus===orderStatusObject?.CLOSE_PAYMENT) {
+            <span
+            class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">CLOSE PAYMENT</span>
+          } @else if (product.orderStatus===orderStatusObject?.DELIVERY) {
+            <span
             class="bg-pink-100 text-pink-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-pink-900 dark:text-pink-300">DELIVERY</span>
-          } @else if (product.orderStatus===8) {
-          <span
-            class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">INSTALLATION</span>
-          } @else if (product.orderStatus===9) {
-          <span
-            class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">AWAITING
-            SERVICE</span>
-          } @else if (product.orderStatus===10) {
-          <span
-            class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">SERVICE</span>
-          } @else if (product.orderStatus===11) {
-          <span
-            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">TO
-            CLOSE</span>
-          }@else if (product.orderStatus===12) {
-          <span
-            class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">CLOSED</span>
-          } @else if (product.orderStatus===13) {
-          <span
-            class="bg-red-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">CANCELLED</span>
-          }
+          } @else if (product.orderStatus===orderStatusObject?.INSTALLATION) {
+            <span
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">INSTALLATION</span>
+            } @else if (product.orderStatus===orderStatusObject?.AWAITING_SERVICE) {
+            <span
+              class="bg-slate-100 text-slate-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-slate-900 dark:text-indigo-300">AWAITING
+              SERVICE</span>
+            } @else if (product.orderStatus===orderStatusObject?.SERVICE) {
+            <span
+              class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">SERVICE</span>
+            }@else if (product.orderStatus===orderStatusObject?.TO_CLOSE) {
+            <span
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">TO
+              CLOSE</span>
+            } @else if (product.orderStatus===orderStatusObject?.CLOSED) {
+            <span
+              class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">CLOSED</span>
+            } @else if (product.orderStatus===orderStatusObject?.CANCELLED) {
+            <span
+              class="bg-red-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">CANCELLED</span>
+            }
         </td>
 
         <td class="px-6 py-4">
@@ -156,34 +159,47 @@
       <!-- Modal body -->
       <div class="p-4 md:p-5 space-y-4">
         <!-- (FYI-Salman)-forms for each flow approval -->
-        @if (modalSelectedOrderStatus===1) {
-        <app-form-1 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-1>
-        } @else if(modalSelectedOrderStatus===2) {
-        <app-form-2 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-2>
-        } @else if(modalSelectedOrderStatus===3) {
-        <app-form-3 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-3>
-        } @else if(modalSelectedOrderStatus===4) {
-        <app-form-4 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-4>
-        } @else if(modalSelectedOrderStatus===5) {
-        <app-form-5 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-5>
-        } @else if(modalSelectedOrderStatus===6) {
-        <app-form-6 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-6>
-        } @else if(modalSelectedOrderStatus===7) {
-        <app-form-7 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-7>
-        } @else if(modalSelectedOrderStatus===8) {
-        <app-form-8 [isApproveBtnShow]="modalSelectedOrderApproveBtn" [isRefreshDataInput]="isRefreshData"></app-form-8>
-        } @else if(modalSelectedOrderStatus===9) {
-        <app-form-9 [isApproveBtnShow]="modalSelectedOrderApproveBtn"></app-form-9>
-        } @else if(modalSelectedOrderStatus===10) {
-        <app-form-10 [isApproveBtnShow]="modalSelectedOrderApproveBtn"
-          [isRefreshDataInput]="isRefreshData"></app-form-10>
-        } @else if(modalSelectedOrderStatus===11) {
-        <app-form-11 [isApproveBtnShow]="modalSelectedOrderApproveBtn"
-          [isRefreshDataInput]="isRefreshData"></app-form-11>
-        } @else if(modalSelectedOrderStatus===12) {
-        <app-form-12></app-form-12>
-        } @else if(modalSelectedOrderStatus===13) {
-        <app-form-13 [isApproveBtnShow]="modalSelectedOrderApproveBtn"></app-form-13>
+        @if (modalSelectedOrderStatus===orderStatusObject?.ORDER_ENTERING) {
+        <app-order-entering-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-order-entering-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.WAITING_CONFIRMATION) {
+        <app-payment-enter-form [key]="orderStatusObject?.WAITING_CONFIRMATION"
+          [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-payment-enter-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.DRAWING) {
+        <app-drawing-entering-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-drawing-entering-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.MATERIAL_ESTIMATE) {
+        <app-material-estimate-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-material-estimate-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.MATERIAL_ARRIVAL) {
+        <app-material-arrival-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-material-arrival-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.PRODUCTION) {
+        <app-production-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-production-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.CLOSE_PAYMENT) {
+        <app-payment-enter-form [key]="orderStatusObject?.CLOSE_PAYMENT"
+          [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-payment-enter-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.DELIVERY) {
+        <app-delivery-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-delivery-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.INSTALLATION) {
+        <app-installation-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-installation-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.AWAITING_SERVICE) {
+        <app-awaiting-service-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"></app-awaiting-service-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.SERVICE) {
+        <app-service-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-service-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.TO_CLOSE) {
+        <app-to-close-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"
+          [isRefreshDataInput]="isRefreshData"></app-to-close-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.CLOSED) {
+        <app-project-complete-form></app-project-complete-form>
+        } @else if(modalSelectedOrderStatus===orderStatusObject?.CANCELLED) {
+        <app-cancellation-undo-form [isApproveBtnShow]="modalSelectedOrderApproveBtn"></app-cancellation-undo-form>
         }
       </div>
 
@@ -229,31 +245,33 @@
             <button type="button"
               (click)="toggleModal({ orderStatus: data.status, orderId: data.id ,isApproveBtnShow:data.isApproveBtnShow})"
               class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-              @if (data.status === 1) {
+              @if (data.status===orderStatusObject?.ORDER_ENTERING) {
               ORDER ENTERING
-              } @else if (data.status===2) {
+              } @else if (data.status===orderStatusObject?.WAITING_CONFIRMATION) {
+              WAITING_CONFIRMATION
+              } @else if (data.status===orderStatusObject?.DRAWING) {
               DRAWING
-              } @else if (data.status===3) {
+              } @else if (data.status===orderStatusObject?.MATERIAL_ESTIMATE) {
               MATERIAL ESTIMATE
-              } @else if (data.status===4) {
-              WAITING CONFIRMATION
-              } @else if (data.status===5) {
+              } @else if (data.status===orderStatusObject?.MATERIAL_ARRIVAL) {
               MATERIAL ARRIVAL
-              } @else if (data.status===6) {
+              } @else if (data.status===orderStatusObject?.PRODUCTION) {
               PRODUCTION
-              } @else if (data.status===7) {
+              } @else if (data.status===orderStatusObject?.CLOSE_PAYMENT) {
+              CLOSE PAYMENTS
+              } @else if (data.status===orderStatusObject?.DELIVERY) {
               DELIVERY
-              } @else if (data.status===8) {
+              } @else if (data.status===orderStatusObject?.INSTALLATION) {
               INSTALLATION
-              } @else if (data.status===9) {
+              } @else if (data.status===orderStatusObject?.AWAITING_SERVICE) {
               AWAITING SERVICE
-              } @else if (data.status===10) {
+              } @else if (data.status===orderStatusObject?.SERVICE) {
               SERVICE
-              } @else if (data.status===11) {
+              } @else if (data.status===orderStatusObject?.TO_CLOSE) {
               TO CLOSE
-              }@else if (data.status===12) {
+              }@else if (data.status===orderStatusObject?.CLOSED) {
               CLOSED
-              } @else if (data.status===13) {
+              } @else if (data.status===orderStatusObject?.CANCELLED) {
               CANCELLED
               }
             </button>

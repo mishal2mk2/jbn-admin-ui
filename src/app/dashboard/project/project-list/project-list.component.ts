@@ -11,6 +11,7 @@ import { initFlowbite } from 'flowbite';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../../../helpers/service/common.service';
 import { DashboardService } from '../../dashboard.service';
+import { OrderStatus } from '../../../helpers/interface/project_status.modal';
 
 @Component({
   selector: 'app-project-list',
@@ -36,6 +37,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
   modalSelectedOrder: string | null = null;
   modalSelectedOrderStatus: number | null = null;
   modalSelectedOrderApproveBtn!: boolean;
+  orderStatusObject?: { ORDER_ENTERING: number; WAITING_CONFIRMATION: number; DRAWING: number; MATERIAL_ESTIMATE: number; MATERIAL_ARRIVAL: number; PRODUCTION: number; CLOSE_PAYMENT: number; DELIVERY: number; INSTALLATION: number; AWAITING_SERVICE: number; SERVICE: number; TO_CLOSE: number; CLOSED: number; CANCELLED: number; };
 
   constructor(
     private router: Router,
@@ -49,6 +51,7 @@ export class ProjectListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.closeModal();
+    this.orderStatusObject = OrderStatus
     initFlowbite();
 
     this.getAllProduct();

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
 import { environment } from '../../../environments/environment';
+import { OrderStatus } from '../interface/project_status.modal';
 
 @Injectable({
   providedIn: 'root',
@@ -66,64 +67,69 @@ export class CommonService {
     let isHaveRoleAccess;
 
     // Check the role based Access Logic
-    if (orderStatus === 1) {
+    if (orderStatus === OrderStatus.ORDER_ENTERING) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
-    } else if (orderStatus === 2) {
-      isHaveRoleAccess = this.statusRoleBasesAccessCore([
-        ...this.MainAdminRoleArray,
-        'DE',
-      ]);
-    } else if (orderStatus === 3) {
-      isHaveRoleAccess = this.statusRoleBasesAccessCore([
-        ...this.MainAdminRoleArray,
-        'PM',
-        'OM',
-      ]);
-    } else if (orderStatus === 4) {
+    } else if (orderStatus === OrderStatus.WAITING_CONFIRMATION) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
         'AC',
       ]);
-    } else if (orderStatus === 5) {
+    } else if (orderStatus === OrderStatus.DRAWING) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
-        'OM',
+        'DE',
       ]);
-    } else if (orderStatus === 6) {
-      isHaveRoleAccess = this.statusRoleBasesAccessCore([
-        ...this.MainAdminRoleArray,
-        'SV',
-      ]);
-    } else if (orderStatus === 7) {
+    } else if (orderStatus === OrderStatus.MATERIAL_ESTIMATE) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
         'PM',
         'OM',
       ]);
-    } else if (orderStatus === 8) {
+    } else if (orderStatus === OrderStatus.MATERIAL_ARRIVAL) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'OM',
+      ]);
+    } else if (orderStatus === OrderStatus.PRODUCTION) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
         'SV',
       ]);
-    } else if (orderStatus === 9) {
+    } else if (orderStatus === OrderStatus.CLOSE_PAYMENT) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'AC',
+      ]);
+    } else if (orderStatus === OrderStatus.DELIVERY) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'PM',
+        'OM',
+      ]);
+    } else if (orderStatus === OrderStatus.INSTALLATION) {
+      isHaveRoleAccess = this.statusRoleBasesAccessCore([
+        ...this.MainAdminRoleArray,
+        'SV',
+      ]);
+    } else if (orderStatus === OrderStatus.AWAITING_SERVICE) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
-    } else if (orderStatus === 10) {
+    } else if (orderStatus === OrderStatus.SERVICE) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
-    } else if (orderStatus === 11) {
+    } else if (orderStatus === OrderStatus.TO_CLOSE) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
-    } else if (orderStatus === 12) {
+    } else if (orderStatus === OrderStatus.CLOSED) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
-    } else if (orderStatus === 13) {
+    } else if (orderStatus === OrderStatus.CANCELLED) {
       isHaveRoleAccess = this.statusRoleBasesAccessCore([
         ...this.MainAdminRoleArray,
       ]);
@@ -136,10 +142,10 @@ export class CommonService {
   filterProjectWithRoleBased(role: string, orderStatus: number) {
     if (role === 'SV') {
       return (
-        orderStatus === 5 ||
-        orderStatus === 6 ||
-        orderStatus === 7 ||
-        orderStatus === 8
+        orderStatus === OrderStatus.MATERIAL_ARRIVAL ||
+        orderStatus === OrderStatus.PRODUCTION ||
+        orderStatus === OrderStatus.DELIVERY ||
+        orderStatus === OrderStatus.INSTALLATION
       );
     }
 
