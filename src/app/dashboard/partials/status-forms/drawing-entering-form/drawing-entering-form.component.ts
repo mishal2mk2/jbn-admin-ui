@@ -5,6 +5,7 @@ import { ProjectService } from '../../../project/service/project.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-drawing-entering-form',
@@ -25,7 +26,8 @@ export class DrawingEnteringFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _FormValidationService: FormValidationService,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -106,6 +108,8 @@ export class DrawingEnteringFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     if (this.drawingFileToUpload) {
       form.append('drawing', this.drawingFileToUpload);
     }
@@ -124,10 +128,12 @@ export class DrawingEnteringFormComponent implements OnInit, OnChanges {
         });
         this.drawingFileToUpload = null;
         this.toastr.success('Successfully update project status', 'Success');
+        this._DashboardService.isLoading(false, false);
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
         this.toastr.error(err.error.message, 'Error');
+        this._DashboardService.isLoading(false, false);
       },
     });
   }

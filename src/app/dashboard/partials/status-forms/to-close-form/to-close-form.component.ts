@@ -5,6 +5,7 @@ import { FormValidationService } from '../../../../helpers/service/form-validati
 import { ActivatedRoute } from '@angular/router';
 import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 import { ProjectService } from '../../../project/service/project.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-to-close-form',
@@ -25,7 +26,8 @@ export class ToCloseFormComponent implements OnInit, OnChanges {
     private _FormValidationService: FormValidationService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -104,6 +106,8 @@ export class ToCloseFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     const form = new FormData();
 
     if (this.closeFileToUpload) {
@@ -123,9 +127,13 @@ export class ToCloseFormComponent implements OnInit, OnChanges {
           file: '',
         });
         this.closeFileToUpload = null;
+        this._DashboardService.isLoading(false, false);
+
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

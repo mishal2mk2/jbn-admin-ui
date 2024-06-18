@@ -38,7 +38,8 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _CommonService: CommonService
+    private _CommonService: CommonService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -87,6 +88,8 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     const { transactionId, amount, paymentType, notes } =
       this.FormGroupData.controls;
 
@@ -104,10 +107,14 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusConformation(object, id).subscribe({
       next: () => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

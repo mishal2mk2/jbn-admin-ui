@@ -3,6 +3,7 @@ import { ProjectService } from '../../../project/service/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-production-form',
@@ -59,7 +60,8 @@ export class ProductionFormComponent implements OnInit, OnChanges {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -158,6 +160,8 @@ export class ProductionFormComponent implements OnInit, OnChanges {
       }
     }
 
+    this._DashboardService.isLoading(true);
+
     const { inCharge } = this.FormGroupData.controls;
     const object: any = {
       isApproved: type === 'SUBMIT' ? false : true,
@@ -200,9 +204,13 @@ export class ProductionFormComponent implements OnInit, OnChanges {
     this._ProjectService.approveStatusProduction(object, id).subscribe({
       next: () => {
         this.toastr.success('Successfully update project status', 'Success');
+        this._DashboardService.isLoading(false, false);
+
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

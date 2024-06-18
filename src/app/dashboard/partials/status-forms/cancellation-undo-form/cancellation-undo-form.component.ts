@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-cancellation-undo-form',
@@ -20,7 +21,8 @@ export class CancellationUndoFormComponent {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +44,8 @@ export class CancellationUndoFormComponent {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     const { notes } = this.FormGroupData.controls;
 
     const object = {
@@ -55,10 +59,14 @@ export class CancellationUndoFormComponent {
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusCancell(object, id).subscribe({
       next: () => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

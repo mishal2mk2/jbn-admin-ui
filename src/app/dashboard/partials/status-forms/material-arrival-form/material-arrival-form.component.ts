@@ -4,6 +4,7 @@ import { ProjectService } from '../../../project/service/project.service';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from '../../../../helpers/service/common.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-material-arrival-form',
@@ -21,7 +22,8 @@ export class MaterialArrivalFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _CommonService: CommonService
+    private _CommonService: CommonService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -59,6 +61,8 @@ export class MaterialArrivalFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     const { priority, isArrived, estimateDateOfArrival } =
       this.FormGroupData.controls;
 
@@ -75,10 +79,14 @@ export class MaterialArrivalFormComponent implements OnInit, OnChanges {
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusArraival(object, id).subscribe({
       next: () => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

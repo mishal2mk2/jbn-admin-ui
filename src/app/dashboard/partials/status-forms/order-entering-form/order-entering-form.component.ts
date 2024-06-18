@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-order-entering-form',
@@ -15,43 +16,52 @@ export class OrderEnteringFormComponent implements OnInit {
 
   FormGroupData!: FormGroup;
 
-  furnitureList = [
-    { text: '' },
-    { text: '' },
-    { text: '' },
-  ];
-  projectId!:string;
+  furnitureList = [{ text: '' }, { text: '' }, { text: '' }];
+  projectId!: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private route:ActivatedRoute,
-    private _ProjectService: ProjectService
-  ) { }
+    private route: ActivatedRoute,
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
+  ) {}
 
   ngOnInit(): void {
-
-
     this.projectId = this.route.snapshot.queryParams['id'];
+
+    this.FormGroupData = this.formBuilder.group({
+      clientName: ['', [Validators.required, Validators.minLength(4)]],
+      clientPhone: ['', [Validators.required, Validators.minLength(10)]],
+      clientEmail: ['', [Validators.required, Validators.email]],
+      addressCity: ['', [Validators.required]],
+      addressLocation: ['', Validators.required],
+      addressLocationLink: ['', Validators.required],
+      notes: [''],
+      priceTotal: [''],
+    });
+
     this._ProjectService.getProjectById(this.projectId).subscribe({
-      next:(res)=>{
-        const {client,projectTotal,notes,furnitureList} = res.data
-        this.FormGroupData = this.formBuilder.group({
-          clientName: [client?.name ? client?.name : '', [Validators.required, Validators.minLength(4)]],
-          clientPhone: [client?.mob ? client?.mob : '', [Validators.required, Validators.minLength(10)]],
-          clientEmail: [client?.email ? client?.email : '', [Validators.required, Validators.email]],
-          addressCity: [client?.add?.city ? client?.add?.city : '', [Validators.required]],
-          addressLocation: [client?.add?.location ? client?.add?.location : '', Validators.required],
-          addressLocationLink: [client?.add?.link ? client?.add?.link : '', Validators.required],
-          notes: [notes ? notes : ''],
-          priceTotal: [projectTotal ? projectTotal : ''],
+      next: (res) => {
+        const { client, projectTotal, notes, furnitureList } = res.data;
+        this.FormGroupData.patchValue({
+          clientName: client?.name ? client?.name : '',
+          clientPhone: client?.mob ? client?.mob : '',
+          clientEmail: client?.email ? client?.email : '',
+          addressCity: client?.add?.city ? client?.add?.city : '',
+          addressLocation: client?.add?.location ? client?.add?.location : '',
+          addressLocationLink: client?.add?.link ? client?.add?.link : '',
+          notes: notes ? notes : '',
+          priceTotal: projectTotal ? projectTotal : '',
         });
-        this.furnitureList= furnitureList;
-      },error:(err)=>{
-        this.toastr.error("Error while getting project data","Error");
-      }
-    })
+
+        this.furnitureList = furnitureList;
+      },
+      error: (err) => {
+        this.toastr.error('Error while getting project data', 'Error');
+      },
+    });
   }
 
   ngOnChanges(changes: any): void {
@@ -59,7 +69,7 @@ export class OrderEnteringFormComponent implements OnInit {
       this.ngOnInit();
     }
   }
-  
+
   validateList() {
     let isValid = true;
 
@@ -76,16 +86,18 @@ export class OrderEnteringFormComponent implements OnInit {
     if (this.validateList()) {
       this.furnitureList.push({ text: '' });
     } else {
-      this.toastr.error("Pls fill list properly", "Error");
+      this.toastr.error('Pls fill list properly', 'Error');
     }
   }
 
-  formSubmit(key:string) {
+  formSubmit(key: string) {
     // Check the form validation is complete
     if (this.FormGroupData.invalid) {
       this.FormGroupData.markAllAsTouched();
       return;
     }
+
+    this._DashboardService.isLoading(true);
 
     const {
       clientName,
@@ -118,29 +130,31 @@ export class OrderEnteringFormComponent implements OnInit {
         return false;
       }
       return true;
-    })
+    });
 
     if (this.furnitureList.length > 0) {
       object.furnitureList = this.furnitureList;
     }
 
-    if(key==='APPROVE'){
-      object.isApproved=true;
-    }else{
-      object.isApproved=false;
+    if (key === 'APPROVE') {
+      object.isApproved = true;
+    } else {
+      object.isApproved = false;
     }
 
     this._ProjectService.updateProject(this.projectId, object).subscribe({
       next: (res) => {
+        this._DashboardService.isLoading(false, false);
+
         this.router.navigate(['project']).then(() => {
           this.toastr.success('Successfully updated project', 'Success');
           this._ProjectService.$ProjectNavigateDataTransfer.emit();
         });
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
         this.toastr.error(err.error.message, 'Error');
       },
     });
   }
-
 }

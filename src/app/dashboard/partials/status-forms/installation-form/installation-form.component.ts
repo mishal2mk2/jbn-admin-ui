@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 import { ProjectService } from '../../../project/service/project.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-installation-form',
@@ -77,7 +78,8 @@ export class InstallationFormComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private _FormValidationService: FormValidationService,
     private _ProjectService: ProjectService,
-    private _WorkerService: WorkerService
+    private _WorkerService: WorkerService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -380,6 +382,9 @@ export class InstallationFormComponent implements OnInit, OnChanges {
 
       return;
     }
+
+    this._DashboardService.isLoading(true);
+
     const formObjectFile = new FormData();
 
     if (this.installationFileToUpload) {
@@ -402,9 +407,11 @@ export class InstallationFormComponent implements OnInit, OnChanges {
           file: '',
         });
         this.installationFileToUpload = null;
+        this._DashboardService.isLoading(false, false);
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
         this.toastr.error(err.error.message, 'Error');
       },
     });

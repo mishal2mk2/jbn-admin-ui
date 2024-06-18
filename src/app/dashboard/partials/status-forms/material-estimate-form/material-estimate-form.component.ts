@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProjectService } from '../../../project/service/project.service';
 import { MaterialService } from '../../../material/service/material.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-material-estimate-form',
@@ -34,7 +35,8 @@ export class MaterialEstimateFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _MaterialService: MaterialService
+    private _MaterialService: MaterialService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -172,6 +174,8 @@ export class MaterialEstimateFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     const { estimatedDaysOfCompletion, notes } = this.FormGroupData.controls;
 
     // set the Object data
@@ -200,10 +204,14 @@ export class MaterialEstimateFormComponent implements OnInit, OnChanges {
     // Send the APi for change the Status or submit
     this._ProjectService.approveStatusMaterialEstimate(object, id).subscribe({
       next: () => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.success('Successfully update project status', 'Success');
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

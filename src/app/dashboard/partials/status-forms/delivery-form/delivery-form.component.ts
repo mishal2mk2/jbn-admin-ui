@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
 import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 import { FormValidationService } from '../../../../helpers/service/form-validation.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-delivery-form',
@@ -26,7 +27,8 @@ export class DeliveryFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _FormValidationService: FormValidationService,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -107,6 +109,8 @@ export class DeliveryFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     // Take the Project ID form the query params
     const { id } = this.route.snapshot.queryParams;
 
@@ -148,10 +152,14 @@ export class DeliveryFormComponent implements OnInit, OnChanges {
         this.FormGroupData.patchValue({
           file: '',
         });
+
+        this._DashboardService.isLoading(false, false);
         this.deliveryFileToUpload = null;
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

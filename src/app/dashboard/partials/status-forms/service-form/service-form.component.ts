@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { upload_file_size } from '../../../../helpers/constant/upload-file-size';
 import { ProjectService } from '../../../project/service/project.service';
+import { DashboardService } from '../../../dashboard.service';
 
 @Component({
   selector: 'app-service-form',
@@ -25,7 +26,8 @@ export class ServiceFormComponent implements OnInit, OnChanges {
     private _FormValidationService: FormValidationService,
     private toastr: ToastrService,
     private route: ActivatedRoute,
-    private _ProjectService: ProjectService
+    private _ProjectService: ProjectService,
+    private _DashboardService: DashboardService
   ) {}
 
   ngOnInit(): void {
@@ -106,6 +108,8 @@ export class ServiceFormComponent implements OnInit, OnChanges {
       return;
     }
 
+    this._DashboardService.isLoading(true);
+
     if (this.serviceFileToUpload) {
       form.append('service', this.serviceFileToUpload);
     }
@@ -123,9 +127,13 @@ export class ServiceFormComponent implements OnInit, OnChanges {
           file: '',
         });
         this.serviceFileToUpload = null;
+        this._DashboardService.isLoading(false, false);
+
         this._ProjectService.$ProjectNavigateDataTransfer.emit();
       },
       error: (err) => {
+        this._DashboardService.isLoading(false, false);
+
         this.toastr.error(err.error.message, 'Error');
       },
     });

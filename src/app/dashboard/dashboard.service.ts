@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class DashboardService {
   private AUTH_API = environment.API_ENDPOINT;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // Get Status Count API
   statusCountDashboardAPI() {
@@ -16,19 +16,26 @@ export class DashboardService {
   }
 
   //spinner on and off
-  isLoading(bool:Boolean) {
-    if(bool){
-      const backdrop = document.getElementById('modal-backdrop');
-      backdrop?.classList.remove('hidden');
+  isLoading(isLoadStart: Boolean, wantRemoveOverLay: boolean = true) {
+    if (isLoadStart) {
       const spinner = document.getElementById('spinner');
-      spinner?.classList.remove('hidden');
-      spinner?.classList.add('flex');
-    }else{
-      const backdrop = document.getElementById('modal-backdrop');
-      backdrop?.classList.add('hidden');
+      const modalOverlay = document.getElementById('modal-backdrop');
+
+      if (modalOverlay && spinner) {
+        //modal toggle settings
+        spinner.classList.remove('hidden');
+        modalOverlay.classList.remove('hidden');
+      }
+    } else {
       const spinner = document.getElementById('spinner');
-      spinner?.classList.remove('flex');
-      spinner?.classList.add('hidden');
+      const modalOverlay = document.getElementById('modal-backdrop');
+
+      if (modalOverlay && spinner) {
+        //modal toggle settings
+        spinner.classList.add('hidden');
+
+        if (wantRemoveOverLay) modalOverlay.classList.add('hidden');
+      }
     }
   }
 }
