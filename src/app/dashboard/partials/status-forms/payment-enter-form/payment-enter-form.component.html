@@ -7,7 +7,7 @@
           <th scope="col" class="px-6 py-3">Transaction ID</th>
           <th scope="col" class="px-6 py-3">Total Amount</th>
           <th scope="col" class="px-6 py-3">Payment Type</th>
-          <th scope="col" class="px-6 py-3">Action</th>
+          <th scope="col" class="px-6 py-3" *ngIf="isHaveRoleAccessToEditPayment">Action</th>
         </tr>
       </thead>
 
@@ -30,7 +30,7 @@
             {{data.paymentType}}
           </td>
 
-          <td class="px-6 py-4">
+          <td class="px-6 py-4" *ngIf="isHaveRoleAccessToEditPayment">
             <button (click)="updateModal(data)" class="me-2"><svg class="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                 viewBox="0 0 24 24">

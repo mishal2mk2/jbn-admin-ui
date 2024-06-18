@@ -1,10 +1,19 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild, viewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  viewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProjectService } from '../../../project/service/project.service';
 import { formatDate } from '@angular/common';
 import { DashboardService } from '../../../dashboard.service';
+import { CommonService } from '../../../../helpers/service/common.service';
 
 @Component({
   selector: 'app-payment-enter-form',
@@ -15,12 +24,13 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
   @ViewChild('TransactionModal') childModal!: ElementRef;
   @Input() isRefreshDataInput!: number;
   @Input() isApproveBtnShow!: boolean;
-  @Input() key!:number|undefined;
+  @Input() key!: number | undefined;
 
   FormGroupData!: FormGroup;
   FormGroupDataUpdate!: FormGroup;
   TransactionAddedData: any[] = [];
   updateTrancData: any;
+  isHaveRoleAccessToEditPayment = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,8 +38,8 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
     private toastr: ToastrService,
     private route: ActivatedRoute,
     private _ProjectService: ProjectService,
-    private _DashboardService:DashboardService,
-  ) { }
+    private _CommonService: CommonService
+  ) {}
 
   ngOnInit(): void {
     this.FormGroupData = this.formBuilder.group({
@@ -44,6 +54,7 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
       amount: ['', Validators.required],
       paymentType: ['', Validators.required],
     });
+
     // Take the Project Data
     const { id } = this.route.snapshot.queryParams;
     this._ProjectService.getProjectById(id).subscribe((res) => {
@@ -53,6 +64,14 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
         this.TransactionAddedData = transactionDetails;
       }
     });
+
+    // Check the Role Access
+    const userData = this._CommonService.getAllUserData();
+    if (userData) {
+      const { role } = userData;
+
+      this.isHaveRoleAccessToEditPayment = 'MD' === role;
+    }
   }
 
   ngOnChanges(changes: any): void {
@@ -76,7 +95,7 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
       amount: amount.value,
       paymentType: paymentType.value,
       isApproved: type === 'SUBMIT' ? false : true,
-      key:this.key,
+      key: this.key,
     };
 
     // Take the Project ID form the query params
@@ -107,27 +126,32 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
       this.FormGroupDataUpdate.value
     );
     let dateObject = new Date(updatedData.date);
-    
-    
-    updatedData.date =dateObject
+
+    updatedData.date = dateObject;
     console.log(updatedData);
-    this._ProjectService.editTransaction(updatedData,id).subscribe({
-      next:(res:any)=>{
+    this._ProjectService.editTransaction(updatedData, id).subscribe({
+      next: (res: any) => {
         this._ProjectService.getProjectById(id).subscribe((res) => {
           const { transactionDetails } = res.data;
-    
+
           if (transactionDetails) {
             this.TransactionAddedData = transactionDetails;
           }
         });
-        this.toastr.success("Succesfully changed Transaction Details", "Success")
+        this.toastr.success(
+          'Succesfully changed Transaction Details',
+          'Success'
+        );
       },
-      error:(err:any)=>{
-        this.toastr.error("Some error occured while editing transaction","Error");
-      }
+      error: (err: any) => {
+        this.toastr.error(
+          'Some error occured while editing transaction',
+          'Error'
+        );
+      },
     });
     this.closeUpdateTransactionModal();
-    this.updateTrancData={};
+    this.updateTrancData = {};
     this.FormGroupDataUpdate = this.formBuilderUpdate.group({
       date: ['', Validators.required],
       transactionId: ['', Validators.required],
@@ -135,7 +159,6 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
       paymentType: ['', Validators.required],
     });
     //update api call with updatedData
-
   }
   updateModal(data: any) {
     const modal = this.childModal.nativeElement as HTMLElement;
@@ -157,7 +180,6 @@ export class PaymentEnterFormComponent implements OnInit, OnChanges {
   }
   closeUpdateTransactionModal() {
     const modal = this.childModal?.nativeElement as HTMLElement;
-
 
     if (modal) {
       //modal toggle settings
